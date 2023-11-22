@@ -1,0 +1,97 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.custom-toggler {
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+body {
+  background-color: #38B6FF;
+  margin: 0;
+  padding: 0;
+  background-image: url("./fondo.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.centrar-texto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Esto es para centrar verticalmente */
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+  table {
+    border-collapse: collapse; /* Para que los bordes se fusionen */
+  }
+  th, td {
+    border: 1px solid black; /* Bordes negros para celdas de encabezado y datos */
+    padding: 5px; /* Espacio de relleno para mejorar la apariencia */
+  }
+
+
+  .nav-link.active::after {
+    content: '';
+    display: block;
+    border-bottom: 3px solid white; /* Elige el grosor y el color de la línea que prefieras */
+    padding: 0 0 5px; /* Espaciado entre el texto y la línea */
+  }
+  
+
+/* Estilo para el contenedor principal que envuelve el Sidebar y el contenido */
+.container {
+  display: flex; /* Establece la presentación flexbox para que los elementos se alineen en una fila */
+}
+
+/* Estilo para el Sidebar */
+.d-flex.flex-column {
+  /* Agrega cualquier estilo adicional que desees para el Sidebar */
+}
+
+/* Estilo para el contenido */
+.content {
+  flex: 1; /* Hace que el contenido ocupe todo el espacio disponible */
+  overflow: auto; /* Habilita el desplazamiento si el contenido excede la altura de la pantalla */
+  padding: 20px; /* Agrega espaciado al contenido si es necesario */
+}
