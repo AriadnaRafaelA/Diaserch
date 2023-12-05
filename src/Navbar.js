@@ -23,7 +23,6 @@ function Navbar() {
   };
 
   const centerNavStyle = {
-    
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: '30px',
@@ -96,7 +95,7 @@ function Navbar() {
       </div>
 
       <div className="d-flex">
-        <img src="/flechas.jpg" alt="Logo" width="500" height="200" className="img-fluid" />
+        <img src="/flechas.jpg" alt="Logo" width="200" height="100" className="img-fluid" />
       </div>
 
     </nav>

@@ -95,3 +95,53 @@ body {
   overflow: auto; /* Habilita el desplazamiento si el contenido excede la altura de la pantalla */
   padding: 20px; /* Agrega espaciado al contenido si es necesario */
 }
+
+.contenedor-principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+/* Estilos para el texto */
+.texto-centrado {
+  text-align: center;
+  color: white;
+  margin: 10px 0;
+  font-size: 2.5vw; /* Tamaño de fuente relativo al ancho de la pantalla */
+}
+
+.texto-grande {
+  font-size: 5vw; /* Tamaño de fuente más grande relativo al ancho de la pantalla */
+  font-weight: bold;
+}
+
+/* Estilos para el buscador */
+.buscador {
+  text-align: center;
+  margin-top: 3vw; /* Margen superior relativo al ancho de la pantalla */
+}
+
+.input-buscador {
+  width: 50%;
+  height: 5vw; /* Altura relativa al ancho de la pantalla */
+  font-size: 2vw; /* Tamaño de fuente relativo al ancho de la pantalla */
+  border-radius: 30px;
+}
+
+/* Media query para ajustar estilos en pantallas más pequeñas */
+@media (max-width: 768px) {
+  .texto-centrado {
+    font-size: 4vw;
+  }
+
+  .texto-grande {
+    font-size: 8vw;
+  }
+
+  .input-buscador {
+    width: 80%;
+    height: 8vw;
+    font-size: 3vw;
+  }
+}
