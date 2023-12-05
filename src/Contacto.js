@@ -166,7 +166,19 @@ function Contacto(props) {
     setSelectedLocation({ lat, lng });
   };
 
-  return (
+  const [showMaps, setShowMaps] = useState({
+    guadalajara: false,
+    similares: false,
+    ahorro: false,
+  });
+  
+  const [selectedLocations, setSelectedLocations] = useState({
+    guadalajara: null,
+    similares: null,
+    ahorro: null,
+  });
+
+ /* return (
     <div>
       {mapData.map((data, index) => {
         const distance = userLocation ? calculateDistance(userLocation.lat, userLocation.lng, data.lat, data.lng) : null;
@@ -225,7 +237,347 @@ function Contacto(props) {
         );
       })}
     </div>
-  );
+  );*/
+
+  return (
+    <div>
+      {/* Mapa para Farmacia Guadalajara */}
+      <div style={containerStyles}>
+        <h2 style={titleStyles}>Farmacia Guadalajara</h2>
+        <div style={infoStyles}>
+          <p>
+            Página web: <a href={mapData[1].website}>{mapData[1].website}</a>
+            <br />
+            Teléfono: {mapData[1].telefono}
+            <br />
+          {userLocation && (
+            <span>Distancia: {calculateDistance(userLocation.lat, userLocation.lng, mapData[1].lat, mapData[1].lng)} km</span>
+          )}
+          </p>
+        </div>
+          <div style={mapStyles}>
+            <Map
+              google={props.google}
+              zoom={12}
+              initialCenter={{
+                lat: 19.4904923,
+                lng: -99.1325889,
+              }}
+            >
+              <Marker
+                position={{
+                  lat: 19.557804757720046,
+                  lng: -99.13472619929715,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.544052595388877, 
+                  lng: -99.14596681127203,
+                }}
+              /> 
+               <Marker
+                position={{
+                  lat: 19.540317347632964,
+                  lng: -99.15354455538231,
+                }}
+              /> 
+               <Marker
+                position={{
+                  lat: 19.52605982230629, 
+                  lng: -99.15288197436556,
+                }}
+              /> 
+               <Marker
+                position={{
+                  lat: 19.511662371013756, 
+                  lng: -99.14042093752664,
+                }}
+              />
+               <Marker
+                position={{
+                  lat: 19.513305916639574, 
+                  lng: -99.13453810753077,
+                }}
+              />
+               <Marker
+                position={{
+                  lat: 19.50151981477475, 
+                  lng: -99.09593827140269,
+                }}
+              /> 
+               <Marker
+                position={{
+                  lat:  19.488394579943915,
+                  lng:  -99.10756048073203,
+                }}
+              />
+               <Marker
+                position={{
+                  lat: 19.483184660322387, 
+                  lng: -99.11955030634091,
+                }}
+              />
+              
+              <Marker
+                position={{
+                  lat: 19.468793813457868,  
+                  lng: -99.12621981965374,
+                }}
+              />
+              
+                  <Polygon
+                    paths={gustavoAMaderoCoordinates}
+                    strokeColor="#FF0000"
+                    strokeOpacity={0.8}
+                    strokeWeight={2}
+                    fillColor="#FF0000"
+                    fillOpacity={0.1}
+                  />
+                  {userLocation && (
+                    <Marker
+                      position={{
+                        lat: userLocation.lat,
+                        lng: userLocation.lng,
+                      }}
+                      icon={{
+                        url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                      }}
+                    />
+                  )}
+            </Map>
+          </div>
+        
+      </div>
+    
+  
+      {/* Mapa para Farmacia Similares */}
+      <div style={containerStyles}>
+        <h2 style={titleStyles}>Farmacia Similares</h2>
+        <div style={infoStyles}>
+          <p>
+            Página web: <a href={mapData[1].website}>{mapData[1].website}</a>
+            <br />
+            Teléfono: {mapData[1].telefono}
+            <br />
+          {userLocation && (
+            <span>Distancia: {calculateDistance(userLocation.lat, userLocation.lng, mapData[1].lat, mapData[1].lng)} km</span>
+          )}
+          </p>
+           </div>
+         <div style={mapStyles}>
+            <Map
+              google={props.google}
+              zoom={12}
+              initialCenter={{
+                lat: 19.506388,
+                lng: -99.144676,
+              }}
+            >
+              <Marker
+                position={{
+                  lat: 19.559799169989848, 
+                  lng: -99.13240222208009,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.556257838568335, 
+                  lng: -99.13553081023781,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.52711734270038,  
+                  lng: -99.14434183629234,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.52074657348867,  
+                  lng: -99.1589503797686,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.506388358140953,  
+                  lng: -99.14479131425924,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.493433911475247,  
+                  lng: -99.14886208049329,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.494920338307875,  
+                  lng: -99.12533026214066,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.48474574138641, 
+                  lng: -99.14865749568096,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.476153972055794, 
+                  lng: -99.13751296756165,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.47700521032731, 
+                  lng: -99.12492675658966,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.47123894822558, 
+                  lng: -99.1227057326238,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.48043910482022, 
+                  lng: -99.11528838527802,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.469374301583205,  
+                  lng: -99.09982652338921,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.45853500785219,  
+                  lng: -99.10620491137666,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.451455262423703, 
+                  lng: -99.09715822052006,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.45365086031264,  
+                  lng: -99.0864063965821,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.464703582778128, 
+                  lng: -99.05855239917025,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.496847875358757, 
+                  lng: -99.08786261749079,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.506980880557848,  
+                  lng: -99.09021158983029,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.46803494881982,   
+                  lng: -99.08374201070642,
+                }}
+              />
+
+
+              
+              <Polygon
+                    paths={gustavoAMaderoCoordinates}
+                    strokeColor="#FF0000"
+                    strokeOpacity={0.8}
+                    strokeWeight={2}
+                    fillColor="#FF0000"
+                    fillOpacity={0.1}
+                  />
+                  {userLocation && (
+                    <Marker
+                      position={{
+                        lat: userLocation.lat,
+                        lng: userLocation.lng,
+                      }}
+                      icon={{
+                        url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                      }}
+                    />
+                  )}
+            </Map>
+          </div>
+        
+      </div>
+  
+
+      {/* Farmacia Similares */}
+      <div style={containerStyles}>
+        <h2 style={titleStyles}>Farmacia del ahorro </h2>
+        <div style={infoStyles}>
+          <p>
+            Página web: <a href={mapData[1].website}>{mapData[1].website}</a>
+            <br />
+            Teléfono: {mapData[1].telefono}
+            <br />
+          {userLocation && (
+            <span>Distancia: {calculateDistance(userLocation.lat, userLocation.lng, mapData[1].lat, mapData[1].lng)} km</span>
+          )}
+          </p>
+          </div>
+          <div style={mapStyles}>
+            <Map
+              google={props.google}
+              zoom={12}
+              initialCenter={{
+                lat: 19.5060043,
+                lng: -99.136207,
+              }}
+            >
+              <Marker
+                position={{
+                  lat: 19.5060043,
+                  lng: -99.136207,
+                }}
+              />
+              
+              <Polygon
+                    paths={gustavoAMaderoCoordinates}
+                    strokeColor="#FF0000"
+                    strokeOpacity={0.8}
+                    strokeWeight={2}
+                    fillColor="#FF0000"
+                    fillOpacity={0.1}
+                  />
+                  {userLocation && (
+                    <Marker
+                      position={{
+                        lat: userLocation.lat,
+                        lng: userLocation.lng,
+                      }}
+                      icon={{
+                        url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                      }}
+                    />
+                  )}
+            </Map>
+          </div>
+        
+      </div>
+    </div>
+  ); 
+
 }
 
 
