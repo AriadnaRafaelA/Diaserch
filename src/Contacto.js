@@ -110,7 +110,7 @@ function Contacto(props) {
     },
     {
       title: 'Farmacias Guadalajara',
-      lat: 19.5060043,
+      lat: 19.5060043, //esta es la coordenada ue toma para hacer el calculo de la distancia  
       lng: -99.136207,
       website: 'https://www.farmaciasguadalajara.com/',
       telefono: '(33) 3818 1818',
@@ -128,6 +128,79 @@ function Contacto(props) {
     marginTop: '10px', // Ajusta el margen superior del título
     textAlign: 'center',
   };
+
+  const farmacias = [
+  {
+    title: 'Farmacia 1',
+    position: {
+      lat: 19.557804757720046,
+      lng: -99.13472619929715,
+    },
+  },
+  {
+    title: 'Farmacia 2',
+    position: {
+      lat: 19.544052595388877,
+      lng: -99.14596681127203,
+    },
+  },
+  {
+    title: 'Farmacia 3',
+    position: {
+      lat: 19.540317347632964,
+      lng: -99.15354455538231,
+    },
+  },
+  {
+    title: 'Farmacia 4',
+    position: {
+      lat: 19.52605982230629,
+      lng: -99.15288197436556,
+    },
+  },
+  {
+    title: 'Farmacia 5',
+    position: {
+      lat: 19.511662371013756,
+      lng: -99.14042093752664,
+    },
+  },
+  {
+    title: 'Farmacia 6',
+    position: {
+      lat: 19.513305916639574,
+      lng: -99.13453810753077,
+    },
+  },
+  {
+    title: 'Farmacia 7',
+    position: {
+      lat: 19.50151981477475,
+      lng: -99.09593827140269,
+    },
+  },
+  {
+    title: 'Farmacia 8',
+    position: {
+      lat: 19.488394579943915,
+      lng: -99.10756048073203,
+    },
+  },
+  {
+    title: 'Farmacia 9',
+    position: {
+      lat: 19.483184660322387,
+      lng: -99.11955030634091,
+    },
+  },
+  {
+    title: 'Farmacia 10',
+    position: {
+      lat: 19.468793813457868,
+      lng: -99.12621981965374,
+    },
+  },
+];
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Radio de la Tierra en kilómetros
@@ -178,66 +251,7 @@ function Contacto(props) {
     ahorro: null,
   });
 
- /* return (
-    <div>
-      {mapData.map((data, index) => {
-        const distance = userLocation ? calculateDistance(userLocation.lat, userLocation.lng, data.lat, data.lng) : null;
-        return (
-          <div key={index} style={containerStyles}>
-            <h2 style={titleStyles}>{data.title}</h2>
-            <div style={infoStyles}>
-              <p>
-                Página web: <a href={data.website}>{data.website}</a>
-                <br />
-                Teléfono: {data.telefono}
-                <br />
-                {userLocation && <span>Distancia: {distance} km</span>}
-              </p>
-              <button onClick={() => handleFarmaciaClick(data.lat, data.lng)}>Ver en el mapa</button>
-            </div>
-            {showMap && selectedLocation && (
-              <div style={mapStyles}>
-                <Map
-                  google={props.google}
-                  zoom={12}
-                  initialCenter={{
-                    lat: selectedLocation.lat,
-                    lng: selectedLocation.lng,
-                  }}
-                >
-                  <Marker
-                    position={{
-                      lat: selectedLocation.lat,
-                      lng: selectedLocation.lng,
-                    }}
-                  />
-                  <Polygon
-                    paths={gustavoAMaderoCoordinates}
-                    strokeColor="#FF0000"
-                    strokeOpacity={0.8}
-                    strokeWeight={2}
-                    fillColor="#FF0000"
-                    fillOpacity={0.1}
-                  />
-                  {userLocation && (
-                    <Marker
-                      position={{
-                        lat: userLocation.lat,
-                        lng: userLocation.lng,
-                      }}
-                      icon={{
-                        url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                      }}
-                    />
-                  )}
-                </Map>
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );*/
+
 
   return (
     <div>
@@ -265,54 +279,63 @@ function Contacto(props) {
               }}
             >
               <Marker
+              title="Farmacia 1" // Nombre del marcador
                 position={{
                   lat: 19.557804757720046,
                   lng: -99.13472619929715,
                 }}
               />
               <Marker
+              title="Farmacia 2" // Nombre del marcador
                 position={{
                   lat: 19.544052595388877, 
                   lng: -99.14596681127203,
                 }}
               /> 
                <Marker
+               title="Farmacia 3" // Nombre del marcador
                 position={{
                   lat: 19.540317347632964,
                   lng: -99.15354455538231,
                 }}
               /> 
                <Marker
+               title="Farmacia 4" // Nombre del marcador
                 position={{
                   lat: 19.52605982230629, 
                   lng: -99.15288197436556,
                 }}
               /> 
                <Marker
+               title="Farmacia 5" // Nombre del marcador
                 position={{
                   lat: 19.511662371013756, 
                   lng: -99.14042093752664,
                 }}
               />
                <Marker
+               title="Farmacia 6" // Nombre del marcador
                 position={{
                   lat: 19.513305916639574, 
                   lng: -99.13453810753077,
                 }}
               />
                <Marker
+               title="Farmacia 7" // Nombre del marcador
                 position={{
                   lat: 19.50151981477475, 
                   lng: -99.09593827140269,
                 }}
               /> 
                <Marker
+               title="Farmacia 8" // Nombre del marcador
                 position={{
                   lat:  19.488394579943915,
                   lng:  -99.10756048073203,
                 }}
               />
                <Marker
+               title="Farmacia 9" // Nombre del marcador
                 position={{
                   lat: 19.483184660322387, 
                   lng: -99.11955030634091,
@@ -320,6 +343,7 @@ function Contacto(props) {
               />
               
               <Marker
+              title="Farmacia 10" // Nombre del marcador
                 position={{
                   lat: 19.468793813457868,  
                   lng: -99.12621981965374,
@@ -494,7 +518,19 @@ function Contacto(props) {
                   lng: -99.08374201070642,
                 }}
               />
-
+              <Marker
+                position={{
+                  lat: 19.54306623987772,   
+                  lng: -99.1383803408997,
+                }}
+              />
+              <Marker
+                position={{
+                  lat: 19.53077007932635,    
+                  lng: -99.15484793511504,
+                }}
+              />
+             
 
               
               <Polygon

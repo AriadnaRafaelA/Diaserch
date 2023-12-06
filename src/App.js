@@ -67,7 +67,7 @@ function App() {
   };
 
   const contenidoEstilo = {
-    marginTop: '220px', // Agregar margen superior para separar del Navbar
+    marginTop: '100px', // Agregar margen superior para separar del Navbar
    
   };
 
