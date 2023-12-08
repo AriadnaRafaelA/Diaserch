@@ -608,9 +608,9 @@ const handleCerrarMapaCerca3 = () => {
             Teléfono: {mapData[1].telefono}
             <br />
             <div style={{ textAlign: 'center' }}>
-              {userCoordinates.lat !== null && userCoordinates.lng !== null && (
+              {/*userCoordinates.lat !== null && userCoordinates.lng !== null && (
                 <p>Coordenadas del usuario: {userCoordinates.lat}, {userCoordinates.lng}</p>
-              )}
+              )*/}
             </div>
           
             <button onClick={handleUpdateLocation}>Actualizar Ubicación</button>
@@ -810,9 +810,9 @@ const handleCerrarMapaCerca3 = () => {
             Teléfono: {mapData[1].telefono}
             <br />
             <div style={{ textAlign: 'center' }}>
-              {userCoordinates.lat !== null && userCoordinates.lng !== null && (
+              {/*userCoordinates.lat !== null && userCoordinates.lng !== null && (
                 <p>Coordenadas del usuario: {userCoordinates.lat}, {userCoordinates.lng}</p>
-              )}
+              )*/}
             </div>
           
             <button onClick={handleUpdateLocation}>Actualizar Ubicación</button>
@@ -992,9 +992,9 @@ const handleCerrarMapaCerca3 = () => {
             Teléfono: {mapData[1].telefono}
             <br />
             <div style={{ textAlign: 'center' }}>
-              {userCoordinates.lat !== null && userCoordinates.lng !== null && (
+              {/*userCoordinates.lat !== null && userCoordinates.lng !== null && (
                 <p>Coordenadas del usuario: {userCoordinates.lat}, {userCoordinates.lng}</p>
-              )}
+              )*/}
             </div>
           
             <button onClick={handleUpdateLocation}>Actualizar Ubicación</button>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
 
@@ -47,12 +47,24 @@ function Navbar() {
     window.location.href = '/Diagnostico.js';
   };
 
+  const [showArrows, setShowArrows] = useState(true);
+  const toggleArrows = () => {
+    setTimeout(() => {
+      setShowArrows(!showArrows);
+    }, 0);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light" style={navbarStyle}>
        
-      <button className="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" 
-              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-              aria-expanded="false" aria-label="Toggle navigation">
+      <button className="navbar-toggler custom-toggler" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#navbarSupportedContent" 
+              aria-controls="navbarSupportedContent" 
+              aria-expanded="false" 
+              aria-label="Toggle navigation"
+              onClick={toggleArrows}>
         <span className="navbar-toggler-icon"></span>
       </button>
 
@@ -95,7 +107,15 @@ function Navbar() {
       </div>
 
       <div className="d-flex">
-        <img src="/flechas.jpg" alt="Logo" width="200" height="100" className="img-fluid" />
+        {showArrows && (
+            <img
+              src="/flechas.jpg"
+              alt="Logo"
+              width="200"
+              height="100"
+              className="img-fluid"
+            />
+          )}
       </div>
 
     </nav>
