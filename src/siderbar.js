@@ -3,15 +3,15 @@ import { NavLink } from 'react-router-dom'; // Importa NavLink desde react-route
 
 function Sidebar() {
 
-    const sidebarStyle = {
-        width: '280px',
-        position: 'fixed', // Fija el Sidebar en su lugar
-        height: '100%',
-        overflow: 'auto',
-        color: 'white',
-        top: '220px',
-        left: '0',
-      };
+  const sidebarStyle = {
+    width: '280px',
+    position: 'fixed', // Fija el Sidebar en su lugar
+    height: '100%',
+    overflow: 'auto',
+    color: 'white',
+    top: '220px',
+    left: '0',
+  };
 
   return (
     <div style={sidebarStyle} className="d-flex flex-column flex-shrink-0 p-3 text-white">

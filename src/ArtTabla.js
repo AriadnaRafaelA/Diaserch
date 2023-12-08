@@ -54,9 +54,7 @@ function ArtTabla() {
                 <p><strong>Dosis:</strong> Se toma dos o tres veces por día</p>
               </td>
               <td>
-                <p><strong>EC:</strong> hipoglucemia, aumento de peso</p>
-                <p>SFU preferida para los ancianos</p>
-                <p>Se debe tomar 2-3 veces por día</p>
+                <p><strong>EC:</strong> hipoglucemia, aumento de peso SFU preferida para los ancianos se debe tomar 2-3 veces por día</p>
               </td>
 
             </tr>
