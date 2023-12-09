@@ -238,141 +238,44 @@ function Contacto(props) {
 
   const farmacias2 = useMemo(() => [
     {
-      title: 'Farmacia 1',
-      position: {
-        lat: 19.559799169989848,
-        lng: -99.13240222208009,
-      },
+      title: "Cuautepec",
+      position: { lat: 19.52296681356565, lng: -99.14148576089354 }
     },
     {
-      title: 'Farmacia 2',
-      position: {
-        lat: 19.556257838568335,
-        lng: -99.13553081023781,
-      },
+      title: "Casma",
+      position: { lat: 19.49166260896163, lng: -99.1362576346612 }
     },
     {
-      title: 'Farmacia 3',
-      position: {
-        lat: 19.52711734270038,
-        lng: -99.14434183629234,
-      },
+      title: "Montevideo",
+      position: { lat: 19.48829829204483, lng: -99.12611729968107 }
     },
     {
-      title: 'Farmacia 4',
-      position: {
-        lat: 19.52074657348867,
-        lng: -99.1589503797686,
-      },
+      title: "La Villa",
+      position: { lat: 19.474622714702445, lng: -99.12157732982925 }
     },
     {
-      title: 'Farmacia 5',
-      position: {
-        lat: 19.506388358140953,
-        lng: -99.14479131425924,
-      },
+      title: "Albino Corzo",
+      position: { lat: 19.463575145774783, lng: -99.1108678110531 }
     },
     {
-      title: 'Farmacia 6',
-      position: {
-        lat: 19.493433911475247,
-        lng: -99.14886208049329,
-      },
+      title: "Eduardo Molina",
+      position: { lat: 19.497258555853612, lng: -99.09065645913292 }
     },
     {
-      title: 'Farmacia 7',
-      position: {
-        lat: 19.494920338307875,
-        lng: -99.12533026214066,
-      },
-    },
-    {
-      title: 'Farmacia 8',
-      position: {
-        lat: 19.48474574138641,
-        lng: -99.14865749568096,
-      },
-    },
-    {
-      title: 'Farmacia 9',
-      position: {
-        lat: 19.476153972055794,
-        lng: -99.13751296756165,
-      },
-    },
-    {
-      title: 'Farmacia 10',
-      position: {
-        lat: 19.47700521032731,
-        lng: -99.12492675658966,
-      },
-    },
-    {
-      title: 'Farmacia 11',
-      position: {
-        lat: 19.47123894822558,
-        lng: -99.1227057326238,
-      },
-    },
-    {
-      title: 'Farmacia 12',
-      position: {
-        lat: 19.48043910482022,
-        lng: -99.11528838527802,
-      },
-    },
+      title: "San Felipe",
+      position: { lat: 19.492312510159614, lng: -99.07462917542122 }
+    }
   ],[]);
 
   const farmacias3 = useMemo(() => [
     {
-      title: 'Miguel Bernard',
+      title: "Vallejo", // Nombre del marcador
       position: {
-        lat: 19.512600023582134,
-        lng: -99.14134710112799,
-      },
+        lat: 19.503462189356853, 
+        lng: -99.15700256777534,
+      }
     },
-    {
-      title: 'Lindavista',
-      position: {
-        lat: 19.49014542717418,
-        lng: -99.13328030537407,
-      },
-    },
-    {
-      title: 'Oriente Basilica',
-      position: {
-        lat: 19.484297194721677,
-        lng: -99.11912559032478,
-      },
-    },
-    {
-      title: 'Oriente Guadalupe',
-      position: {
-        lat: 19.476384032037085,
-        lng: -99.12018780344174,
-      },
-    },
-    {
-      title: 'Oriente Pelicano',
-      position: {
-        lat: 19.4786814407667,
-        lng: -99.10685422156175,
-      },
-    },
-    {
-      title: 'Oriente Mezquital',
-      position: {
-        lat: 19.459612705347833,
-        lng: -99.12262908210863,
-      },
-    },
-    {
-      title: 'Aragón',
-      position: {
-        lat: 19.473426937180058,
-        lng: -99.07939391913598,
-      },
-    },
+   
   ],[]);
 
  
@@ -818,11 +721,11 @@ const handleCerrarMapaCerca3 = () => {
         </div>
       </div>
   
-      {/* Mapa para Farmacia Similares */}
+      {/* Mapa para Farmacia San Pablo */}
       <div style={{ width: '33%', padding: '10px' }}>
         <div style={farmaciaStyles}>
           <div style={containerStyles}>
-            <h2 style={titleStyles}>Farmacia Similares</h2>
+            <h2 style={titleStyles}>Farmacia San Pablo</h2>
               <div style={infoStyles}>
                 <p>
                   Página web: <a href={mapData[1].website}>{mapData[1].website}</a>
@@ -861,36 +764,35 @@ const handleCerrarMapaCerca3 = () => {
                           lng: -99.144676,
                         }}
                       >
-                        
                         <Marker
-                          title="Farmacia 1"
-                          position={{ lat: 19.559799169989848, lng: -99.13240222208009 }}
+                          title="Cuautepec"
+                          position={{ lat: 19.52296681356565, lng: -99.14148576089354 }}
                         />
                         <Marker
-                          title="Farmacia 2"
-                          position={{ lat: 19.556257838568335, lng: -99.13553081023781 }}
+                          title="Casma"
+                          position={{ lat: 19.49166260896163, lng: -99.1362576346612 }}
                         />
                         <Marker
-                          title="Farmacia 3"
-                          position={{ lat: 19.52711734270038, lng: -99.14434183629234 }}
+                          title="Montevideo"
+                          position={{ lat: 19.48829829204483, lng: -99.12611729968107}}
                         />
                         <Marker
-                          title="Farmacia 4"
-                          position={{ lat: 19.52074657348867, lng: -99.1589503797686 }}
+                          title=" La Villa"
+                          position={{ lat: 19.474622714702445, lng: -99.12157732982925}}
                         />
                         <Marker
-                          title="Farmacia 5"
-                          position={{ lat: 19.506388358140953, lng: -99.14479131425924 }}
+                          title="Albino Corzo"
+                          position={{ lat: 19.463575145774783, lng: -99.1108678110531}}
                         />
                         <Marker
-                          title="Farmacia 6"
-                          position={{ lat: 19.493433911475247, lng: -99.14886208049329 }}
+                          title="Eduardo Molina"
+                          position={{ lat: 19.497258555853612, lng: -99.09065645913292}}
                         />
                         <Marker
-                          title="Farmacia 7"
-                          position={{ lat: 19.494920338307875, lng: -99.12533026214066 }}
+                          title="San Felipe"
+                          position={{ lat: 19.492312510159614, lng: -99.07462917542122}}
                         />
-                        <Marker
+                       {/* <Marker
                           title="Farmacia 8"
                           position={{ lat: 19.48474574138641, lng: -99.14865749568096 }}
                         />
@@ -910,7 +812,7 @@ const handleCerrarMapaCerca3 = () => {
                           title="Farmacia 12"
                           position={{ lat: 19.48043910482022, lng: -99.11528838527802 }}
                         />
-                      
+                      */  }
 
                         
                         <Polygon
@@ -1047,59 +949,14 @@ const handleCerrarMapaCerca3 = () => {
                         }}
                       >
                         <Marker
-                          title="Miguel Bernard" // Nombre del marcador
+                          title="Vallejo" // Nombre del marcador
                             position={{
-                              lat: 19.512600023582134, 
-                              lng: -99.14134710112799,
+                              lat: 19.503462189356853, 
+                              lng: -99.15700256777534,
                             }}
                         />
 
-                        <Marker
-                          title="Lindavista" // Nombre del marcador
-                            position={{
-                              lat: 19.49014542717418, 
-                              lng: -99.13328030537407,
-                            }}
-                        />
-
-                        <Marker
-                          title="Oriente Basilica" // Nombre del marcador
-                            position={{
-                              lat: 19.484297194721677, 
-                              lng: -99.11912559032478,
-                            }}
-                        />
-
-                        <Marker
-                          title="Oriente Guadalupe" // Nombre del marcador
-                            position={{
-                              lat: 19.476384032037085, 
-                              lng: -99.12018780344174,
-                            }}
-                        />
-
-                        <Marker
-                          title="Oriente Pelicano" // Nombre del marcador
-                            position={{
-                              lat: 19.4786814407667, 
-                              lng: -99.10685422156175,
-                            }}
-                        />
-                        <Marker
-                          title="Oriente Mezquital" // Nombre del marcador
-                            position={{
-                              lat: 19.459612705347833, 
-                              lng: -99.12262908210863,
-                            }}
-                        />
-
-                        <Marker
-                          title="Aragón" // Nombre del marcador
-                            position={{
-                              lat: 19.473426937180058, 
-                              lng: -99.07939391913598,
-                            }}
-                        />
+                       
                         
                         <Polygon
                               paths={gustavoAMaderoCoordinates}

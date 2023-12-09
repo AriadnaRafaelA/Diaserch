@@ -41,7 +41,7 @@ function App() {
 
   const buscarPorNombre = () => {
     const medicinaEncontrada = medicinas.find(
-      (medicina) => medicina.nombre.toLowerCase() === nombreBuscado.toLowerCase()
+      (medicina) => medicina.laboratorio.toLowerCase() === nombreBuscado.toLowerCase()
     );
     setMedicinaEncontrada(medicinaEncontrada);
   };
@@ -131,12 +131,20 @@ function App() {
                       <h2>Medicina Encontrada:</h2>
                       <table style={{ width: '50%', backgroundColor: 'white' }}>
                         <tr>
-                          <th>Nombre</th>
-                          <th>Notas</th>
+                          <td>Laboratorio</td>
+                          <td>Formula</td>
+                          <td>Presentacion</td>
+                          <td>Precio</td>
+                          <td>Preciod</td>
+                          <td>Farmacia</td>
                         </tr>
                         <tr>
-                          <td>{medicinaEncontrada.nombre}</td>
-                          <td>{medicinaEncontrada.notas}</td>
+                          <td>{medicinaEncontrada.laboratorio}</td>
+                          <td>{medicinaEncontrada.formula}</td>
+                          <td>{medicinaEncontrada.presentacion}</td>
+                          <td>{medicinaEncontrada.precio}</td>
+                          <td>{medicinaEncontrada.preciod}</td>
+                          <td>{medicinaEncontrada.farmacia}</td>
                         </tr>
                       </table>
                       <button onClick={() => setMedicinaEncontrada(null)}>Borrar Medicina Encontrada</button>

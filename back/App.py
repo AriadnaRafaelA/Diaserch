@@ -25,8 +25,8 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 def obtener_medicinas():
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT * FROM medicina")
-        medicinas = [{'nombre': row[0], 'notas': row[1]} for row in cursor.fetchall()]
+        cursor.execute("SELECT laboratorio, formula, presentacion, precio, preciod, farmacia FROM medicina")  # Cambia los nombres de las columnas
+        medicinas = [{'laboratorio': row[0], 'formula': row[1], 'presentacion': row[2], 'precio': row[3], 'preciod': row[4], 'farmacia': row[5]} for row in cursor.fetchall()]
     except psycopg2.Error as e:
         print(f"Error al obtener datos de la tabla 'medicina': {e}")
         medicinas = []
