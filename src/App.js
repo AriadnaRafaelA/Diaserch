@@ -7,6 +7,7 @@ import TiposDD from './TiposDD';
 import Diabetes from './Diabetes';
 import Contacto from './Contacto';
 import Sintomas from './Sintomas';
+import Ofertas from './Ofertas';
 import Diagnostico from './Diagnostico';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -39,11 +40,19 @@ function App() {
     verificarConexion();
   }, []);
 
-  const buscarPorNombre = () => {
+
+  const [medicinasEncontradas, setMedicinasEncontradas] = useState([]);
+  /*const buscarPorNombre = () => {
     const medicinaEncontrada = medicinas.find(
-      (medicina) => medicina.laboratorio.toLowerCase() === nombreBuscado.toLowerCase()
+      (medicina) => medicina.laboratorio.toLowerCase().startsWith(nombreBuscado.toLowerCase())
     );
     setMedicinaEncontrada(medicinaEncontrada);
+  };*/
+  const buscarPorNombre = () => {
+    const medicinasEncontradas = medicinas.filter(
+      (medicina) => medicina.laboratorio.toLowerCase().startsWith(nombreBuscado.toLowerCase())
+    );
+    setMedicinasEncontradas(medicinasEncontradas);
   };
 
   const textoEstilo = {
@@ -54,8 +63,6 @@ function App() {
     margin: '10px 0',
   
   };
-
- 
   
   const textoEstilo2 = {
     textAlign: 'center',
@@ -101,6 +108,7 @@ function App() {
           <Route path="/Sintomas.js" element={<Sintomas />}  />
           <Route path="/Diagnostico.js" element={<Diagnostico />}  />
           <Route path="/Contacto.js" element={<Contacto />}  />
+          <Route path="/Ofertas.js" element={<Ofertas />}  />
           <Route path="/" element={
               <div>
                 <h6>Verificación de Conexión</h6>
@@ -126,32 +134,38 @@ function App() {
                 {conexionExitosa ? (
                   <div>
                     <p>Conexión exitosa con el servidor</p>
-                    {medicinaEncontrada ? (
-                      <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '50vh' }}>
-                      <h2>Medicina Encontrada:</h2>
-                      <table style={{ width: '50%', backgroundColor: 'white' }}>
-                        <tr>
-                          <td>Laboratorio</td>
-                          <td>Formula</td>
-                          <td>Presentacion</td>
-                          <td>Precio</td>
-                          <td>Preciod</td>
-                          <td>Farmacia</td>
-                        </tr>
-                        <tr>
-                          <td>{medicinaEncontrada.laboratorio}</td>
-                          <td>{medicinaEncontrada.formula}</td>
-                          <td>{medicinaEncontrada.presentacion}</td>
-                          <td>{medicinaEncontrada.precio}</td>
-                          <td>{medicinaEncontrada.preciod}</td>
-                          <td>{medicinaEncontrada.farmacia}</td>
-                        </tr>
-                      </table>
-                      <button onClick={() => setMedicinaEncontrada(null)}>Borrar Medicina Encontrada</button>
+                    {medicinasEncontradas.length > 0 ? (
+                      <div style={{ textAlign: 'center' }}>
+                        <h2>Medicinas Encontradas:</h2>
+                        <table style={{ width: '100%', backgroundColor: 'white' }}>
+                          <thead>
+                            <tr>
+                              <th>Laboratorio</th>
+                              <th>Formula</th>
+                              <th>Presentacion</th>
+                              <th>Precio</th>
+                              <th>Preciod</th>
+                              <th>Farmacia</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {medicinasEncontradas.map((medicina, index) => (
+                              <tr key={index}>
+                                <td>{medicina.laboratorio}</td>
+                                <td>{medicina.formula}</td>
+                                <td>{medicina.presentacion}</td>
+                                <td>{medicina.precio}</td>
+                                <td>{medicina.preciod}</td>
+                                <td>{medicina.farmacia}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                        <button onClick={() => setMedicinasEncontradas([])}>Borrar Resultados</button>
+                      </div>
+                    )  : null}
                     </div>
-                    ) : null}
-                  </div>
-                ) : (
+                 ) : (
                   <p>{error || 'Error de conexión con el servidor'}</p>
                 )}
               </div>

@@ -46,6 +46,9 @@ function Navbar() {
   const redirectToDiagnostico = () => {
     window.location.href = '/Diagnostico.js';
   };
+  const redirectToOfertas = () => {
+    window.location.href = '/Ofertas.js';
+  };
 
   const [showArrows, setShowArrows] = useState(true);
   const toggleArrows = () => {
@@ -78,6 +81,10 @@ function Navbar() {
           
           <li className="nav-item active">
             <a className="nav-link text-white" href="/" style={{ marginLeft: '30px', marginRight: '20px' }}>Busqueda<span className="sr-only"></span></a>
+          </li>
+
+          <li className="nav-item">
+            <a className="nav-link text-white" href="/ofertas.js" style={{ marginLeft: '30px', marginRight: '20px' }}>Ofertas</a>
           </li>
 
           <li class="nav-item dropdown">
