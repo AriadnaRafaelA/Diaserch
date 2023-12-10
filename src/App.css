@@ -145,6 +145,37 @@ body {
     font-size: 3vw;
   }
 
+  @media screen and (max-width: 800px) {
+    .flecha {
+      display: none; /* Oculta la imagen en pantallas pequeñas */
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .ocultar-sidebar {
+      display: none;
+    }
+  }
   
+  /* Ajusta el estilo del contenido para ocupar todo el ancho en pantallas pequeñas */
+  @media screen and (max-width: 768px) {
+    .contenido-expandir {
+
+      margin-left: 20px; /* Cambia el margen izquierdo para expandir el contenido */
+      margin-right: 20px; /* Cambia el margen derecho para expandir el contenido */
+    }
+  }
+
+  .contenedor {
+    width: 100%;
+    text-align: center; /* Alinea el contenido al centro */
+  }
+  
+  /* Estilo para la imagen */
+  .imagen {
+    width: 80%; /* O cualquier ancho deseado */
+    height: auto;
+    display: block; /* Hace que la imagen sea un bloque */
+    margin: 0 auto; /* Centra horizontalmente */
+  }
 }
 

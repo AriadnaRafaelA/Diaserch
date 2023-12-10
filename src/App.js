@@ -49,10 +49,18 @@ function App() {
     setMedicinaEncontrada(medicinaEncontrada);
   };*/
   const buscarPorNombre = () => {
+
+     if (!nombreBuscado) {
+    console.log('Ingresa el nombre de la medicina');
+    return; // Salir de la función si nombreBuscado está vacío
+  }
+
     const medicinasEncontradas = medicinas.filter(
       (medicina) => medicina.laboratorio.toLowerCase().startsWith(nombreBuscado.toLowerCase())
     );
     setMedicinasEncontradas(medicinasEncontradas);
+
+    
   };
 
   const textoEstilo = {
@@ -92,6 +100,19 @@ function App() {
     
   };
 
+  const tablaStyles = {
+    backgroundColor: 'rgba(255, 255, 255, 255)',
+  borderRadius: '10px',
+  // padding: '20px', Espaciado interno
+  boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', // Sombra para el efecto de elevación
+  margin: 'auto', // Para centrar horizontalmente
+  width: '70%', // Anchura máxima para el contenido de la tabla
+    border: '1px solid #ccc', // Borde con color gris
+    padding: '20px', // Espaciado interno
+    marginTop: '5%',
+     textAlign: 'left' 
+  };
+
   
 
   return (
@@ -111,7 +132,7 @@ function App() {
           <Route path="/Ofertas.js" element={<Ofertas />}  />
           <Route path="/" element={
               <div>
-                <h6>Verificación de Conexión</h6>
+                {/*<h6>Verificación de Conexión</h6>*/   }
                 <p style={textoEstilo}>A tu alcance</p>
                 <p style={textoEstilo2}>El mejor precio</p>
                 <div style={buscadorEstilo}>
@@ -130,14 +151,18 @@ function App() {
                   <button className="search-button" onClick={buscarPorNombre}>
                     <FontAwesomeIcon icon={faSearch} />
                   </button>
+                  {!nombreBuscado && (
+                    <p>Ingresa el nombre de la medicina</p>
+                  )}
                 </div>
                 {conexionExitosa ? (
                   <div>
-                    <p>Conexión exitosa con el servidor</p>
+                    {/*<p>Conexión exitosa con el servidor</p>*/  }
                     {medicinasEncontradas.length > 0 ? (
                       <div style={{ textAlign: 'center' }}>
-                        <h2>Medicinas Encontradas:</h2>
-                        <table style={{ width: '100%', backgroundColor: 'white' }}>
+                        
+                        
+                        {/*<table style={{ width: '100%', backgroundColor: 'white' }}>
                           <thead>
                             <tr>
                               <th>Laboratorio</th>
@@ -160,7 +185,97 @@ function App() {
                               </tr>
                             ))}
                           </tbody>
-                        </table>
+                            </table>*/  }
+
+<div style={tablaStyles}>
+  <div>
+    <h3>Farmacia Guadalajara</h3>
+    {medicinasEncontradas.map((medicina, index) => {
+      if (medicina.farmacia === 'Farmacia Guadalajara') {
+        return (
+          <div key={index}>
+            <p>{`Laboratorio: ${medicina.laboratorio}`}</p>
+            <p>{`Fórmula: ${medicina.formula}`}</p>
+            <p>{`Presentación: ${medicina.presentacion}`}</p>
+            <p>{`Precio: ${medicina.precio}`}</p>
+          </div>
+        );
+      }
+      return null;
+    })}
+    {!medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Guadalajara') && (
+      <p>Esta farmacia no cuenta con este medicamento</p>
+    )}
+  </div>
+
+  <div>
+    <h3>Farmacia San Pablo</h3>
+    {medicinasEncontradas.map((medicina, index) => {
+      if (medicina.farmacia === 'Farmacia San Pablo') {
+        return (
+          <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <div style={{ width: '25%' }}>
+              <p>{`${medicina.laboratorio}`}</p>
+            </div>
+            <div style={{ width: '25%' }}>
+              <p>{`${medicina.formula}`}</p>
+            </div>
+            <div style={{ width: '25%' }}>
+              <p>{`${medicina.presentacion}`}</p>
+            </div>
+            <div style={{ width: '25%' }}>
+              <p>{`${medicina.precio}`}</p>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    })}
+    {!medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && (
+      <p>Esta farmacia no cuenta con este medicamento</p>
+    )}
+  </div>
+
+  <div>
+    <h3>Farmacia Benavides</h3>
+    {medicinasEncontradas.map((medicina, index) => {
+      if (medicina.farmacia === 'Farmacia Benavides') {
+        return (
+          <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <div style={{ width: '20%', textAlign: 'left'  }}>
+              <p>{`${medicina.laboratorio}`}</p>
+            </div>
+            <div style={{ width: '40%', textAlign: 'left'  }}>
+              <p>{`${medicina.formula}`}</p>
+            </div>
+            <div style={{ width: '20%', textAlign: 'left'  }}>
+              <p>{`${medicina.presentacion}`}</p>
+            </div>
+            <div style={{ width: '10%', textAlign: 'left' }}>
+              <p>{`${medicina.precio}`}</p>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    })}
+    {!medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Benavides') && (
+      <p>Esta farmacia no cuenta con este medicamento</p>
+    )}
+  </div>
+
+  {/* Secciones para otras farmacias aquí */}
+  {/* ... */}
+
+  <div>
+    <button>Texto del botón</button>
+  </div>
+</div>
+
+
+
+
+
                         <button onClick={() => setMedicinasEncontradas([])}>Borrar Resultados</button>
                       </div>
                     )  : null}

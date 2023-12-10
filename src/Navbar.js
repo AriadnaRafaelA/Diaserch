@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-
+import React, {  useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 
 function Navbar() {
@@ -29,8 +29,6 @@ function Navbar() {
     fontWeight: 'bold',
   };
   
-  
-
   const redirectToDiabetes = () => {
     window.location.href = '/Diabetes.js';
   };
@@ -46,9 +44,6 @@ function Navbar() {
   const redirectToDiagnostico = () => {
     window.location.href = '/Diagnostico.js';
   };
-  const redirectToOfertas = () => {
-    window.location.href = '/Ofertas.js';
-  };
 
   const [showArrows, setShowArrows] = useState(true);
   const toggleArrows = () => {
@@ -56,6 +51,21 @@ function Navbar() {
       setShowArrows(!showArrows);
     }, 0);
   };
+
+  const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const actualizarAnchoVentana = () => {
+      setAnchoVentana(window.innerWidth);
+    };
+
+    window.addEventListener('resize', actualizarAnchoVentana);
+
+    return () => {
+      window.removeEventListener('resize', actualizarAnchoVentana);
+    };
+  }, []);
+
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light" style={navbarStyle}>
@@ -114,7 +124,7 @@ function Navbar() {
       </div>
 
       <div className="d-flex">
-        {showArrows && (
+      {anchoVentana > 768 && 
             <img
               src="/flechas.jpg"
               alt="Logo"
@@ -122,7 +132,7 @@ function Navbar() {
               height="100"
               className="img-fluid"
             />
-          )}
+          }
       </div>
 
     </nav>

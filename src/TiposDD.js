@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import './App.css';
 import Sidebar from './siderbar.js'; // Importa el componente Sidebar
 
 function TiposDD() {
+
+    const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+    useEffect(() => {
+      const actualizarAnchoVentana = () => {
+        setAnchoVentana(window.innerWidth);
+      };
+      window.addEventListener('resize', actualizarAnchoVentana);
+      return () => {
+        window.removeEventListener('resize', actualizarAnchoVentana);
+      };
+    }, []);
 
     const textoEstilo = {
         textAlign: 'center',
@@ -22,7 +33,7 @@ function TiposDD() {
     };
 
     const contenidoEstilo = {
-        marginLeft: '300px',
+        marginLeft: anchoVentana <= 768 ? '20px' : '300px', // Ancho del Sidebar
         marginRight: '20px', 
         padding: '20px',
         fontSize: '20px',
@@ -38,10 +49,13 @@ function TiposDD() {
     
 
     return (
-        
-        <div style={{ display: 'flex' }}>
-            <Sidebar /> {/* Agrega el componente Sidebar aquí */}
+        <div>
+            <div className={`Sidebar ocultar-sidebar`}>
+                {/* Contenido de la barra lateral */}
+                <Sidebar /> {/* Agrega el componente Sidebar aquí */}
+            </div>
             <div style={contenidoEstilo}>
+            <div className="contenido-expandir">
                 <div style={cuadroTextoEstilo}>
                     <p style={textoEstilo}>Tipos de diabetes</p>
                     
@@ -75,10 +89,12 @@ function TiposDD() {
                         Estas mujeres y posiblemente sus hijos también corren un mayor riesgo de padecer diabetes tipo 2 en el futuro.
                     </p>
                     <p> La diabetes gestacional se diagnostica mediante pruebas de detección prenatales, en lugar de a través de los síntomas informados [12].
-                    <p style={textoEstilo}><img src="\D3.jpg" alt="Diabetes en embarazo" /></p>    
-
+                    <div class="contenedor">
+                        <img src="/D3.jpg" alt="Descripción de la imagen" class="imagen" />
+                    </div>
                     </p>
                 </div>
+            </div>
             </div>
         </div>
     );

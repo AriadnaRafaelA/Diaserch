@@ -3,6 +3,55 @@ import { Map, GoogleApiWrapper, Marker, Polygon } from 'google-maps-react';
 
 function Contacto(props) {
 
+  const containerStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginBottom: '20px',
+    marginRight: '10%',
+    marginLeft: '10%',
+  };
+
+  const farmaciaStyles = {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: '10px',
+    marginRight: '20%',
+    marginLeft: '20%',
+    padding: '1%',
+    marginBottom: '5%'
+    /*border: '1px solid #ccc',
+    borderRadius: '5px',
+    alignItems: 'center', // Centrado vertical
+    justifyContent: 'center', // Centrado horizontal
+    display: 'flex', // Utilizando flexbox
+    flexDirection: 'column', // Alinear elementos en columna
+     */
+  };
+  const mapStyles = {
+    width: '100%',
+    height: '400px',
+    position: 'relative',
+    marginBottom: '15%',
+  };
+  const infoStyles = {
+    textAlign: 'center',
+    marginBottom: '10px',
+  };
+ const titleStyles = {
+    marginTop: '10px', // Ajusta el margen superior del título
+    textAlign: 'center',
+  };
+  const buttonStyles = {
+    marginTop: '3%', // Agrega un margen superior al botón de farmacia cercana para separarlo del mapa
+  };
+  const imageStyles = {
+    width: '50%', // Ajusta el ancho de la imagen según sea necesario
+    height: 'auto', // Altura automática para mantener la proporción
+  };
+  const imageStyles2 = {
+    width: '70%', // Ajusta el ancho de la imagen según sea necesario
+    height: 'auto', // Altura automática para mantener la proporción
+  };
   const gustavoAMaderoCoordinates = [
     // Define aquí las coordenadas que representan los límites de la delegación Gustavo A. Madero
     { lat: 19.51796193683034, lng: -99.1629829966421},
@@ -80,72 +129,8 @@ function Contacto(props) {
     // ... Agrega más puntos para completar el polígono que representa los límites...
   ];
 
-  const containerStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginBottom: '20px',
-    marginRight: '2%',
-    marginLeft: '15%',
-  };
-
-  const mapStyles = {
-    width: '100%',
-    height: '400px',
-    position: 'relative',
-  };
-
-  const infoStyles = {
-    textAlign: 'center',
-    marginBottom: '10px',
-  };
-
-  const mapData = [
-    {
-      title: 'Farmacias San Pablo',
-      //lat: 19.4904923,
-      //lng: -99.1325889,
-      website: 'https://www.farmaciasanpablo.com.mx/',
-      telefono: '800 0726 722',
-    },
-    {
-      title: 'Farmacias Guadalajara',
-     // lat: 19.5060043, //esta es la coordenada ue toma para hacer el calculo de la distancia  
-      //lng: -99.136207,
-      website: 'https://www.farmaciasguadalajara.com/',
-      telefono: '(33) 3818 1818',
-    },
-    {
-      title: 'Farmacias Similares',
-     // lat: 19.506388,
-      //lng: -99.144676,
-      website: 'https://www.farmaciasdesimilares.com/',
-      telefono: '800 911 6666',
-    },
-  ];
-
-  const titleStyles = {
-    marginTop: '10px', // Ajusta el margen superior del título
-    textAlign: 'center',
-  };
-
-  const farmaciaStyles = {
-    backgroundColor: 'white',
-    padding: '20px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transform: 'translateX(0)'
-  };
-  
-  
-  
-
   const [userCoordinates, setUserCoordinates] = useState({ lat: null, lng: null });
   const [userLocation, setUserLocation] = useState(null);
-
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -278,7 +263,6 @@ function Contacto(props) {
    
   ],[]);
 
- 
 
   const handleUpdateLocation = () => {
     if (navigator.geolocation) {
@@ -463,544 +447,272 @@ useEffect(() => {
   }
 }, [userLocation, farmacias3]);
 
+
 const [mostrarMapa, setMostrarMapa] = useState(false);
+const [mostrarMapaCerca, setMostrarMapaCerca] = useState(false);
+const [mostrarBoton, setMostrarBoton] = useState(true);
+const [mostrarBotoncerca, setMostrarBotoncerca] = useState(true);
+
 const handleMostrarMapa = () => {
   setMostrarMapa(true);
-};
-const handleCerrarMapa = () => {
-  setMostrarMapa(false);
+  setMostrarBoton(false);
 };
 
+const handleMostrarMapaCerca = () => {
+  setMostrarMapaCerca(true);
+  setMostrarBotoncerca(false);
+};
+
+const handleCerrarMapa = () => {
+  setMostrarMapa(false);
+  setMostrarBoton(true);
+};
+
+const handleCerrarMapaCerca = () => {
+  setMostrarMapaCerca(false);
+  setMostrarBotoncerca(true);
+};
+
+
 const [mostrarMapa2, setMostrarMapa2] = useState(false);
+const [mostrarMapaCerca2, setMostrarMapaCerca2] = useState(false);
+const [mostrarBoton2, setMostrarBoton2] = useState(true);
+const [mostrarBotoncerca2, setMostrarBotoncerca2] = useState(true);
+
 const handleMostrarMapa2 = () => {
   setMostrarMapa2(true);
+  setMostrarBoton2(false);
+};
+const handleMostrarMapaCerca2 = () => {
+  setMostrarMapaCerca2(true);
+  setMostrarBotoncerca2(false);
 };
 const handleCerrarMapa2 = () => {
   setMostrarMapa2(false);
-};
-
-const [mostrarMapa3, setMostrarMapa3] = useState(false);
-const handleMostrarMapa3 = () => {
-  setMostrarMapa3(true);
-};
-const handleCerrarMapa3 = () => {
-  setMostrarMapa3(false);
-};
-
-const [mostrarMapaCerca, setMostrarMapaCerca] = useState(false);
-const handleMostrarMapaCerca = () => {
-  setMostrarMapaCerca(true);
-};
-const handleCerrarMapaCerca = () => {
-  setMostrarMapaCerca(false);
-};
-
-const [mostrarMapaCerca2, setMostrarMapaCerca2] = useState(false);
-const handleMostrarMapaCerca2 = () => {
-  setMostrarMapaCerca2(true);
+  setMostrarBoton2(true);
 };
 const handleCerrarMapaCerca2 = () => {
   setMostrarMapaCerca2(false);
+  setMostrarBotoncerca2(true);
 };
 
+
+const [mostrarMapa3, setMostrarMapa3] = useState(false);
 const [mostrarMapaCerca3, setMostrarMapaCerca3] = useState(false);
+const [mostrarBoton3, setMostrarBoton3] = useState(true);
+const [mostrarBotoncerca3, setMostrarBotoncerca3] = useState(true);
+
+const handleMostrarMapa3 = () => {
+  setMostrarMapa3(true);
+  setMostrarBoton3(false);
+};
 const handleMostrarMapaCerca3 = () => {
   setMostrarMapaCerca3(true);
+  setMostrarBotoncerca3(false);
+};
+const handleCerrarMapa3 = () => {
+  setMostrarMapa3(false);
+  setMostrarBoton3(true);
 };
 const handleCerrarMapaCerca3 = () => {
   setMostrarMapaCerca3(false);
+  setMostrarBotoncerca3(true);
 };
 
+const handleVerRutas2 = () => {
+  const latitud2 = nearestPharmacyCoordinates2.lat;
+  const longitud2 = nearestPharmacyCoordinates2.lng;
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${latitud2},${longitud2}`;
+  window.open(url, '_blank');
+};
+
+const handleVerRutas = () => {
+  const latitud = nearestPharmacyCoordinates.lat;
+  const longitud = nearestPharmacyCoordinates.lng;
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${latitud},${longitud}`;
+  window.open(url, '_blank');
+};
+
+const handleVerRutas3 = () => {
+  const latitud3 = nearestPharmacyCoordinates3.lat;
+  const longitud3 = nearestPharmacyCoordinates3.lng;
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${latitud3},${longitud3}`;
+  window.open(url, '_blank');
+};
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      <div style={{ width: '33%', padding: '10px' }}>
-        <div style={farmaciaStyles}>
-          <div>
-            {/* Mapa para Farmacia Guadalajara */}
+    <div>
+      {/* Farmacia Guadalajara */}
+      <div style={farmaciaStyles}>
+        {/* Dividir en mitad horizontal */}
+        <div style={{ display: 'flex', height: '50%'/*, borderBottom: '1px solid black' */}}>
+          {/* Dividir la parte superior en dos verticales */}
+          <div style={{ flex: 1, /*, borderBottom: '1px solid black' */ padding: '10px' }}>
             <div style={containerStyles}>
               <h2 style={titleStyles}>Farmacia Guadalajara</h2>
               <div style={infoStyles}>
                 <p>
-                  Página web: <a href={mapData[1].website}>{mapData[1].website}</a>
+                  Página web: <a href="https://www.farmaciasguadalajara.com/"> https://www.farmaciasguadalajara.com/ </a>
                   <br />
-                  Teléfono: {mapData[1].telefono}
+                  {/*Teléfono: futuro*/}
                   <br />
-                  <div style={{ textAlign: 'center' }}>
-                    {/*userCoordinates.lat !== null && userCoordinates.lng !== null && (
-                      <p>Coordenadas del usuario: {userCoordinates.lat}, {userCoordinates.lng}</p>
-                    )*/}
-                  </div>
-                
-                  <button onClick={handleUpdateLocation}>Actualizar Ubicación</button>
-                  
-                  {/* Código para mostrar las distancias en pantalla */}
-                  {/*distancias.map((farmacia, index) => (
-                    <div key={index}>
-                      <p>{`Farmacia: ${farmacia.nombre} - Distancia: ${farmacia.distancia} km`}</p>
-                      <p>{`Coordenadas: ${farmacias[index].position.lat}, ${farmacias[index].position.lng}`}</p>
-                    </div>
-                  ))*/}
                 </p>
               </div>
-              
-              <button onClick={handleMostrarMapa}>Todas las farmacias</button>
-                {mostrarMapa && (
-                  <div style={mapStyles}>
-                    <button onClick={handleCerrarMapa}>Cerrar Mapa</button>
-                      {mostrarMapa && (
-                        <div >
-                          <Map
-                            google={props.google}
-                            zoom={12}
-                            initialCenter={{
-                              lat: 19.4904923,
-                              lng: -99.1325889,
-                            }}
-                          >
-                            <Marker
-                            title="Farmacia 1" // Nombre del marcador
-                              position={{
-                                lat: 19.557804757720046,
-                                lng: -99.13472619929715,
-                              }}
-                            />
-                            <Marker
-                            title="Farmacia 2" // Nombre del marcador
-                              position={{
-                                lat: 19.544052595388877, 
-                                lng: -99.14596681127203,
-                              }}
-                            /> 
-                            <Marker
-                            title="Farmacia 3" // Nombre del marcador
-                              position={{
-                                lat: 19.540317347632964,
-                                lng: -99.15354455538231,
-                              }}
-                            /> 
-                            <Marker
-                            title="Farmacia 4" // Nombre del marcador
-                              position={{
-                                lat: 19.52605982230629, 
-                                lng: -99.15288197436556,
-                              }}
-                            /> 
-                            <Marker
-                            title="Farmacia 5" // Nombre del marcador
-                              position={{
-                                lat: 19.511662371013756, 
-                                lng: -99.14042093752664,
-                              }}
-                            />
-                            <Marker
-                            title="Farmacia 6" // Nombre del marcador
-                              position={{
-                                lat: 19.513305916639574, 
-                                lng: -99.13453810753077,
-                              }}
-                            />
-                            <Marker
-                            title="Farmacia 7" // Nombre del marcador
-                              position={{
-                                lat: 19.50151981477475, 
-                                lng: -99.09593827140269,
-                              }}
-                            /> 
-                            <Marker
-                            title="Farmacia 8" // Nombre del marcador
-                              position={{
-                                lat:  19.488394579943915,
-                                lng:  -99.10756048073203,
-                              }}
-                            />
-                            <Marker
-                            title="Farmacia 9" // Nombre del marcador
-                              position={{
-                                lat: 19.483184660322387, 
-                                lng: -99.11955030634091,
-                              }}
-                            />
-                            
-                            <Marker
-                            title="Farmacia 10" // Nombre del marcador
-                              position={{
-                                lat: 19.468793813457868,  
-                                lng: -99.12621981965374,
-                              }}
-                            />
-                            
-                                <Polygon
-                                  paths={gustavoAMaderoCoordinates}
-                                  strokeColor="#FF0000"
-                                  strokeOpacity={0.8}
-                                  strokeWeight={2}
-                                  fillColor="#FF0000"
-                                  fillOpacity={0.1}
-                                />
-                                {userLocation && (
-                                  <Marker
-                                    position={{
-                                      lat: userLocation.lat,
-                                      lng: userLocation.lng,
-                                    }}
-                                    icon={{
-                                      url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                                    }}
-                                  />
-                                )}
-                          </Map>
-                        </div>
-                      )}
-                  </div>
-                )}
+              {mostrarBoton && (
+                <button onClick={handleMostrarMapa}>Todas las farmacias</button>
+              )}
             </div>
 
             {nearestPharmacyCoordinates && (
               <div style={containerStyles}>
-                <button onClick={handleMostrarMapaCerca}>Farmacia cercana</button>
-                  {mostrarMapaCerca && (
-                    <div style={mapStyles}>
-                      <button onClick={handleCerrarMapaCerca}>Cerrar Mapa</button>
-                        {mostrarMapaCerca && (
-                          <div>
-                            <Map
-                              google={props.google}
-                              zoom={12}
-                              initialCenter={
-                                nearestPharmacyCoordinates
-                                  ? {
-                                      lat: nearestPharmacyCoordinates.lat,
-                                      lng: nearestPharmacyCoordinates.lng,
-                                    }
-                                  : {
-                                      lat: 19.4904923,
-                                      lng: -99.1325889,
-                                    }
-                              }
-                            >
-                              {/* Marcadores y polígonos del mapa de la farmacia más cercana */}
-                              {nearestPharmacyCoordinates && (
-                                <Marker
-                                  position={{
-                                    lat: nearestPharmacyCoordinates.lat,
-                                    lng: nearestPharmacyCoordinates.lng,
-                                  }}
-                                  icon={{
-                                    url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                                  }}
-                                />
-                              )}
-                              <Polygon
-                                      paths={gustavoAMaderoCoordinates}
-                                      strokeColor="#FF0000"
-                                      strokeOpacity={0.8}
-                                      strokeWeight={2}
-                                      fillColor="#FF0000"
-                                      fillOpacity={0.1}
-                                    />
-                                    {userLocation && (
-                                      <Marker
-                                        position={{
-                                          lat: userLocation.lat,
-                                          lng: userLocation.lng,
-                                        }}
-                                        icon={{
-                                          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                                        }}
-                                      />
-                                    )}
-                            </Map>
-                          </div>
-                        )}  
-                    </div>
-                  )}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-  
-      {/* Mapa para Farmacia San Pablo */}
-      <div style={{ width: '33%', padding: '10px' }}>
-        <div style={farmaciaStyles}>
-          <div style={containerStyles}>
-            <h2 style={titleStyles}>Farmacia San Pablo</h2>
-              <div style={infoStyles}>
-                <p>
-                  Página web: <a href={mapData[1].website}>{mapData[1].website}</a>
-                  <br />
-                  Teléfono: {mapData[1].telefono}
-                  <br />
-                  <div style={{ textAlign: 'center' }}>
-                    {/*userCoordinates.lat !== null && userCoordinates.lng !== null && (
-                      <p>Coordenadas del usuario: {userCoordinates.lat}, {userCoordinates.lng}</p>
-                    )*/}
-                  </div>
-                
-                  <button onClick={handleUpdateLocation}>Actualizar Ubicación</button>
-                  
-                  {/*distancias2.map((farmacia, index) => (
-                    <span key={index}>
-                      <p>{`Farmacia: ${farmacia.nombre} - Distancia: ${farmacia.distancia} km`}</p>
-                      <p>{`Coordenadas: ${farmacias2[index].position.lat}, ${farmacias2[index].position.lng}`}</p>
-                    <br/>
-                    </span>
-                  ))*/}         
-
-                </p>
-              </div>
-              <button onClick={handleMostrarMapa2}>Todas las farmacias</button>
-                {mostrarMapa2 && (
-                  <div style={mapStyles}>
-                    <button onClick={handleCerrarMapa2}>Cerrar Mapa</button>
-                    {mostrarMapa2 && (
-                    <div>
-                      <Map
-                        google={props.google}
-                        zoom={12}
-                        initialCenter={{
-                          lat: 19.506388,
-                          lng: -99.144676,
-                        }}
-                      >
-                        <Marker
-                          title="Cuautepec"
-                          position={{ lat: 19.52296681356565, lng: -99.14148576089354 }}
-                        />
-                        <Marker
-                          title="Casma"
-                          position={{ lat: 19.49166260896163, lng: -99.1362576346612 }}
-                        />
-                        <Marker
-                          title="Montevideo"
-                          position={{ lat: 19.48829829204483, lng: -99.12611729968107}}
-                        />
-                        <Marker
-                          title=" La Villa"
-                          position={{ lat: 19.474622714702445, lng: -99.12157732982925}}
-                        />
-                        <Marker
-                          title="Albino Corzo"
-                          position={{ lat: 19.463575145774783, lng: -99.1108678110531}}
-                        />
-                        <Marker
-                          title="Eduardo Molina"
-                          position={{ lat: 19.497258555853612, lng: -99.09065645913292}}
-                        />
-                        <Marker
-                          title="San Felipe"
-                          position={{ lat: 19.492312510159614, lng: -99.07462917542122}}
-                        />
-                       {/* <Marker
-                          title="Farmacia 8"
-                          position={{ lat: 19.48474574138641, lng: -99.14865749568096 }}
-                        />
-                        <Marker
-                          title="Farmacia 9"
-                          position={{ lat: 19.476153972055794, lng: -99.13751296756165 }}
-                        />
-                        <Marker
-                          title="Farmacia 10"
-                          position={{ lat: 19.47700521032731, lng: -99.12492675658966 }}
-                        />
-                        <Marker
-                          title="Farmacia 11"
-                          position={{ lat: 19.47123894822558, lng: -99.1227057326238 }}
-                        />
-                        <Marker
-                          title="Farmacia 12"
-                          position={{ lat: 19.48043910482022, lng: -99.11528838527802 }}
-                        />
-                      */  }
-
-                        
-                        <Polygon
-                              paths={gustavoAMaderoCoordinates}
-                              strokeColor="#FF0000"
-                              strokeOpacity={0.8}
-                              strokeWeight={2}
-                              fillColor="#FF0000"
-                              fillOpacity={0.1}
-                            />
-                            {userLocation && (
-                              <Marker
-                                position={{
-                                  lat: userLocation.lat,
-                                  lng: userLocation.lng,
-                                }}
-                                icon={{
-                                  url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                                }}
-                              />
-                            )}
-                      </Map>
-                    </div>
-                    )}
-                  </div>
+                {mostrarBotoncerca && (
+                  <button onClick={handleMostrarMapaCerca} style={buttonStyles}>Farmacia cercana</button>
                 )}
+              </div>
+            )}
           </div>
+          
+          <div style={{ flex: 1, padding: '2%', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center'  }}>
+            <img
+              src="/guadalajara.png" // Reemplaza "URL_DE_TU_IMAGEN" con la URL de la imagen
+              alt="Imagen de la farmacia" // Agrega un texto alternativo descriptivo para accesibilidad
+              style={imageStyles}
+            />
+          </div>
+        </div>
 
-            {nearestPharmacyCoordinates2 && (
-              <div style={containerStyles}>
-                <button onClick={handleMostrarMapaCerca2}>Farmacia cercana</button>
-                  {mostrarMapaCerca2 && (
-                    <div style={mapStyles}>
-                      <button onClick={handleCerrarMapaCerca2}>Cerrar Mapa</button>
-                        {mostrarMapaCerca2 && (
-                          <div>
-                            <Map
-                              google={props.google}
-                              zoom={12}
-                              initialCenter={
-                                nearestPharmacyCoordinates2
-                                  ? {
-                                      lat: nearestPharmacyCoordinates2.lat,
-                                      lng: nearestPharmacyCoordinates2.lng,
-                                    }
-                                  : {
-                                      lat: 19.4904923,
-                                      lng: -99.1325889,
-                                    }
-                              }
-                            >
-                              {/* Marcadores y polígonos del mapa de la farmacia más cercana */}
-                              {nearestPharmacyCoordinates2 && (
+        {/* Parte inferior */}
+        <div style={{ display: 'flex', height: '50%' }}>
+          {/* Mapa de Farmacia Guadalajara */}
+          <div style={{ flex: 1 }}>
+            {mostrarMapa && (
+                <div style={mapStyles}>
+                  <h4 style={titleStyles}>Todas las farmacias</h4>
+                  <button onClick={handleUpdateLocation} style={buttonStyles}>Actualizar Ubicación</button>
+                  <button onClick={handleCerrarMapa}>Cerrar Mapa</button>
+                    {mostrarMapa && (
+                      <div >
+                        <Map
+                          google={props.google}
+                          zoom={12}
+                          initialCenter={{
+                            lat: 19.4904923,
+                            lng: -99.1325889,
+                          }}
+                        >
+                          <Marker
+                          title="Farmacia 1" // Nombre del marcador
+                            position={{
+                              lat: 19.557804757720046,
+                              lng: -99.13472619929715,
+                            }}
+                          />
+                          <Marker
+                          title="Farmacia 2" // Nombre del marcador
+                            position={{
+                              lat: 19.544052595388877, 
+                              lng: -99.14596681127203,
+                            }}
+                          /> 
+                          <Marker
+                          title="Farmacia 3" // Nombre del marcador
+                            position={{
+                              lat: 19.540317347632964,
+                              lng: -99.15354455538231,
+                            }}
+                          /> 
+                          <Marker
+                          title="Farmacia 4" // Nombre del marcador
+                            position={{
+                              lat: 19.52605982230629, 
+                              lng: -99.15288197436556,
+                            }}
+                          /> 
+                          <Marker
+                          title="Farmacia 5" // Nombre del marcador
+                            position={{
+                              lat: 19.511662371013756, 
+                              lng: -99.14042093752664,
+                            }}
+                          />
+                          <Marker
+                          title="Farmacia 6" // Nombre del marcador
+                            position={{
+                              lat: 19.513305916639574, 
+                              lng: -99.13453810753077,
+                            }}
+                          />
+                          <Marker
+                          title="Farmacia 7" // Nombre del marcador
+                            position={{
+                              lat: 19.50151981477475, 
+                              lng: -99.09593827140269,
+                            }}
+                          /> 
+                          <Marker
+                          title="Farmacia 8" // Nombre del marcador
+                            position={{
+                              lat:  19.488394579943915,
+                              lng:  -99.10756048073203,
+                            }}
+                          />
+                          <Marker
+                          title="Farmacia 9" // Nombre del marcador
+                            position={{
+                              lat: 19.483184660322387, 
+                              lng: -99.11955030634091,
+                            }}
+                          />
+                          
+                          <Marker
+                          title="Farmacia 10" // Nombre del marcador
+                            position={{
+                              lat: 19.468793813457868,  
+                              lng: -99.12621981965374,
+                            }}
+                          />
+                          
+                              <Polygon
+                                paths={gustavoAMaderoCoordinates}
+                                strokeColor="#FF0000"
+                                strokeOpacity={0.8}
+                                strokeWeight={2}
+                                fillColor="#FF0000"
+                                fillOpacity={0.1}
+                              />
+                              {userLocation && (
                                 <Marker
                                   position={{
-                                    lat: nearestPharmacyCoordinates2.lat,
-                                    lng: nearestPharmacyCoordinates2.lng,
+                                    lat: userLocation.lat,
+                                    lng: userLocation.lng,
                                   }}
                                   icon={{
-                                    url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                                    url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
                                   }}
                                 />
                               )}
-                              <Polygon
-                                      paths={gustavoAMaderoCoordinates}
-                                      strokeColor="#FF0000"
-                                      strokeOpacity={0.8}
-                                      strokeWeight={2}
-                                      fillColor="#FF0000"
-                                      fillOpacity={0.1}
-                                    />
-                                    {userLocation && (
-                                      <Marker
-                                        position={{
-                                          lat: userLocation.lat,
-                                          lng: userLocation.lng,
-                                        }}
-                                        icon={{
-                                          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                                        }}
-                                      />
-                                    )}
-                            </Map>
-                          </div>
-                        )}  
-                    </div>
-                  )}
-              </div>
-            )} 
-        </div>
-      </div>
+                        </Map>
+                      </div>
+                    )}
+                </div>
+              )}
 
-      {/* Farmacia del ahorro */}
-      <div style={{ width: '33%', padding: '10px' }}>
-      <div style={farmaciaStyles}>
-
-      <div style={containerStyles}>
-        <h2 style={titleStyles}>Farmacia del ahorro </h2>
-        <div style={infoStyles}>
-          <p>
-            Página web: <a href={mapData[1].website}>{mapData[1].website}</a>
-            <br />
-            Teléfono: {mapData[1].telefono}
-            <br />
-            <div style={{ textAlign: 'center' }}>
-              {/*userCoordinates.lat !== null && userCoordinates.lng !== null && (
-                <p>Coordenadas del usuario: {userCoordinates.lat}, {userCoordinates.lng}</p>
-              )*/}
-            </div>
-          
-            <button onClick={handleUpdateLocation}>Actualizar Ubicación</button>
-            
-            {/*distancias3.map((farmacia, index) => (
-              <span key={index}>
-                <p>{`Farmacia: ${farmacia.nombre} - Distancia: ${farmacia.distancia} km`}</p>
-                <p>{`Coordenadas: ${farmacias2[index].position.lat}, ${farmacias2[index].position.lng}`}</p>
-              <br/>
-              </span>
-            ))*/}   
-          </p>
-          </div>
-          <button onClick={handleMostrarMapa3}>Todas las farmacias</button>
-            {mostrarMapa3 && (
+            {mostrarMapaCerca && (
               <div style={mapStyles}>
-                <button onClick={handleCerrarMapa3}>Cerrar Mapa</button>
-                  {mostrarMapa3 && (
-                    <div >
-                      <Map
-                        google={props.google}
-                        zoom={12}
-                        initialCenter={{
-                          lat: 19.5060043,
-                          lng: -99.136207,
-                        }}
-                      >
-                        <Marker
-                          title="Vallejo" // Nombre del marcador
-                            position={{
-                              lat: 19.503462189356853, 
-                              lng: -99.15700256777534,
-                            }}
-                        />
-
-                       
-                        
-                        <Polygon
-                              paths={gustavoAMaderoCoordinates}
-                              strokeColor="#FF0000"
-                              strokeOpacity={0.8}
-                              strokeWeight={2}
-                              fillColor="#FF0000"
-                              fillOpacity={0.1}
-                            />
-                            {userLocation && (
-                              <Marker
-                                position={{
-                                  lat: userLocation.lat,
-                                  lng: userLocation.lng,
-                                }}
-                                icon={{
-                                  url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                                }}
-                              />
-                            )}
-                      </Map>
-                    </div>
-                  )}
-              </div>
-            )}
-      </div>
-      
-
-      {nearestPharmacyCoordinates3 && (
-        <div style={containerStyles}>
-          <button onClick={handleMostrarMapaCerca3}>Farmacia cercana</button>
-            {mostrarMapaCerca3 && (
-              <div style={mapStyles}>
-                <button onClick={handleCerrarMapaCerca3}>Cerrar Mapa</button>
-                  {mostrarMapaCerca3 && (
+                <h4 style={titleStyles}>Farmacia cercana</h4>
+                <button onClick={handleUpdateLocation} style={buttonStyles}>Actualizar Ubicación</button>
+                <button onClick={handleCerrarMapaCerca}>Cerrar Mapa</button>
+                <button onClick={handleVerRutas} style={buttonStyles}>Ver Rutas en Google Maps</button>
+                  {mostrarMapaCerca && (
                     <div>
                       <Map
                         google={props.google}
                         zoom={12}
                         initialCenter={
-                          nearestPharmacyCoordinates3
+                          nearestPharmacyCoordinates
                             ? {
-                                lat: nearestPharmacyCoordinates3.lat,
-                                lng: nearestPharmacyCoordinates3.lng,
+                                lat: nearestPharmacyCoordinates.lat,
+                                lng: nearestPharmacyCoordinates.lng,
                               }
                             : {
                                 lat: 19.4904923,
@@ -1009,11 +721,11 @@ const handleCerrarMapaCerca3 = () => {
                         }
                       >
                         {/* Marcadores y polígonos del mapa de la farmacia más cercana */}
-                        {nearestPharmacyCoordinates3 && (
+                        {nearestPharmacyCoordinates && (
                           <Marker
                             position={{
-                              lat: nearestPharmacyCoordinates3.lat,
-                              lng: nearestPharmacyCoordinates3.lng,
+                              lat: nearestPharmacyCoordinates.lat,
+                              lng: nearestPharmacyCoordinates.lng,
                             }}
                             icon={{
                               url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
@@ -1044,14 +756,353 @@ const handleCerrarMapaCerca3 = () => {
                   )}  
               </div>
             )}
+
+          </div>
         </div>
-      )}
-  </div>
-</div>
+      </div>
+  
+      {/* Farmacia San Pablo */}
+      <div style={farmaciaStyles}>
+          {/* Dividir en mitad horizontal */}
+          <div style={{ display: 'flex', height: '50%'/*, borderBottom: '1px solid black' */}}>
+            {/* Dividir la parte superior en dos verticales */}
+            <div style={{ flex: 1, /*, borderBottom: '1px solid black' */ padding: '10px' }}>
+              <div style={containerStyles}>
+                <h2 style={titleStyles}>Farmacia San Pablo</h2>
+                  <div style={infoStyles}>
+                    <p>
+                      Página web: <a href="https://www.farmaciasanpablo.com.mx/"> https://www.farmaciasanpablo.com.mx/ </a>
+                      <br />
+                      {/*Teléfono: futuro*/}
+                      <br />
+                     
+                    </p>
+                  </div>
+                    {mostrarBoton2 && (
+                      <button onClick={handleMostrarMapa2}>Todas las farmacias</button>
+                    )}
+              </div>
 
-    </div>
+              {nearestPharmacyCoordinates2 && (
+                <div style={containerStyles}>
+                  {mostrarBotoncerca2 && (
+                  <button onClick={handleMostrarMapaCerca2}  style={buttonStyles}>Farmacia cercana</button>
+                  )}
+                </div>
+              )} 
+            </div>
+            
+            <div style={{ flex: 1, padding: '2%', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center'  }}>
+              <img
+                src="/Sanpablo.png" // Reemplaza "URL_DE_TU_IMAGEN" con la URL de la imagen
+                alt="Imagen de la farmacia" // Agrega un texto alternativo descriptivo para accesibilidad
+                style={imageStyles2}
+              />
+            </div>
+          </div>
+
+          {/* Parte inferior */}
+          <div style={{ display: 'flex', height: '50%' }}>
+            {/* Mapa de Farmacia Guadalajara */}
+            <div style={{ flex: 1 }}>
+              {mostrarMapa2 && (
+                <div style={mapStyles}>
+                  <h4 style={titleStyles}>Todas las farmacias</h4>
+                  <button onClick={handleUpdateLocation} style={buttonStyles}>Actualizar Ubicación</button>
+                  <button onClick={handleCerrarMapa2}>Cerrar Mapa</button>
+                  {mostrarMapa2 && (
+                  <div>
+                    <Map
+                      google={props.google}
+                      zoom={12}
+                      initialCenter={{
+                        lat: 19.506388,
+                        lng: -99.144676,
+                      }}
+                    >
+                      <Marker
+                        title="Cuautepec"
+                        position={{ lat: 19.52296681356565, lng: -99.14148576089354 }}
+                      />
+                      <Marker
+                        title="Casma"
+                        position={{ lat: 19.49166260896163, lng: -99.1362576346612 }}
+                      />
+                      <Marker
+                        title="Montevideo"
+                        position={{ lat: 19.48829829204483, lng: -99.12611729968107}}
+                      />
+                      <Marker
+                        title=" La Villa"
+                        position={{ lat: 19.474622714702445, lng: -99.12157732982925}}
+                      />
+                      <Marker
+                        title="Albino Corzo"
+                        position={{ lat: 19.463575145774783, lng: -99.1108678110531}}
+                      />
+                      <Marker
+                        title="Eduardo Molina"
+                        position={{ lat: 19.497258555853612, lng: -99.09065645913292}}
+                      />
+                      <Marker
+                        title="San Felipe"
+                        position={{ lat: 19.492312510159614, lng: -99.07462917542122}}
+                      />
+
+                      <Polygon
+                            paths={gustavoAMaderoCoordinates}
+                            strokeColor="#FF0000"
+                            strokeOpacity={0.8}
+                            strokeWeight={2}
+                            fillColor="#FF0000"
+                            fillOpacity={0.1}
+                          />
+                          {userLocation && (
+                            <Marker
+                              position={{
+                                lat: userLocation.lat,
+                                lng: userLocation.lng,
+                              }}
+                              icon={{
+                                url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                              }}
+                            />
+                          )}
+                    </Map>
+                  </div>
+                  )}
+                </div>
+              )}
+
+              {mostrarMapaCerca2 && (
+                <div style={mapStyles}>
+                  <h4 style={titleStyles}>Farmacia cercana</h4>
+                  <button onClick={handleUpdateLocation} style={buttonStyles}>Actualizar Ubicación</button>
+                  <button onClick={handleCerrarMapaCerca2}>Cerrar Mapa</button>
+                  <button onClick={handleVerRutas2} style={buttonStyles}>Ver Rutas en Google Maps</button>
+                    {mostrarMapaCerca2 && (
+                      <div>
+                        <Map
+                          google={props.google}
+                          zoom={12}
+                          initialCenter={
+                            nearestPharmacyCoordinates2
+                              ? {
+                                  lat: nearestPharmacyCoordinates2.lat,
+                                  lng: nearestPharmacyCoordinates2.lng,
+                                }
+                              : {
+                                  lat: 19.4904923,
+                                  lng: -99.1325889,
+                                }
+                          }
+                        >
+                          {/* Marcadores y polígonos del mapa de la farmacia más cercana */}
+                          {nearestPharmacyCoordinates2 && (
+                            <Marker
+                              position={{
+                                lat: nearestPharmacyCoordinates2.lat,
+                                lng: nearestPharmacyCoordinates2.lng,
+                              }}
+                              icon={{
+                                url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                              }}
+                            />
+                          )}
+                          <Polygon
+                                  paths={gustavoAMaderoCoordinates}
+                                  strokeColor="#FF0000"
+                                  strokeOpacity={0.8}
+                                  strokeWeight={2}
+                                  fillColor="#FF0000"
+                                  fillOpacity={0.1}
+                                />
+                                {userLocation && (
+                                  <Marker
+                                    position={{
+                                      lat: userLocation.lat,
+                                      lng: userLocation.lng,
+                                    }}
+                                    icon={{
+                                      url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                                    }}
+                                  />
+                                )}
+                        </Map>
+                      </div>
+                    )}  
+                </div>
+              )}
+
+            </div>
+          </div>
+      </div>
+
+
+      {/* Farmacia del Benabides */}
+      <div style={farmaciaStyles}>
+          {/* Dividir en mitad horizontal */}
+          <div style={{ display: 'flex', height: '50%'/*, borderBottom: '1px solid black' */}}>
+            {/* Dividir la parte superior en dos verticales */}
+            <div style={{ flex: 1, /*, borderBottom: '1px solid black' */ padding: '10px' }}>
+              
+              <div style={containerStyles}>
+                <h2 style={titleStyles}>Farmacia Benavides </h2>
+                  <div style={infoStyles}>
+                    <p>
+                      Página web:    <a href="https://www.benavides.com.mx/"> https://www.benavides.com.mx/ </a>
+                      <br />
+                      {/*Teléfono: futuro*/}
+                      <br />
+
+                    </p>
+                  </div>
+                    {mostrarBoton3 && (
+                      <button onClick={handleMostrarMapa3}>Todas las farmacias</button>
+                    )}
+                  </div>
+        
+                {nearestPharmacyCoordinates3 && (
+                  <div style={containerStyles}>
+                    {mostrarBotoncerca3 && (
+                    <button onClick={handleMostrarMapaCerca3}  style={buttonStyles}>Farmacia cercana</button>
+                    )}
+                  </div>
+                )}
+
+              </div>
+            
+            <div style={{ flex: 1, padding: '2%', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center'  }}>
+              <img
+                src="/benabides.jpg" // Reemplaza "URL_DE_TU_IMAGEN" con la URL de la imagen
+                alt="Imagen de la farmacia" // Agrega un texto alternativo descriptivo para accesibilidad
+                style={imageStyles}
+              />
+            </div>
+          </div>
+
+          {/* Parte inferior */}
+          <div style={{ display: 'flex', height: '50%' }}>
+            {/* Mapa de Farmacia  */}
+            <div style={{ flex: 1 }}>
+
+              {mostrarMapa3 && (
+                
+                <div style={mapStyles}>
+                   <h4 style={titleStyles}>Todas las farmacias</h4>
+                  <button onClick={handleUpdateLocation}  style={buttonStyles}>Actualizar Ubicación</button>
+                  <button onClick={handleCerrarMapa3}>Cerrar Mapa</button>
+                  <button onClick={handleVerRutas3} style={buttonStyles}>Ver Rutas en Google Maps</button>
+                    {mostrarMapa3 && (
+                      <div >
+                        <Map
+                          google={props.google}
+                          zoom={12}
+                          initialCenter={{
+                            lat: 19.5060043,
+                            lng: -99.136207,
+                          }}
+                        >
+                          <Marker
+                            title="Vallejo" // Nombre del marcador
+                              position={{
+                                lat: 19.503462189356853, 
+                                lng: -99.15700256777534,
+                              }}
+                          />
+
+                          <Polygon
+                                paths={gustavoAMaderoCoordinates}
+                                strokeColor="#FF0000"
+                                strokeOpacity={0.8}
+                                strokeWeight={2}
+                                fillColor="#FF0000"
+                                fillOpacity={0.1}
+                              />
+                              {userLocation && (
+                                <Marker
+                                  position={{
+                                    lat: userLocation.lat,
+                                    lng: userLocation.lng,
+                                  }}
+                                  icon={{
+                                    url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                                  }}
+                                />
+                              )}
+                        </Map>
+                      </div>
+                    )}
+                </div>
+              )}
+
+              {mostrarMapaCerca3 && (
+                <div style={mapStyles}>
+                    <h4 style={titleStyles}>Farmacia cercana</h4>
+                  <button onClick={handleUpdateLocation}  style={buttonStyles}>Actualizar Ubicación</button>
+                  <button onClick={handleCerrarMapaCerca3}>Cerrar Mapa</button>
+                    {mostrarMapaCerca3 && (
+                      <div>
+                        <Map
+                          google={props.google}
+                          zoom={12}
+                          initialCenter={
+                            nearestPharmacyCoordinates3
+                              ? {
+                                  lat: nearestPharmacyCoordinates3.lat,
+                                  lng: nearestPharmacyCoordinates3.lng,
+                                }
+                              : {
+                                  lat: 19.4904923,
+                                  lng: -99.1325889,
+                                }
+                          }
+                        >
+                          {/* Marcadores y polígonos del mapa de la farmacia más cercana */}
+                          {nearestPharmacyCoordinates3 && (
+                            <Marker
+                              position={{
+                                lat: nearestPharmacyCoordinates3.lat,
+                                lng: nearestPharmacyCoordinates3.lng,
+                              }}
+                              icon={{
+                                url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                              }}
+                            />
+                          )}
+                          <Polygon
+                                  paths={gustavoAMaderoCoordinates}
+                                  strokeColor="#FF0000"
+                                  strokeOpacity={0.8}
+                                  strokeWeight={2}
+                                  fillColor="#FF0000"
+                                  fillOpacity={0.1}
+                                />
+                                {userLocation && (
+                                  <Marker
+                                    position={{
+                                      lat: userLocation.lat,
+                                      lng: userLocation.lng,
+                                    }}
+                                    icon={{
+                                      url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                                    }}
+                                  />
+                                )}
+                        </Map>
+                      </div>
+                    )}  
+                </div>
+              )}
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+    
   ); 
-
 }
 
 

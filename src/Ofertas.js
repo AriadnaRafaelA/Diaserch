@@ -88,10 +88,12 @@ function App() {
         <tbody>
           
         {medicinas.map((medicina, index) => {
-          const precioNumerico = parseFloat(medicina.precio.replace(',', '.'));
-          const preciodNumerico = parseFloat(medicina.preciod.replace(',', '.'));
+          const precioNumerico = parseFloat(medicina.precio.replace('.', '').replace(',', '.'));
+          const preciodNumerico = parseFloat(medicina.preciod.replace('.', '').replace(',', '.'));
+          
           const descuento = precioNumerico - preciodNumerico;
           const porcentajeDescuento = (descuento / precioNumerico) * 100;
+          
 
           if (descuento !== 0) {
             return (

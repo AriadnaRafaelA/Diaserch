@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Sidebar from './siderbar.js'; // Importa el componente Sidebar
 
 function Diagnostico() {
+
+  const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+  useEffect(() => {
+    const actualizarAnchoVentana = () => {
+      setAnchoVentana(window.innerWidth);
+    };
+    window.addEventListener('resize', actualizarAnchoVentana);
+    return () => {
+      window.removeEventListener('resize', actualizarAnchoVentana);
+    };
+  }, []);
+
   const textoEstilo = {
     textAlign: 'center',
     fontSize: '48px',
@@ -20,7 +32,7 @@ function Diagnostico() {
   };
 
   const contenidoEstilo = {
-    marginLeft: '300px',
+    marginLeft: anchoVentana <= 768 ? '20px' : '300px',
     marginRight: '20px',
     padding: '20px',
     textAlign: 'justify',
@@ -62,9 +74,13 @@ function Diagnostico() {
 };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <Sidebar />
+    <div>
+      <div className={`Sidebar ocultar-sidebar`}>
+        {/* Contenido de la barra lateral */}
+        <Sidebar />
+      </div>
       <div style={contenidoEstilo}>
+      <div className="contenido-expandir">
         <div style={cuadroTextoEstilo}>
           <p style={textoEstilo}>Diagnostico</p>
           <p>
@@ -116,6 +132,7 @@ function Diagnostico() {
                     </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

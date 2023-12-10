@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import './App.css';
 import Sidebar from './siderbar.js'; // Importa el componente Sidebar
 
 
 function ArtTabla() {
+
+  const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+  useEffect(() => {
+    const actualizarAnchoVentana = () => {
+      setAnchoVentana(window.innerWidth);
+    };
+    window.addEventListener('resize', actualizarAnchoVentana);
+    return () => {
+      window.removeEventListener('resize', actualizarAnchoVentana);
+    };
+  }, []);
 
   const textoEstilo = {
     textAlign: 'center',
@@ -13,7 +24,7 @@ function ArtTabla() {
     margin: '10px 0',
   };
   const contenidoEstilo = {
-    marginLeft: '300px',
+    marginLeft: anchoVentana <= 768 ? '20px' : '300px', // Ancho del Sidebar
     marginRight: '20px', 
     padding: '20px',
     textAlign: 'justify',
@@ -21,6 +32,8 @@ function ArtTabla() {
   const tablaStyle = {
     margin: '0 auto',   // Esto centra la tabla horizontalmente
     backgroundColor: 'white', // Esto establece el fondo de la tabla en blanco
+    border: '2px solid black', // Esto agrega un borde negro de 2px a la tabla
+  borderRadius: '10px',
   };
 
   const itemStyle = {
@@ -29,12 +42,15 @@ function ArtTabla() {
   };
   
   return (
-    <div style={{ display: 'flex' }}>
-      <Sidebar /> {/* Agrega el componente Sidebar aquí */}
-      
+    <div>
+      <div className={`Sidebar ocultar-sidebar`}>
+        {/* Contenido de la barra lateral */}
+        <Sidebar />
+      </div>
       <div style={contenidoEstilo}>
+      <div className="contenido-expandir">
         <p style={textoEstilo}>Tabla de medicamentos</p>
-          <table border="1" style={tablaStyle}>
+          <table border="1" style={tablaStyle} >
             <tr>
               <th colSpan="5">SULFONILÚREAS (SFU)</th>
             </tr>
@@ -257,6 +273,7 @@ function ArtTabla() {
             </tr>
 
           </table>
+    </div>
     </div>
   </div>
   );

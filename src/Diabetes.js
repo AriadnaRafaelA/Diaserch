@@ -1,36 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import './App.css';
 import Sidebar from './siderbar.js'; // Importa el componente Sidebar
 
 function Diabetes() {
-  const textoEstilo = {
+
+  const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const actualizarAnchoVentana = () => {
+      setAnchoVentana(window.innerWidth);
+    };
+
+    window.addEventListener('resize', actualizarAnchoVentana);
+
+    return () => {
+      window.removeEventListener('resize', actualizarAnchoVentana);
+    };
+  }, []);
+
+    const textoEstilo = {
     textAlign: 'center',
     fontSize: '48px',
     fontWeight: 'bold',
-    color: 'Black',
+    color: 'black',
     margin: '10px 0',
   };
 
   const contenidoEstilo = {
-    marginLeft: '300px',
+    marginLeft: anchoVentana <= 768 ? '20px' : '300px', // Ancho del Sidebar
     marginRight: '20px',
     padding: '20px',
     textAlign: 'justify',
     fontSize: '20px',
-    //fontWeight: 'bold',
-    color: 'Black',
+    color: 'black',
   };
 
   const cuadroTextoEstilo = {
-    background: 'white', // Fondo blanco
-    borderRadius: '10px', // Bordes redondos
+    background: 'white',
+    borderRadius: '10px',
     padding: '20px',
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <Sidebar />
+    <div>
+      <div className={`Sidebar ocultar-sidebar`}>
+        {/* Contenido de la barra lateral */}
+        <Sidebar />
+      </div>
       <div style={contenidoEstilo}>
+      <div className="contenido-expandir">
         <div style={cuadroTextoEstilo}>
           <p  class="texto-ajustado" style={textoEstilo}>¿Que es la diabetes?</p>
           <p  class="texto-ajustado">
@@ -44,6 +62,7 @@ function Diabetes() {
           Tanto el número de casos como la prevalencia de diabetes han aumentado constantemente durante las últimas décadas [12].
           </p>
         </div>
+      </div>
       </div>
     </div>
   );
