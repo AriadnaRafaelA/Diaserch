@@ -540,6 +540,7 @@ const handleVerRutas3 = () => {
   window.open(url, '_blank');
 };
 
+
   return (
     <div>
       {/* Farmacia Guadalajara */}

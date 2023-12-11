@@ -88,10 +88,15 @@ function App() {
         <tbody>
           
         {medicinas.map((medicina, index) => {
-          const precioNumerico = parseFloat(medicina.precio.replace('.', '').replace(',', '.'));
-          const preciodNumerico = parseFloat(medicina.preciod.replace('.', '').replace(',', '.'));
-          
-          const descuento = precioNumerico - preciodNumerico;
+        // Suponiendo que medicina.precio y medicina.preciod son strings que representan valores monetarios
+        const quitarSimboloDolar = (valorMonetario) => {
+          return valorMonetario.replace('$', '');
+        };
+        
+        const precioNumerico = parseFloat(quitarSimboloDolar(medicina.precio).replace(',', '').replace('.', '').replace(',', '.'));
+        
+        const preciodNumerico = parseFloat(quitarSimboloDolar(medicina.preciod).replace(',', '').replace('.', '').replace(',', '.'));
+        const descuento = precioNumerico - preciodNumerico;
           const porcentajeDescuento = (descuento / precioNumerico) * 100;
           
 

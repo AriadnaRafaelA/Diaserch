@@ -60,7 +60,9 @@ body {
     transform: rotate(360deg);
   }
 }
-
+.sinBordes th, .sinBordes td {
+  border: none; /* Elimina los bordes de las celdas */
+}
 
   table {
     border-collapse: collapse; /* Para que los bordes se fusionen */
