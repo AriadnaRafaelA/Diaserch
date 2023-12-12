@@ -447,6 +447,7 @@ function App(props) {
   };
 
 
+
   let nombreFarmaciaCercana = '';
 
   const obtenerNombreFarmaciaMasCercana = () => {
@@ -537,6 +538,8 @@ function App(props) {
     
   };
 
+
+  
   const textoEstilo = {
     textAlign: 'center',
     fontSize: '48px',  // Tamaño de fuente más grande
@@ -556,7 +559,7 @@ function App(props) {
   };
 
   const contenidoEstilo = {
-    marginTop: '100px', // Agregar margen superior para separar del Navbar
+     marginTop: '120px', //Agregar margen superior para separar del Navbar
    
   };
 
@@ -582,6 +585,14 @@ function App(props) {
     fontSize: '24px', // Tamaño de fuente más grande
     borderRadius: '30px', // Hace que las esquinas sean redondeadas
     paddingLeft: '20px',
+  };
+
+  const areaConFondo = {
+    backgroundImage: 'url("./medicina.png")',
+     backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    /* Otras propiedades de fondo que desees agregar */
   };
 
   const tablaStyles = {
@@ -629,8 +640,7 @@ function App(props) {
     margindown: '5%',
     textAlign: 'left' 
   };
-  
-
+ 
   return (
     <Router>
       <div style={contenidoEstilo}>
@@ -647,6 +657,9 @@ function App(props) {
           <Route path="/Contacto.js" element={<Contacto />}  />
           <Route path="/Ofertas.js" element={<Ofertas />}  />
           <Route path="/" element={
+
+            
+            <div style={areaConFondo}>
               <div>
                 {/*<h6>Verificación de Conexión</h6>*/   }
                 <p style={textoEstilo}>A tu alcance</p>
@@ -676,13 +689,17 @@ function App(props) {
                   </button>
                 </div>
               )}
+            </div>
+
                 {conexionExitosa && medicinasEncontradas.length > 0 &&  (
                   <div>
                     {/*<p>Conexión exitosa con el servidor</p>*/  }
                     {medicinasEncontradas.length > 0 ? (
                       <div style={{ textAlign: 'center' }}>
-                        <button onClick={() => setMedicinasEncontradas([])}>Realizar otra busqueda</button>
 
+                        <div style={{  marginTop: '50px'}}>
+                        <button onClick={() => setMedicinasEncontradas([])}>Realizar otra busqueda </button>
+                        </div>
 
                         <div style={tablaStyles3}>
                           <div style={tablaStyles}>
@@ -691,20 +708,59 @@ function App(props) {
                               {medicinasEncontradas.map((medicina, index) => {
                                 if (medicina.farmacia === 'Farmacia Guadalajara') {
                                   return (
-                                    <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <div style={{ width: '20%', textAlign: 'left'  }}>
-                                      <p>{`${medicina.laboratorio}`}</p>
-                                    </div>
-                                    <div style={{ width: '40%', textAlign: 'left'  }}>
-                                      <p>{`${medicina.formula}`}</p>
-                                    </div>
-                                    <div style={{ width: '20%', textAlign: 'left'  }}>
-                                      <p>{`${medicina.presentacion}`}</p>
-                                    </div>
-                                    <div style={{ width: '10%', textAlign: 'left' }}>
-                                      <p>{`${medicina.precio}`}</p>
-                                    </div>
-                                  </div>
+                                    <div>
+                                      <div key={index} style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Nombre</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Formula</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Presentacion</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left' }}>
+                                          <p>Precio original</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Precio de descuento</p>
+                                        </div>
+                                        <div style={{ width: '10%', textAlign: 'left' }}>
+                                          <p>Comprar</p>
+                                        </div>
+                                      </div>
+                                      <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
+                                            <p>{`${medicina.laboratorio}`}</p>
+                                          </div>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
+                                            <p>{`${medicina.formula}`}</p>
+                                          </div>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
+                                            <p>{`${medicina.presentacion}`}</p>
+                                          </div>
+                                          <div style={{ width: '20%', textAlign: 'left' }}>
+                                            <p>{`${medicina.precio}`}</p>
+                                          </div>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
+                                            <p>{`${medicina.preciod}`}</p>
+                                          </div>
+                                          <div style={{ width: '10%', textAlign: 'left' }}>
+                                            
+                                            {/*<p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${medicina.formula.indexOf(' ')}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
+                                                <img
+                                                  src="./web.png"
+                                                  alt="Descripción de la imagen"
+                                                  style={{
+                                                    maxWidth: '50%', // Ajustar la imagen al ancho máximo del contenedor
+                                                    height: 'auto', // Mantener la relación de aspecto
+                                                    display: 'block' // Asegurar que la imagen ocupe todo el ancho disponible
+                                                  }}
+                                                />
+                                              </a></p>*/ }
+                                          </div>
+                                        </div>
+                                      </div>
                                   );
                                 }
                                 return null;
@@ -720,20 +776,59 @@ function App(props) {
                                 {medicinasEncontradas.map((medicina, index) => {
                                   if (medicina.farmacia === 'Farmacia San Pablo') {
                                     return (
+                                    <div>
+                                      <div key={index} style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Nombre</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Formula</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Presentacion</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left' }}>
+                                          <p>Precio original</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Precio de descuento</p>
+                                        </div>
+                                        <div style={{ width: '10%', textAlign: 'left' }}>
+                                          <p>Comprar</p>
+                                        </div>
+                                      </div>
                                       <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                      <div style={{ width: '20%', textAlign: 'left'  }}>
-                                        <p>{`${medicina.laboratorio}`}</p>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
+                                            <p>{`${medicina.laboratorio}`}</p>
+                                          </div>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
+                                            <p>{`${medicina.formula}`}</p>
+                                          </div>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
+                                            <p>{`${medicina.presentacion}`}</p>
+                                          </div>
+                                          <div style={{ width: '20%', textAlign: 'left' }}>
+                                            <p>{`${medicina.precio}`}</p>
+                                          </div>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
+                                            <p>{`${medicina.preciod}`}</p>
+                                          </div>
+                                          <div style={{ width: '10%', textAlign: 'left' }}>
+                                            
+                                              {/*<p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${medicina.formula.indexOf(' ')}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
+                                                <img
+                                                  src="./web.png"
+                                                  alt="Descripción de la imagen"
+                                                  style={{
+                                                    maxWidth: '50%', // Ajustar la imagen al ancho máximo del contenedor
+                                                    height: 'auto', // Mantener la relación de aspecto
+                                                    display: 'block' // Asegurar que la imagen ocupe todo el ancho disponible
+                                                  }}
+                                                />
+                                              </a></p>*/ }
+                                          </div>
+                                        </div>
                                       </div>
-                                      <div style={{ width: '40%', textAlign: 'left'  }}>
-                                        <p>{`${medicina.formula}`}</p>
-                                      </div>
-                                      <div style={{ width: '20%', textAlign: 'left'  }}>
-                                        <p>{`${medicina.presentacion}`}</p>
-                                      </div>
-                                      <div style={{ width: '10%', textAlign: 'left' }}>
-                                        <p>{`${medicina.precio}`}</p>
-                                      </div>
-                                    </div>
                                     );
                                   }
                                   return null;
@@ -749,20 +844,59 @@ function App(props) {
                                   {medicinasEncontradas.map((medicina, index) => {
                                     if (medicina.farmacia === 'Farmacia Benavides') {
                                       return (
-                                        <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <div>
+                                      <div key={index} style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Nombre</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Formula</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Presentacion</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left' }}>
+                                          <p>Precio original</p>
+                                        </div>
+                                        <div style={{ width: '20%', textAlign: 'left'  }}>
+                                          <p>Precio de descuento</p>
+                                        </div>
+                                        <div style={{ width: '10%', textAlign: 'left' }}>
+                                          <p>Comprar</p>
+                                        </div>
+                                      </div>
+                                      <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                           <div style={{ width: '20%', textAlign: 'left'  }}>
                                             <p>{`${medicina.laboratorio}`}</p>
                                           </div>
-                                          <div style={{ width: '40%', textAlign: 'left'  }}>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
                                             <p>{`${medicina.formula}`}</p>
                                           </div>
                                           <div style={{ width: '20%', textAlign: 'left'  }}>
                                             <p>{`${medicina.presentacion}`}</p>
                                           </div>
-                                          <div style={{ width: '10%', textAlign: 'left' }}>
+                                          <div style={{ width: '20%', textAlign: 'left' }}>
                                             <p>{`${medicina.precio}`}</p>
                                           </div>
+                                          <div style={{ width: '20%', textAlign: 'left'  }}>
+                                            <p>{`${medicina.preciod}`}</p>
+                                          </div>
+                                          <div style={{ width: '10%', textAlign: 'left' }}>
+                                            
+                                              {/*<p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${medicina.formula.indexOf(' ')}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
+                                                <img
+                                                  src="./web.png"
+                                                  alt="Descripción de la imagen"
+                                                  style={{
+                                                    maxWidth: '50%', // Ajustar la imagen al ancho máximo del contenedor
+                                                    height: 'auto', // Mantener la relación de aspecto
+                                                    display: 'block' // Asegurar que la imagen ocupe todo el ancho disponible
+                                                  }}
+                                                />
+                                              </a></p>*/ }
+                                          </div>
                                         </div>
+                                      </div>
                                       );
                                     }
                                     return null;

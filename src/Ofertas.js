@@ -40,7 +40,11 @@ function App() {
   
   };
 
- 
+  const tablaStyles = {
+    marginTop: '5%', // Corregir la propiedad marginTop
+  marginBottom: '5%', // Agregar marginBottom para centrar también verticalmente
+  textAlign: 'left',
+  };
   
   const textoEstilo2 = {
     textAlign: 'center',
@@ -74,7 +78,8 @@ function App() {
 
   const renderizarTabla = () => {
     return (
-      <table style={{ width: '100%', backgroundColor: 'white', borderCollapse: 'collapse' }}>
+    <div >  
+      <table style={{ width: '100%', justifyContent: 'center' ,backgroundColor: 'white', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
             <th>Laboratorio</th>
@@ -86,6 +91,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
+    
           
         {medicinas.map((medicina, index) => {
         // Suponiendo que medicina.precio y medicina.preciod son strings que representan valores monetarios
@@ -107,9 +113,9 @@ function App() {
                 <td>{medicina.formula}</td>
                 <td>{medicina.presentacion}</td>
                 <td>{medicina.precio}</td>
-                <td>{medicina.preciod}</td>
+                <td style={{ backgroundColor: '#ffcccc'}} >{medicina.preciod}</td>
                 <td>{medicina.farmacia}</td>
-                <td>Descuento: {porcentajeDescuento.toFixed(2)}%</td>
+                {/*<td>Descuento: {porcentajeDescuento.toFixed(2)}%</td>*/ }
               </tr>
             );
           } else {
@@ -122,12 +128,13 @@ function App() {
           
         </tbody>
       </table>
+      </div>
     );
   };
 
   return (
     <div style={{ marginTop: '100px', textAlign: 'center' }}>
-      <h1>Medicinas con diferencia entre precio y preciod distinta de cero:</h1>
+      <h1 style={{ color: 'white' }}>Medicinas con descuento</h1>
       {conexionExitosa ? renderizarTabla() : <p>{error || 'Error de conexión con el servidor'}</p>}
     </div>
   );

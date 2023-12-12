@@ -13,7 +13,8 @@ function Contacto(props) {
   };
 
   const farmaciaStyles = {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: '10px',
     marginRight: '20%',
     marginLeft: '20%',
