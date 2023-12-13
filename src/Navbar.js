@@ -33,46 +33,67 @@ function Navbar() {
   };
 
   const navbarStyle = {
-    backgroundColor: scrolled ? '#1EA0E2' : '#38B6FF', // Cambia al color que desees cuando hagas scroll y cuando no
+    backgroundColor: scrolled ? '#277FB3' : '#38B6FF', // Cambia al color que desees cuando hagas scroll y cuando no
     position: 'fixed', // Fija el Navbar en la parte superior
     top: '0',
     width: '100%',
     zIndex: '1000', // Añade una alta z-index para asegurarte de que esté en la parte superior
     transition: 'background-color 0.3s ease', // Agrega una transición para suavizar el cambio de color
+    height: '100px', // Definir la altura deseada para la barra de navegación
+    padding: '0', // Eliminar cualquier relleno
+    margin: '0', // Eliminar cualquier margen
+  };
 
+  const imgContainerStyle = {
+    width: '150px', // Ancho de la imagen
+    height: '100px', //'116px',  Alto de la imagen
+    margin: '0', // Eliminar cualquier margen
   };
+
   const imgStyle = {
-    borderTop: 'none', // Elimina el borde superior de la imagen
+    width: '100%', // Ajustar el ancho al 100% del contenedor
+    height: '100%', // Ajustar la altura al 100% del contenedor
+    objectFit: 'cover', // Escalar la imagen para cubrir todo el espacio disponible sin deformarla
+    borderTop: 'none', // Eliminar el borde superior de la imagen
     padding: '0',
+    transition: 'opacity 0.3s ease', // Agrega transición al cambiar la opacidad de la imagen
   };
+
   const centerNavStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: '30px',
     fontWeight: 'bold',
   };
-  
+
   const redirectToDiabetes = () => {
     window.location.href = '/Diabetes.js';
   };
+
   const redirectToArtTabla = () => {
     window.location.href = '/ArtTabla.js';
   };
+
   const redirectToTiposDD = () => {
     window.location.href = '/TiposDD.js';
   };
+
   const redirectToSintomas = () => {
     window.location.href = '/Sintomas.js';
   };
+
   const redirectToDiagnostico = () => {
     window.location.href = '/Diagnostico.js';
   };
 
   const [showArrows, setShowArrows] = useState(true);
+
   const toggleArrows = () => {
+
     setTimeout(() => {
       setShowArrows(!showArrows);
     }, 0);
+
   };
 
   const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
@@ -89,8 +110,8 @@ function Navbar() {
     };
   }, []);
 
-
   
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light" style={navbarStyle}>
        
@@ -147,17 +168,23 @@ function Navbar() {
         
       </div>
 
-      <div className="d-flex">
-      {anchoVentana > 768 && 
-            <img
-              src="/flechas3.png"
-              alt="Logo"
-              width="150"
-              height="100"
-              className="img-fluid"
-              style={imgStyle}
-            />
-          }
+      <div className="d-flex" style={imgContainerStyle}>
+        {anchoVentana > 768 && 
+            /* <img
+                src="/flechas3.png"
+                alt="Logo"
+                width="150"
+                height="100"
+                className="img-fluid"
+                style={imgStyle}
+              />*/
+          <img
+            src={scrolled ? '/flechas4.png' : '/flechas3.png'}
+            alt="Logo"
+            className="img-fluid"
+            style={imgStyle}
+          />
+        }
       </div>
 
     </nav>

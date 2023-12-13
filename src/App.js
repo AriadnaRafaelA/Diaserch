@@ -15,9 +15,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Map, GoogleApiWrapper, Marker, Polygon } from 'google-maps-react';
 
 
-
 function App(props) {
-//--------------------------------------------------------------------------------------------------------------------------
+//___________________________________________________________________
   const gustavoAMaderoCoordinates = [
       // Define aquí las coordenadas que representan los límites de la delegación Gustavo A. Madero
       { lat: 19.51796193683034, lng: -99.1629829966421},
@@ -94,308 +93,311 @@ function App(props) {
   
       // ... Agrega más puntos para completar el polígono que representa los límites...
     ];
-    const mapStyles = {
-      width: '100%',
-      height: '400px',
-      position: 'relative',
-      marginBottom: '15%',
-    };
-    const titleStyles = {
-      marginTop: '10px', // Ajusta el margen superior del título
-      textAlign: 'center',
-    };
-    const buttonStyles = {
-      marginTop: '3%', // Agrega un margen superior al botón de farmacia cercana para separarlo del mapa
-    };
-    const [userCoordinates, setUserCoordinates] = useState({ lat: null, lng: null });
-    const [userLocation, setUserLocation] = useState(null);
+  const mapStyles = {
+    width: '100%',
+    height: '400px',
+    position: 'relative',
+    marginBottom: '15%',
+  };
+  
+  const titleStyles = {
+    marginTop: '10px', // Ajusta el margen superior del título
+    textAlign: 'center',
+  };
 
-    useEffect(() => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            setUserLocation({ lat: latitude, lng: longitude });
-          },
-          (error) => {
-            console.error(`Error obteniendo la ubicación del usuario: ${error.message}`);
-          }
-        );
-      } else {
-        console.error('Geolocalización no es soportada por este navegador.');
-      }
-    }, []);
-  
-    const farmacias = useMemo(() => [
-      {
-        title: 'Farmacia 1',
-        position: {
-          lat: 19.557804757720046,
-          lng: -99.13472619929715,
+  const buttonStyles = {
+    marginTop: '3%', // Agrega un margen superior al botón de farmacia cercana para separarlo del mapa
+  };
+
+  const [userCoordinates, setUserCoordinates] = useState({ lat: null, lng: null });
+  const [userLocation, setUserLocation] = useState(null);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation({ lat: latitude, lng: longitude });
         },
-      },
-      {
-        title: 'Farmacia 2',
-        position: {
-          lat: 19.544052595388877,
-          lng: -99.14596681127203,
-        },
-      },
-      {
-        title: 'Farmacia 3',
-        position: {
-          lat: 19.540317347632964,
-          lng: -99.15354455538231,
-        },
-      },
-      {
-        title: 'Farmacia 4',
-        position: {
-          lat: 19.52605982230629,
-          lng: -99.15288197436556,
-        },
-      },
-      {
-        title: 'Farmacia 5',
-        position: {
-          lat: 19.511662371013756,
-          lng: -99.14042093752664,
-        },
-      },
-      {
-        title: 'Farmacia 6',
-        position: {
-          lat: 19.513305916639574,
-          lng: -99.13453810753077,
-        },
-      },
-      {
-        title: 'Farmacia 7',
-        position: {
-          lat: 19.50151981477475,
-          lng: -99.09593827140269,
-        },
-      },
-      {
-        title: 'Farmacia 8',
-        position: {
-          lat: 19.488394579943915,
-          lng: -99.10756048073203,
-        },
-      },
-      {
-        title: 'Farmacia 9',
-        position: {
-          lat: 19.483184660322387,
-          lng: -99.11955030634091,
-        },
-      },
-      {
-        title: 'Farmacia 10',
-        position: {
-          lat: 19.468793813457868,
-          lng: -99.12621981965374,
-        },
-      },
-    ],[]);
-  
-    const farmacias2 = useMemo(() => [
-      {
-        title: "Cuautepec",
-        position: { lat: 19.52296681356565, lng: -99.14148576089354 }
-      },
-      {
-        title: "Casma",
-        position: { lat: 19.49166260896163, lng: -99.1362576346612 }
-      },
-      {
-        title: "Montevideo",
-        position: { lat: 19.48829829204483, lng: -99.12611729968107 }
-      },
-      {
-        title: "La Villa",
-        position: { lat: 19.474622714702445, lng: -99.12157732982925 }
-      },
-      {
-        title: "Albino Corzo",
-        position: { lat: 19.463575145774783, lng: -99.1108678110531 }
-      },
-      {
-        title: "Eduardo Molina",
-        position: { lat: 19.497258555853612, lng: -99.09065645913292 }
-      },
-      {
-        title: "San Felipe",
-        position: { lat: 19.492312510159614, lng: -99.07462917542122 }
-      }
-    ],[]);
-  
-    const farmacias3 = useMemo(() => [
-      {
-        title: "Vallejo", // Nombre del marcador
-        position: {
-          lat: 19.503462189356853, 
-          lng: -99.15700256777534,
+        (error) => {
+          console.error(`Error obteniendo la ubicación del usuario: ${error.message}`);
         }
+      );
+    } else {
+      console.error('Geolocalización no es soportada por este navegador.');
+    }
+  }, []);
+
+  const farmacias = useMemo(() => [
+    {
+      title: 'Farmacia 1',
+      position: {
+        lat: 19.557804757720046,
+        lng: -99.13472619929715,
       },
-     
-    ],[]);
-  
-  
-    const handleUpdateLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            const userLocation = { lat: latitude, lng: longitude };
-    
-            // Actualizar las coordenadas del usuario en el estado
-            setUserLocation(userLocation);
-    
-            // Calcular la distancia para cada farmacia en farmacias
-            const distances = farmacias.map((farmacia) => {
-              const distance = calculateDistance(userLocation, farmacia.position);
-              return { nombre: farmacia.title, distancia: distance };
-            });
-    
-            // Calcular la distancia para cada farmacia en farmacias2
-            const distances2 = farmacias2.map((farmacia) => {
-              const distance = calculateDistance(userLocation, farmacia.position);
-              return { nombre: farmacia.title, distancia: distance };
-            });
-  
-            // Calcular la distancia para cada farmacia en farmacias3
-            const distances3 = farmacias3.map((farmacia) => {
-              const distance = calculateDistance(userLocation, farmacia.position);
-              return { nombre: farmacia.title, distancia: distance };
-            });
-    
-            // Guardar las distancias en el estado
-            setDistancias(distances);
-            setDistancias2(distances2);
-            setDistancias2(distances3);
-    
-            // Encontrar la farmacia más cercana en farmacias
-            const closestPharmacy = farmacias.reduce((prev, current) =>
-              calculateDistance(userLocation, prev.position) < calculateDistance(userLocation, current.position) ? prev : current
-            );
-    
-            // Encontrar la farmacia más cercana en farmacias2
-            const closestPharmacy2 = farmacias2.reduce((prev, current) =>
-              calculateDistance(userLocation, prev.position) < calculateDistance(userLocation, current.position) ? prev : current
-            );
-  
-            // Encontrar la farmacia más cercana en farmacias3
-            const closestPharmacy3 = farmacias3.reduce((prev, current) =>
-              calculateDistance(userLocation, prev.position) < calculateDistance(userLocation, current.position) ? prev : current
-            );
-    
-            // Mostrar las coordenadas de la farmacia más cercana en farmacias y farmacias2
-            setNearestPharmacyCoordinates({
-              lat: closestPharmacy.position.lat,
-              lng: closestPharmacy.position.lng,
-            });
-    
-            setNearestPharmacyCoordinates2({
-              lat: closestPharmacy2.position.lat,
-              lng: closestPharmacy2.position.lng,
-            });
-  
-            setNearestPharmacyCoordinates3({
-              lat: closestPharmacy3.position.lat,
-              lng: closestPharmacy3.position.lng,
-            });
-    
-            // Actualizar las coordenadas del usuario en el estado para mostrarlas
-            setUserCoordinates({ lat: latitude, lng: longitude });
-          },
-          (error) => {
-            console.error(`Error getting user location: ${error.message}`);
-          }
-        );
-      } else {
-        console.error('Geolocation is not supported by this browser.');
+    },
+    {
+      title: 'Farmacia 2',
+      position: {
+        lat: 19.544052595388877,
+        lng: -99.14596681127203,
+      },
+    },
+    {
+      title: 'Farmacia 3',
+      position: {
+        lat: 19.540317347632964,
+        lng: -99.15354455538231,
+      },
+    },
+    {
+      title: 'Farmacia 4',
+      position: {
+        lat: 19.52605982230629,
+        lng: -99.15288197436556,
+      },
+    },
+    {
+      title: 'Farmacia 5',
+      position: {
+        lat: 19.511662371013756,
+        lng: -99.14042093752664,
+      },
+    },
+    {
+      title: 'Farmacia 6',
+      position: {
+        lat: 19.513305916639574,
+        lng: -99.13453810753077,
+      },
+    },
+    {
+      title: 'Farmacia 7',
+      position: {
+        lat: 19.50151981477475,
+        lng: -99.09593827140269,
+      },
+    },
+    {
+      title: 'Farmacia 8',
+      position: {
+        lat: 19.488394579943915,
+        lng: -99.10756048073203,
+      },
+    },
+    {
+      title: 'Farmacia 9',
+      position: {
+        lat: 19.483184660322387,
+        lng: -99.11955030634091,
+      },
+    },
+    {
+      title: 'Farmacia 10',
+      position: {
+        lat: 19.468793813457868,
+        lng: -99.12621981965374,
+      },
+    },
+  ],[]);
+
+  const farmacias2 = useMemo(() => [
+    {
+      title: "Cuautepec",
+      position: { lat: 19.52296681356565, lng: -99.14148576089354 }
+    },
+    {
+      title: "Casma",
+      position: { lat: 19.49166260896163, lng: -99.1362576346612 }
+    },
+    {
+      title: "Montevideo",
+      position: { lat: 19.48829829204483, lng: -99.12611729968107 }
+    },
+    {
+      title: "La Villa",
+      position: { lat: 19.474622714702445, lng: -99.12157732982925 }
+    },
+    {
+      title: "Albino Corzo",
+      position: { lat: 19.463575145774783, lng: -99.1108678110531 }
+    },
+    {
+      title: "Eduardo Molina",
+      position: { lat: 19.497258555853612, lng: -99.09065645913292 }
+    },
+    {
+      title: "San Felipe",
+      position: { lat: 19.492312510159614, lng: -99.07462917542122 }
+    }
+  ],[]);
+
+  const farmacias3 = useMemo(() => [
+    {
+      title: "Vallejo", // Nombre del marcador
+      position: {
+        lat: 19.503462189356853, 
+        lng: -99.15700256777534,
       }
-    };
+    },
     
-    const calculateDistance = (locationA, locationB) => {
-      const R = 6371; // Radio de la Tierra en kilómetros
-      const dLat = (locationB.lat - locationA.lat) * (Math.PI / 180);
-      const dLon = (locationB.lng - locationA.lng) * (Math.PI / 180);
-      const lat1 = locationA.lat * (Math.PI / 180);
-      const lat2 = locationB.lat * (Math.PI / 180);
-    
-      const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      const distance = R * c; // Distancia en kilómetros
-    
-      return distance.toFixed(2); // Redondear a 2 decimales
-    };
+  ],[]);
+
+
+  const handleUpdateLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const userLocation = { lat: latitude, lng: longitude };
   
-    const [distancias, setDistancias] = useState([]);
-    const [nearestPharmacyCoordinates, setNearestPharmacyCoordinates] = useState(null);
-   
-    useEffect(() => {
-      if (userLocation) {
-        const distances = farmacias.map((farmacia) => {
-          const distance = calculateDistance(userLocation, farmacia.position);
-          return { nombre: farmacia.title, distancia: distance };
-        });
-    
-        // Encontrar la farmacia más cercana
-        const farmaciaMasCercana = distances.reduce((prev, current) =>
-          parseFloat(prev.distancia) < parseFloat(current.distancia) ? prev : current
-        );
-    
-        setDistancias(distances);
-    
-        // Mostrar la farmacia más cercana en el mapa
-        const farmaciaCercana = farmacias.find(
-          (farmacia) => farmacia.title === farmaciaMasCercana.nombre
-        );
-    
-        if (farmaciaCercana) {
+          // Actualizar las coordenadas del usuario en el estado
+          setUserLocation(userLocation);
+  
+          // Calcular la distancia para cada farmacia en farmacias
+          const distances = farmacias.map((farmacia) => {
+            const distance = calculateDistance(userLocation, farmacia.position);
+            return { nombre: farmacia.title, distancia: distance };
+          });
+  
+          // Calcular la distancia para cada farmacia en farmacias2
+          const distances2 = farmacias2.map((farmacia) => {
+            const distance = calculateDistance(userLocation, farmacia.position);
+            return { nombre: farmacia.title, distancia: distance };
+          });
+
+          // Calcular la distancia para cada farmacia en farmacias3
+          const distances3 = farmacias3.map((farmacia) => {
+            const distance = calculateDistance(userLocation, farmacia.position);
+            return { nombre: farmacia.title, distancia: distance };
+          });
+  
+          // Guardar las distancias en el estado
+          setDistancias(distances);
+          setDistancias2(distances2);
+          setDistancias2(distances3);
+  
+          // Encontrar la farmacia más cercana en farmacias
+          const closestPharmacy = farmacias.reduce((prev, current) =>
+            calculateDistance(userLocation, prev.position) < calculateDistance(userLocation, current.position) ? prev : current
+          );
+  
+          // Encontrar la farmacia más cercana en farmacias2
+          const closestPharmacy2 = farmacias2.reduce((prev, current) =>
+            calculateDistance(userLocation, prev.position) < calculateDistance(userLocation, current.position) ? prev : current
+          );
+
+          // Encontrar la farmacia más cercana en farmacias3
+          const closestPharmacy3 = farmacias3.reduce((prev, current) =>
+            calculateDistance(userLocation, prev.position) < calculateDistance(userLocation, current.position) ? prev : current
+          );
+  
+          // Mostrar las coordenadas de la farmacia más cercana en farmacias y farmacias2
           setNearestPharmacyCoordinates({
-            lat: farmaciaCercana.position.lat,
-            lng: farmaciaCercana.position.lng,
+            lat: closestPharmacy.position.lat,
+            lng: closestPharmacy.position.lng,
           });
-        }
-      }
-    }, [userLocation, farmacias]);
   
-  
-    const [distancias2, setDistancias2] = useState([]);
-    const [nearestPharmacyCoordinates2, setNearestPharmacyCoordinates2] = useState(null);
-  
-    useEffect(() => {
-      if (userLocation) {
-        const distances2 = farmacias2.map((farmacia) => {
-          const distance = calculateDistance(userLocation, farmacia.position);
-          return { nombre: farmacia.title, distancia: distance };
-        });
-    
-        const farmaciaMasCercana2 = distances2.reduce((prev, current) =>
-          parseFloat(prev.distancia) < parseFloat(current.distancia) ? prev : current
-        );
-    
-        setDistancias2(distances2);
-    
-        const farmaciaCercana2 = farmacias2.find(
-          (farmacia) => farmacia.title === farmaciaMasCercana2.nombre
-        );
-    
-        if (farmaciaCercana2) {
           setNearestPharmacyCoordinates2({
-            lat: farmaciaCercana2.position.lat,
-            lng: farmaciaCercana2.position.lng,
+            lat: closestPharmacy2.position.lat,
+            lng: closestPharmacy2.position.lng,
           });
-        }
-      }
-    }, [userLocation, farmacias2]);
+
+          setNearestPharmacyCoordinates3({
+            lat: closestPharmacy3.position.lat,
+            lng: closestPharmacy3.position.lng,
+          });
   
+          // Actualizar las coordenadas del usuario en el estado para mostrarlas
+          setUserCoordinates({ lat: latitude, lng: longitude });
+        },
+        (error) => {
+          console.error(`Error getting user location: ${error.message}`);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  };
+  
+  const calculateDistance = (locationA, locationB) => {
+    const R = 6371; // Radio de la Tierra en kilómetros
+    const dLat = (locationB.lat - locationA.lat) * (Math.PI / 180);
+    const dLon = (locationB.lng - locationA.lng) * (Math.PI / 180);
+    const lat1 = locationA.lat * (Math.PI / 180);
+    const lat2 = locationB.lat * (Math.PI / 180);
+  
+    const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distancia en kilómetros
+  
+    return distance.toFixed(2); // Redondear a 2 decimales
+  };
+
+  const [distancias, setDistancias] = useState([]);
+  const [nearestPharmacyCoordinates, setNearestPharmacyCoordinates] = useState(null);
+  
+  useEffect(() => {
+    if (userLocation) {
+      const distances = farmacias.map((farmacia) => {
+        const distance = calculateDistance(userLocation, farmacia.position);
+        return { nombre: farmacia.title, distancia: distance };
+      });
+  
+      // Encontrar la farmacia más cercana
+      const farmaciaMasCercana = distances.reduce((prev, current) =>
+        parseFloat(prev.distancia) < parseFloat(current.distancia) ? prev : current
+      );
+  
+      setDistancias(distances);
+  
+      // Mostrar la farmacia más cercana en el mapa
+      const farmaciaCercana = farmacias.find(
+        (farmacia) => farmacia.title === farmaciaMasCercana.nombre
+      );
+  
+      if (farmaciaCercana) {
+        setNearestPharmacyCoordinates({
+          lat: farmaciaCercana.position.lat,
+          lng: farmaciaCercana.position.lng,
+        });
+      }
+    }
+  }, [userLocation, farmacias]);
+
+
+  const [distancias2, setDistancias2] = useState([]);
+  const [nearestPharmacyCoordinates2, setNearestPharmacyCoordinates2] = useState(null);
+
+  useEffect(() => {
+    if (userLocation) {
+      const distances2 = farmacias2.map((farmacia) => {
+        const distance = calculateDistance(userLocation, farmacia.position);
+        return { nombre: farmacia.title, distancia: distance };
+      });
+  
+      const farmaciaMasCercana2 = distances2.reduce((prev, current) =>
+        parseFloat(prev.distancia) < parseFloat(current.distancia) ? prev : current
+      );
+  
+      setDistancias2(distances2);
+  
+      const farmaciaCercana2 = farmacias2.find(
+        (farmacia) => farmacia.title === farmaciaMasCercana2.nombre
+      );
+  
+      if (farmaciaCercana2) {
+        setNearestPharmacyCoordinates2({
+          lat: farmaciaCercana2.position.lat,
+          lng: farmaciaCercana2.position.lng,
+        });
+      }
+    }
+  }, [userLocation, farmacias2]);
+
   const [distancias3, setDistancias3] = useState([]);
   const [nearestPharmacyCoordinates3, setNearestPharmacyCoordinates3] = useState(null);
   
@@ -445,8 +447,6 @@ function App(props) {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${latitud3},${longitud3}`;
     window.open(url, '_blank');
   };
-
-
 
   let nombreFarmaciaCercana = '';
 
@@ -510,11 +510,8 @@ function App(props) {
         setConexionExitosa(false);
       }
     }
-    
-
     verificarConexion();
   }, []);
-
 
   const [medicinasEncontradas, setMedicinasEncontradas] = useState([]);
   /*const buscarPorNombre = () => {
@@ -534,12 +531,8 @@ function App(props) {
       (medicina) => medicina.laboratorio.toLowerCase().startsWith(nombreBuscado.toLowerCase())
     );
     setMedicinasEncontradas(medicinasEncontradas);
-
-    
   };
 
-
-  
   const textoEstilo = {
     textAlign: 'center',
     fontSize: '48px',  // Tamaño de fuente más grande
@@ -566,13 +559,15 @@ function App(props) {
   const buscadorEstilo = {
     textAlign: 'center',
     marginTop: '70px', // Agregar margen superior para separar del texto
-   
+    position: 'relative',
   };
+
   const texto = {
     textAlign: 'center',
     marginTop: '10px', // Agregar margen superior para separar del texto
    
   };
+
   const texto2 = {
 
     marginTop: '10px', // Agregar margen superior para separar del texto
@@ -588,7 +583,7 @@ function App(props) {
   };
 
   const areaConFondo = {
-    backgroundImage: 'url("./medicina.png")',
+   // backgroundImage: 'url("./medicina.png")',
      backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -640,6 +635,75 @@ function App(props) {
     margindown: '5%',
     textAlign: 'left' 
   };
+//___________________________________________________________________
+
+  // Agregar estado para el índice de la sugerencia sobre la que está el cursor
+  const [indiceHover, setIndiceHover] = useState(-1);
+  const [sugerencias, setSugerencias] = useState([]);
+
+  const medicines = [
+    "Paracetamol",
+    "Ibuprofeno",
+    "Amoxicilina",
+    "Omeprazol",
+    // Agrega más nombres de medicinas aquí
+  ];
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    setNombreBuscado(inputValue);
+  
+    // Filtrar sugerencias basadas en el valor ingresado
+    if (inputValue === '') {
+      setSugerencias([]);
+    } else {
+      const filteredMedicines = medicinas.filter(medicina =>
+        medicina.laboratorio.toLowerCase().startsWith(inputValue.toLowerCase())
+      );
+  
+      // Ordenar las sugerencias alfabéticamente
+      filteredMedicines.sort((a, b) => {
+        const labA = a.laboratorio.toLowerCase();
+        const labB = b.laboratorio.toLowerCase();
+        if (labA < labB) return -1;
+        if (labA > labB) return 1;
+        return 0;
+      });
+  
+      const suggestedMedicines = filteredMedicines.map(medicina => medicina.laboratorio);
+
+      // Si no hay sugerencias después de filtrar, mostrar el mensaje de no encontrado
+      if (suggestedMedicines.length === 0) {
+        setSugerencias(['No se encontró esa medicina']);
+      } else {
+        setSugerencias(suggestedMedicines);
+      }
+    }
+  };
+
+  const limpiarBusqueda = () => {
+    setNombreBuscado('');
+    setSugerencias([]);
+  };
+
+  const autocompletar = (sugerencia) => {
+    setNombreBuscado(sugerencia);
+    setSugerencias([]);
+  };
+
+   const suggestionBoxStyle = {
+    width: '50%', // Ancho del cuadro de sugerencias
+    margin: '0 auto', // Centrar horizontalmente
+    backgroundColor: '#fff',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    position: 'absolute',
+    zIndex: '1',
+    top: '80px', // Ajuste según sea necesario para la posición vertical
+    left: '25%', // Ajuste según sea necesario para la posición horizontal
+    maxHeight: '30vh', // Altura máxima del 50% del viewport
+    overflowY: 'auto', // Agregar scroll si es necesario
+  };
  
   return (
     <Router>
@@ -676,17 +740,39 @@ function App(props) {
                     type="text"
                     placeholder="Buscar por nombre"
                     value={nombreBuscado}
-                    onChange={(e) => setNombreBuscado(e.target.value)}
+                    onChange={handleInputChange}
                     style={inputEstilo}
                   />
-                  {nombreBuscado && (
-                    <button className="clear-button" onClick={() => setNombreBuscado('')}>
-                      <FontAwesomeIcon icon={faTimes} />
-                    </button>
-                  )}
                   <button className="search-button" onClick={buscarPorNombre}>
                     <FontAwesomeIcon icon={faSearch} />
                   </button>
+                  {nombreBuscado && (
+                    <button className="clear-button" onClick={limpiarBusqueda}>
+                      <FontAwesomeIcon icon={faTimes} />
+                    </button>
+                  )}
+
+                  {/* Cuadro de sugerencias */}
+                  {sugerencias.length > 0 && (
+                    <div style={suggestionBoxStyle}>
+                      <ul style={{ listStyleType: 'none', padding: '0' }}>
+                        {sugerencias.map((sugerencia, index) => (
+                          <li key={index} onClick={() => autocompletar(sugerencia)} 
+                          onMouseEnter={() => setIndiceHover(index)} // Establecer el índice al pasar el cursor
+                          onMouseLeave={() => setIndiceHover(-1)}    // Reiniciar el índice al salir el cursor
+                          style={{
+                            padding: '8px',
+                            cursor: 'pointer',
+                            backgroundColor: indiceHover === index ? '#277FB3' : 'inherit', // Cambiar el color al pasar el cursor
+                            color: indiceHover === index ? '#fff' : 'inherit',          // Cambiar el color del texto al pasar el cursor
+                          }}>
+                            
+                            {sugerencia}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -901,7 +987,7 @@ function App(props) {
                                     }
                                     return null;
                                   })}
-                                  <hr style={{ borderTop: '2px solid blue', width: '100%', margin: '10px 0', marginTop: '3%' }} />
+                                  
                                   {!medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Benavides') && (
                                     <p>Esta farmacia no cuenta con este medicamento</p>
                                   )}
@@ -949,7 +1035,7 @@ function App(props) {
                                 />
                               )}
 
-                            {medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && nearestPharmacyCoordinates2 && (
+                              {medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && nearestPharmacyCoordinates2 && (
                               <Marker
                                 title="Farmaia San pablo"
                                   position={{
