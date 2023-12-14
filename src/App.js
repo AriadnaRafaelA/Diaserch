@@ -535,7 +535,8 @@ function App(props) {
 
   const textoEstilo = {
     textAlign: 'center',
-    fontSize: '48px',  // Tamaño de fuente más grande
+    fontSize: '8vh',
+    //fontSize: '48px',  // Tamaño de fuente más grande
     //fontWeight: 'bold',
     color: 'white',   // Color blanco
     margin: '10px 0',
@@ -544,7 +545,8 @@ function App(props) {
   
   const textoEstilo2 = {
     textAlign: 'center',
-    fontSize: '100px',  // Tamaño de fuente más grande
+    //fontSize: '100px',
+    fontSize: '9vh',  // Tamaño de fuente más grande
     fontWeight: 'bold',
     color: 'white',   // Color blanco
     margin: '10px 0',
@@ -552,13 +554,14 @@ function App(props) {
   };
 
   const contenidoEstilo = {
-     marginTop: '120px', //Agregar margen superior para separar del Navbar
+    paddingTop: '8%',//Agregar margen superior para separar del Navbar
    
   };
 
   const buscadorEstilo = {
     textAlign: 'center',
-    marginTop: '70px', // Agregar margen superior para separar del texto
+   // marginTop: '70px',  Agregar margen superior para separar del texto
+    marginTop: '9VH',
     position: 'relative',
   };
 
@@ -567,18 +570,13 @@ function App(props) {
     marginTop: '10px', // Agregar margen superior para separar del texto
    
   };
-
-  const texto2 = {
-
-    marginTop: '10px', // Agregar margen superior para separar del texto
-   
-  };
-
+  
   const inputEstilo = {
     width: '50%', // Ocupar todo el ancho disponible
     height: '60px', // Altura más grande
-    fontSize: '24px', // Tamaño de fuente más grande
-    borderRadius: '30px', // Hace que las esquinas sean redondeadas
+     //fontSize: '24px', Tamaño de fuente más grande
+     fontSize: '2.5VH',
+     borderRadius: '30px', // Hace que las esquinas sean redondeadas
     paddingLeft: '20px',
   };
 
@@ -592,7 +590,6 @@ function App(props) {
 
   const tablaStyles = {
     backgroundColor: '#FFFFFF',
-  
   borderRadius: '10px',
   // padding: '20px', Espaciado interno
   boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', // Sombra para el efecto de elevación
@@ -628,9 +625,9 @@ function App(props) {
     // padding: '20px', Espaciado interno
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', // Sombra para el efecto de elevación
     margin: 'auto', // Para centrar horizontalmente
-    width: '80%', // Anchura máxima para el contenido de la tabla
-    border: '1px solid #ccc', // Borde con color gris
-    padding: '20px', // Espaciado interno
+    width: '95%', // Anchura máxima para el contenido de la tabla
+ 
+    padding: '0.5%', // Espaciado interno
     marginTop: '5%',
     margindown: '5%',
     textAlign: 'left' 
@@ -640,14 +637,6 @@ function App(props) {
   // Agregar estado para el índice de la sugerencia sobre la que está el cursor
   const [indiceHover, setIndiceHover] = useState(-1);
   const [sugerencias, setSugerencias] = useState([]);
-
-  const medicines = [
-    "Paracetamol",
-    "Ibuprofeno",
-    "Amoxicilina",
-    "Omeprazol",
-    // Agrega más nombres de medicinas aquí
-  ];
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
@@ -700,16 +689,100 @@ function App(props) {
     position: 'absolute',
     zIndex: '1',
     top: '80px', // Ajuste según sea necesario para la posición vertical
-    left: '25%', // Ajuste según sea necesario para la posición horizontal
-    maxHeight: '30vh', // Altura máxima del 50% del viewport
+    left: '23%', // Ajuste según sea necesario para la posición horizontal
+    maxHeight: '26vh', // Altura máxima del 50% del viewport
     overflowY: 'auto', // Agregar scroll si es necesario
   };
+
+  const borderStyle = {
+    width: '100%',
+    margin: '10px 0',
+    marginTop: '3%',
+    borderTop: '2px solid #277FB3',
+  };
+  const borderStyle2 = {
+   display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
+    borderTop: '2px solid #277FB3',
+  };
+
+  const texto1 = {
+    fontSize: '2vh', 
+   
+  };
+  //---------------------------------------------------------------------------------
+  
+
+  const FarmaciaComponent = ({ farmaciaNombre, medicinas }) => ( 
+    <div style={texto1}>
+     
+      {/* Estructura común de la tabla */}
+      <div style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <div style={{ width: '20%', textAlign: 'left' }}>
+          <p>Nombre</p>
+        </div>
+        <div style={{ width: '25%', textAlign: 'left' }}>
+          <p>Formula</p>
+        </div>
+        <div style={{ width: '25%', textAlign: 'left' }}>
+          <p>Presentación</p>
+        </div>
+        <div style={{ width: '15%', textAlign: 'left' }}>
+          <p>Precio original</p>
+        </div>
+        <div style={{ width: '15%', textAlign: 'left' }}>
+          <p>Precio de descuento</p>
+        </div>
+        {/*<div style={{ width: '10%', textAlign: 'left' }}>
+          <p>Comprar</p>
+        </div>*/}
+      </div>
+  
+      {/* Map para mostrar medicamentos específicos para esta farmacia */}
+      {medicinas.map((medicina, index) => (
+        <div key={index} style={borderStyle2}>
+          <div style={{ width: '20%', textAlign: 'left' }}>
+            <p>{`${medicina.laboratorio}`}</p>
+          </div>
+          <div style={{ width: '25%', textAlign: 'left' }}>
+            <p>{`${medicina.formula}`}</p>
+          </div>
+          <div style={{ width: '25%', textAlign: 'left' }}>
+            <p>{`${medicina.presentacion}`}</p>
+          </div>
+          <div style={{ width: '15%', textAlign: 'left' }}>
+            <p>{`${medicina.precio}`}</p>
+          </div>
+          <div style={{ width: '15%', textAlign: 'left' }}>
+            <p>{`${medicina.preciod}`}</p>
+          </div>
+          {/*<div style={{ width: '10%', textAlign: 'left' }}>
+            <p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${medicina.formula.indexOf(' ')}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
+              <img
+                src="./web.png"
+                alt="Descripción de la imagen"
+                style={{
+                  maxWidth: '50%', // Ajustar la imagen al ancho máximo del contenedor
+                  height: 'auto', // Mantener la relación de aspecto
+                  display: 'block' // Asegurar que la imagen ocupe todo el ancho disponible
+                }}
+              />
+            </a></p>
+          </div>*/ }
+        </div>
+      ))}
+  
+      {/* Mensaje en caso de que no haya medicamentos */}
+      {!medicinas.length && <p>Esta farmacia no cuenta con este medicamento</p>}
+    </div>
+  );
  
   return (
     <Router>
-      <div style={contenidoEstilo}>
+      
         <Navbar />
-        
+        <div style={contenidoEstilo}>
         <Routes>
           
           <Route path="/conocenos.js" element={<Conocenos /> } />
@@ -790,209 +863,32 @@ function App(props) {
                         <div style={tablaStyles3}>
                           <div style={tablaStyles}>
                             <div>
-                              <h3><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markv" /> Farmacia Guadalajara</h3>
-                              {medicinasEncontradas.map((medicina, index) => {
-                                if (medicina.farmacia === 'Farmacia Guadalajara') {
-                                  return (
-                                    <div>
-                                      <div key={index} style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Nombre</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Formula</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Presentacion</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left' }}>
-                                          <p>Precio original</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Precio de descuento</p>
-                                        </div>
-                                        <div style={{ width: '10%', textAlign: 'left' }}>
-                                          <p>Comprar</p>
-                                        </div>
-                                      </div>
-                                      <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.laboratorio}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.formula}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.presentacion}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left' }}>
-                                            <p>{`${medicina.precio}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.preciod}`}</p>
-                                          </div>
-                                          <div style={{ width: '10%', textAlign: 'left' }}>
-                                            
-                                            {/*<p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${medicina.formula.indexOf(' ')}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
-                                                <img
-                                                  src="./web.png"
-                                                  alt="Descripción de la imagen"
-                                                  style={{
-                                                    maxWidth: '50%', // Ajustar la imagen al ancho máximo del contenedor
-                                                    height: 'auto', // Mantener la relación de aspecto
-                                                    display: 'block' // Asegurar que la imagen ocupe todo el ancho disponible
-                                                  }}
-                                                />
-                                              </a></p>*/ }
-                                          </div>
-                                        </div>
-                                      </div>
-                                  );
-                                }
-                                return null;
-                              })}
-                              {!medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Guadalajara') && (
-                                <p>Esta farmacia no cuenta con este medicamento</p>
-                              )}
+                           
+                            {/* <hr style={{ borderTop: '2px solid blue', width: '100%', margin: '10px 0', marginTop: '3%' }} />*/  }
+                            <h3 style={borderStyle} ><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
+                              <FarmaciaComponent
+                                farmaciaNombre="Farmacia Guadalajara"
+                                medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia Guadalajara')}
+                              />
                             </div>
 
                             <div>
-                              <hr style={{ borderTop: '2px solid blue', width: '100%', margin: '10px 0', marginTop: '3%' }} />
-                                <h3><img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
-                                {medicinasEncontradas.map((medicina, index) => {
-                                  if (medicina.farmacia === 'Farmacia San Pablo') {
-                                    return (
-                                    <div>
-                                      <div key={index} style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Nombre</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Formula</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Presentacion</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left' }}>
-                                          <p>Precio original</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Precio de descuento</p>
-                                        </div>
-                                        <div style={{ width: '10%', textAlign: 'left' }}>
-                                          <p>Comprar</p>
-                                        </div>
-                                      </div>
-                                      <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.laboratorio}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.formula}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.presentacion}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left' }}>
-                                            <p>{`${medicina.precio}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.preciod}`}</p>
-                                          </div>
-                                          <div style={{ width: '10%', textAlign: 'left' }}>
-                                            
-                                              {/*<p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${medicina.formula.indexOf(' ')}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
-                                                <img
-                                                  src="./web.png"
-                                                  alt="Descripción de la imagen"
-                                                  style={{
-                                                    maxWidth: '50%', // Ajustar la imagen al ancho máximo del contenedor
-                                                    height: 'auto', // Mantener la relación de aspecto
-                                                    display: 'block' // Asegurar que la imagen ocupe todo el ancho disponible
-                                                  }}
-                                                />
-                                              </a></p>*/ }
-                                          </div>
-                                        </div>
-                                      </div>
-                                    );
-                                  }
-                                  return null;
-                                })}
-                                {!medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && (
-                                  <p>Esta farmacia no cuenta con este medicamento</p>
-                                )}
-                              </div>
-        
-                              <div >
-                                <hr style={{ borderTop: '2px solid blue', width: '100%', margin: '10px 0', marginTop: '3%' }} />
-                                  <h3  ><img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Marko" />Farmacia Benavides</h3>
-                                  {medicinasEncontradas.map((medicina, index) => {
-                                    if (medicina.farmacia === 'Farmacia Benavides') {
-                                      return (
-                                        <div>
-                                      <div key={index} style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Nombre</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Formula</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Presentacion</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left' }}>
-                                          <p>Precio original</p>
-                                        </div>
-                                        <div style={{ width: '20%', textAlign: 'left'  }}>
-                                          <p>Precio de descuento</p>
-                                        </div>
-                                        <div style={{ width: '10%', textAlign: 'left' }}>
-                                          <p>Comprar</p>
-                                        </div>
-                                      </div>
-                                      <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.laboratorio}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.formula}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.presentacion}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left' }}>
-                                            <p>{`${medicina.precio}`}</p>
-                                          </div>
-                                          <div style={{ width: '20%', textAlign: 'left'  }}>
-                                            <p>{`${medicina.preciod}`}</p>
-                                          </div>
-                                          <div style={{ width: '10%', textAlign: 'left' }}>
-                                            
-                                              {/*<p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${medicina.formula.indexOf(' ')}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
-                                                <img
-                                                  src="./web.png"
-                                                  alt="Descripción de la imagen"
-                                                  style={{
-                                                    maxWidth: '50%', // Ajustar la imagen al ancho máximo del contenedor
-                                                    height: 'auto', // Mantener la relación de aspecto
-                                                    display: 'block' // Asegurar que la imagen ocupe todo el ancho disponible
-                                                  }}
-                                                />
-                                              </a></p>*/ }
-                                          </div>
-                                        </div>
-                                      </div>
-                                      );
-                                    }
-                                    return null;
-                                  })}
-                                  
-                                  {!medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Benavides') && (
-                                    <p>Esta farmacia no cuenta con este medicamento</p>
-                                  )}
-                              </div>
+                            <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
+                              <FarmaciaComponent
+                                farmaciaNombre="Farmacia San Pablo"
+                                medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia San Pablo')}
+                              />
                             </div>
+                            
+                            <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Markr" /> Farmacia Benavides</h3>
+                              <FarmaciaComponent
+                                farmaciaNombre="Farmacia Benavides"
+                                medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia Benavides')}
+                              />
+                              <div >
+                                
+                            </div>
+                          </div>
 
                             <div style={tablaStyles2}>
                             {/* Secciones para otras farmacias aquí */}

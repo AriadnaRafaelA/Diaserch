@@ -62,8 +62,7 @@ function conocenos() {
             <h3>¿Cómo Ayudamos?:</h3>
             <p>Ponemos a tu disposición una plataforma intuitiva que te permite buscar tus medicamentos en farmacias de renombre como San Pablo, Guadalajara y Benavides. Trabajamos con información directamente proveniente de fuentes oficiales para garantizar la precisión y confiabilidad de los datos que compartimos.</p>
 
-            <h3>Apoyo a la Comunidad:</h3>
-            <p>Además de proporcionar acceso a la información sobre medicamentos, nos preocupamos por la comunidad. Ofrecemos recursos adicionales, información de salud y un espacio para compartir experiencias, consejos y brindarnos apoyo mutuo.</p>
+        
 
             <h3>Transparencia y Confianza:</h3>
             <p>Valoramos profundamente tu confianza. Nuestra plataforma se basa en la transparencia en la recopilación de datos y el respeto a la privacidad. Verificamos y actualizamos regularmente la información para brindarte la mejor experiencia posible.</p>

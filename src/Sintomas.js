@@ -65,7 +65,7 @@ function Sintomas() {
       <div style={contenidoEstilo}>
         <div className="contenido-expandir">
             <div style={cuadroTextoEstilo}>
-              <p style={textoEstilo}>Sintomas</p>
+              <p style={textoEstilo}>Síntomas</p>
               
               <p>Los síntomas de la diabetes incluyen:</p>
               <ul style={listaEstilo}>

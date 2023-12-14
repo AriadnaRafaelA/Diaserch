@@ -37,15 +37,15 @@ function App() {
   
   };
 
-  const tablaStyles = {
+ /* const tablaStyles = {
     marginTop: '5%', // Corregir la propiedad marginTop
   marginBottom: '5%', // Agregar marginBottom para centrar también verticalmente
   textAlign: 'left',
-  };
+  };*/
   
   const textoEstilo2 = {
     textAlign: 'center',
-    fontSize: '100px',  // Tamaño de fuente más grande
+    fontSize: '5vh',  // Tamaño de fuente más grande
     fontWeight: 'bold',
     color: 'white',   // Color blanco
     margin: '10px 0',
@@ -71,7 +71,51 @@ function App() {
     
   };
 
+  const tablaStyles = {
+    backgroundColor: '#FFFFFF',
   
+  borderRadius: '10px',
+  // padding: '20px', Espaciado interno
+  boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', // Sombra para el efecto de elevación
+  margin: 'auto', // Para centrar horizontalmente
+  width: '99%', // Anchura máxima para el contenido de la tabla
+    border: '1px solid #ccc', // Borde con color gris
+    padding: '20px', // Espaciado interno
+    marginTop: '5%',
+    margindown: '5%',
+     textAlign: 'left' ,
+     color: '#000000'
+  };
+
+  const tablaStyles2 = {
+    backgroundColor: 'rgba(255, 255, 255, 10)',
+    borderRadius: '10px',
+    // padding: '20px', Espaciado interno
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', // Sombra para el efecto de elevación
+    margin: 'auto', // Para centrar horizontalmente
+    width: '80%', // Anchura máxima para el contenido de la tabla
+    border: '1px solid #ccc', // Borde con color gris
+    padding: '20px', // Espaciado interno
+    marginTop: '5%',
+    margindown: '5%',
+    textAlign: 'left' ,
+    color: '#000000'
+  };
+
+  const tablaStyles3 = {
+    color: '#FFFFFF',
+    backgroundColor: '#277FB3',
+    borderRadius: '10px',
+    // padding: '20px', Espaciado interno
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', // Sombra para el efecto de elevación
+    margin: 'auto', // Para centrar horizontalmente
+    width: '99%', // Anchura máxima para el contenido de la tabla
+    border: '1px solid #ccc', // Borde con color gris
+    padding: '20px', // Espaciado interno
+    marginTop: '5%',
+    margindown: '5%',
+    textAlign: 'left' 
+  };
 
   const renderizarTabla = () => {
     return (
@@ -80,19 +124,35 @@ function App() {
     <div >  
        <div >
       
-        <p style={textoEstilo2}>Ofertas</p>
+        <p style={textoEstilo2}>Sorprendete con las ofertas de ...</p>
         <p></p>
-      </div>
+      </div>        
+      <div style={tablaStyles3}>
+                          <div style={tablaStyles}>
       <table style={{ width: '100%', justifyContent: 'center' ,backgroundColor: 'white', borderCollapse: 'collapse' }}>
         <thead>
-          <tr>
-            <th>Laboratorio</th>
-            <th>Formula</th>
-            <th>Presentacion</th>
-            <th>Precio</th>
-            <th>Preciod</th>
-            <th>Farmacia</th>
-          </tr>
+        <div>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p>Nombre</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p>Formula</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p>Presentación</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left' }}>
+                      <p>Precio original</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p style={{ backgroundColor: '#ffcccc'}}>Precio de descuento</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p>Farmacia</p>
+                    </div>
+                  </div>
+                </div>
         </thead>
         <tbody>
     
@@ -111,7 +171,7 @@ function App() {
           
 
           if (descuento !== 0) {
-            return (
+          {/* return (
               <tr key={index}>
                 <td>{medicina.laboratorio}</td>
                 <td>{medicina.formula}</td>
@@ -119,8 +179,32 @@ function App() {
                 <td>{medicina.precio}</td>
                 <td style={{ backgroundColor: '#ffcccc'}} >{medicina.preciod}</td>
                 <td>{medicina.farmacia}</td>
-                {/*<td>Descuento: {porcentajeDescuento.toFixed(2)}%</td>*/ }
+                {/*<td>Descuento: {porcentajeDescuento.toFixed(2)}%</td>
               </tr>
+            );*/ }
+            return (
+              <div>
+                <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p>{`${medicina.laboratorio}`}</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p>{`${medicina.formula}`}</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p>{`${medicina.presentacion}`}</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left' }}>
+                      <p>{`${medicina.precio}`}</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p style={{ backgroundColor: '#ffcccc'}}>{`${medicina.preciod}`}</p>
+                    </div>
+                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                      <p>{`${medicina.farmacia}`}</p>
+                    </div>
+                  </div>
+                </div>
             );
           } else {
             return null; // Si el descuento es 0, no se renderiza ninguna fila
@@ -132,6 +216,8 @@ function App() {
           
         </tbody>
       </table>
+      </div>
+      </div>
       </div>
     );
   };

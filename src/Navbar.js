@@ -3,6 +3,8 @@ import React, {  useEffect, useState } from 'react';
 function Navbar() {
 
   const [scrolled, setScrolled] = useState(false);
+  const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,17 +28,49 @@ function Navbar() {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: '50px',
+    fontSize: '3.5vw',
     fontWeight: 'bold',
     color: 'white',
   };
+
+  const cuadroComprimidoStyle = {
+    backgroundColor: '#277FB3',
+    width: '45%',
+    // Otros estilos que desees aplicar al cuadro del comprimido
+  };
+
+  const textoStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    justifyContent: 'center',
+    fontSize: '2vw',
+    marginLeft: '15px',
+     marginRight: '15px',
+
+  };
+
+  const textoStyle2 = {
+    display: 'flex',
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: '3vw',
+    fontWeight: 'bold',
+    marginLeft: '15px',
+     marginRight: '15px',
+
+  };
+  
 
   const navbarStyle = {
     backgroundColor: scrolled ? '#277FB3' : '#38B6FF', // Cambia al color que desees cuando hagas scroll y cuando no
     position: 'fixed', // Fija el Navbar en la parte superior
     top: '0',
-    width: '100%',
-    zIndex: '1000', // Añade una alta z-index para asegurarte de que esté en la parte superior
+    //width: '100%',
+    //height: 'auto',
+   
+   // zIndex: '1000', // Añade una alta z-index para asegurarte de que esté en la parte superior
     transition: 'background-color 0.3s ease', // Agrega una transición para suavizar el cambio de color
     //height: '100px', // Definir la altura deseada para la barra de navegación
     padding: '0', // Eliminar cualquier relleno
@@ -58,32 +92,20 @@ function Navbar() {
     transition: 'opacity 0.3s ease', // Agrega transición al cambiar la opacidad de la imagen
   };
 
+  const imgStyle2 = {
+    width: `${Math.max(1, anchoVentana * 0.03)}px`, // Ejemplo: tamaño mínimo de 10px, escalado en relación con el ancho de la ventana
+    height: 'auto', // Esto permite mantener la proporción de la imagen
+    padding: '0',
+  };
+
   const centerNavStyle = {
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: '30px',
+    fontSize: '2vw',
     fontWeight: 'bold',
   };
 
-  const redirectToDiabetes = () => {
-    window.location.href = '/Diabetes.js';
-  };
 
-  const redirectToArtTabla = () => {
-    window.location.href = '/ArtTabla.js';
-  };
-
-  const redirectToTiposDD = () => {
-    window.location.href = '/TiposDD.js';
-  };
-
-  const redirectToSintomas = () => {
-    window.location.href = '/Sintomas.js';
-  };
-
-  const redirectToDiagnostico = () => {
-    window.location.href = '/Diagnostico.js';
-  };
 
   const [showArrows, setShowArrows] = useState(true);
   const toggleArrows = () => {
@@ -92,7 +114,6 @@ function Navbar() {
     }, 0);
   };
 
-  const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
 
   useEffect(() => {
     const actualizarAnchoVentana = () => {
@@ -109,81 +130,89 @@ function Navbar() {
   
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light" style={navbarStyle}>
-       
-      <button className="navbar-toggler custom-toggler" 
-              type="button" 
-              data-bs-toggle="collapse" 
-              data-bs-target="#navbarSupportedContent" 
-              aria-controls="navbarSupportedContent" 
-              aria-expanded="false" 
-              aria-label="Toggle navigation"
-              onClick={toggleArrows}>
-        <span className="navbar-toggler-icon"></span>
-      </button>
+  <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top" >
+    <div className="container-fluid" style={navbarStyle} >
 
-      <div style={logoStyle}>
-        <img src="/medicina.png" alt="Logo" width="50" height="75" />
+      <div style={logoStyle} className="navbar-brand" href="#">
+        <img src="/medicina.png" alt="Logo"  style={imgStyle2}  />
         DIASERCH
       </div>
 
-      <div className="collapse navbar-collapse" id="navbarSupportedContent" style={centerNavStyle}>
-        <ul className="navbar-nav mr-auto">
+       <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+          aria-label="Alternar navegación"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel"  style={cuadroComprimidoStyle}>        
+          <ul >
           
-          <li className="nav-item active">
-            <a className="nav-link text-white" href="/" style={{ marginLeft: '30px', marginRight: '20px' }}>Búsqueda<span className="sr-only"></span></a>
-          </li>
-
-          <li className="nav-item">
-            <a className="nav-link text-white" href="/ofertas.js" style={{ marginLeft: '30px', marginRight: '20px' }}>Ofertas</a>
-          </li>
-
-          <li class="nav-item dropdown">
-            <button class="nav-link dropdown-toggle text-white"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ marginLeft: '30px', marginRight: '20px' }}>
-              Artículos
-            </button>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <button class="dropdown-item" onClick={redirectToDiabetes}>¿Qué es la diabetes?</button>
-              <button class="dropdown-item" onClick={redirectToSintomas}>Síntomas</button>
-              <button class="dropdown-item" onClick={redirectToDiagnostico}>Diagnostico</button>
-              <button class="dropdown-item" onClick={redirectToTiposDD}>Tipos de diabetes</button>
-              <button class="dropdown-item" onClick={redirectToArtTabla}>Tabla de medicamentos </button>
+            <div className="offcanvas-header">
+              <h5 className="offcanvas-title" id="offcanvasNavbarLabel" style={textoStyle2}>
+                Contenido
+              </h5>
+              <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
             </div>
-          </li>
-  
-          <li className="nav-item">
-            <a className="nav-link text-white" href="/conocenos.js" style={{ marginLeft: '30px', marginRight: '20px' }}>Conócenos</a>
-          </li>
 
-          <li className="nav-item">
-          <a className="nav-link text-white" href="/Contacto.js" style={{ marginLeft: '30px', marginRight: '20px' }}>Contacto</a>
-          </li>
+            <div className="offcanvas-body" style={{ marginLeft: '30px', marginRight: '20px' }}>
+              <ul className="nav nav-tabs navbar-nav justify-content-end flex-grow-1 pe-3">
 
-          
-        </ul>
-        
-      </div>
-
-      <div className="d-flex" style={imgContainerStyle}>
-        {anchoVentana > 768 && 
-            /* <img
-                src="/flechas3.png"
-                alt="Logo"
-                width="150"
-                height="100"
-                className="img-fluid"
-                style={imgStyle}
-              />*/
-          <img
-            src={scrolled ? '/flechas4.png' : '/flechas3.png'}
-            alt="Logo"
-            className="img-fluid"
-            style={imgStyle}
-          />
-        }
-      </div>
-
-    </nav>
+                <li className="nav-item">
+                    <a className="nav-link " aria-current="page" href="/"  style={textoStyle}>
+                    Búsqueda
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link " href="/ofertas.js"  style={textoStyle}>
+                    Ofertas
+                    </a>
+                </li>
+                <li className="nav-item dropdown">
+                  <a className="nav-link  dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false"  style={textoStyle}>
+                  Artículos
+                  </a>
+                  <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="/Diabetes.js">¿Qué es la diabetes?</a></li>
+                    <li><a className="dropdown-item" href="/Sintomas.js">Síntomas</a></li>      
+                    <li><a className="dropdown-item" href="/Diagnostico.js">Diagnostico</a></li>
+                    <li><a className="dropdown-item" href="/TiposDD.js">Tipos de diabetes</a></li>
+                    <li><a className="dropdown-item" href="/ArtTabla.js">Tabla de medicamentos</a></li>
+                  </ul>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link " href="/conocenos.js"  style={textoStyle}>
+                    Conócenos
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link " href="/Contacto.js"  style={textoStyle}>
+                    Contacto
+                    </a>
+                </li>
+              </ul>
+            </div>
+          </ul>
+        </div>
+       
+          {anchoVentana > 768 && 
+           <div className="d-flex" style={imgContainerStyle}>
+            <img
+              src={scrolled ? '/flechas4.png' : '/flechas3.png'}
+              alt="Logo"
+              className="img-fluid"
+              style={imgStyle}
+            />
+             </div>
+          }
+     
+    </div>
+  </nav>
   );
 }
 

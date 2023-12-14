@@ -50,7 +50,7 @@ function Diabetes() {
       <div style={contenidoEstilo}>
       <div className="contenido-expandir">
         <div style={cuadroTextoEstilo}>
-          <p  class="texto-ajustado" style={textoEstilo}>¿Que es la diabetes?</p>
+          <p  class="texto-ajustado" style={textoEstilo}>¿Qué es la diabetes?</p>
           <p  class="texto-ajustado">
             La diabetes es una enfermedad metabólica crónica caracterizada por niveles elevados de glucosa en sangre (o azúcar en sangre), que con el tiempo conduce a daños graves en el corazón, los vasos sanguíneos, los ojos, los riñones y los nervios. 
             La más común es la diabetes tipo 2, generalmente en adultos, que ocurre cuando el cuerpo se vuelve resistente a la insulina o no produce suficiente insulina. 
@@ -59,7 +59,7 @@ function Diabetes() {
           </p>
           <p class="texto-ajustado"> 
           Aproximadamente 62 millones de personas en las Américas (422 millones de personas en todo el mundo) tienen diabetes, la mayoría vive en países de ingresos bajos y medianos, y 244 084 muertes (1.5 millones en todo el mundo) se atribuyen directamente a la diabetes cada año. 
-          Tanto el número de casos como la prevalencia de diabetes han aumentado constantemente durante las últimas décadas [12].
+          Tanto el número de casos como la prevalencia de diabetes han aumentado constantemente durante las últimas décadas.
           </p>
         </div>
       </div>
