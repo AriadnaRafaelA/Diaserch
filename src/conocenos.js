@@ -44,7 +44,7 @@ function conocenos() {
     <div >
 
       <div >
-      <p style={textoEstilo}>Conocenos</p>
+      
         <p style={textoEstilo2}>Conocenos</p>
         <p></p>
       </div>

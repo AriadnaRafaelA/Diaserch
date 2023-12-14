@@ -1,6 +1,5 @@
 import React, {  useEffect, useState } from 'react';
 
-
 function Navbar() {
 
   const [scrolled, setScrolled] = useState(false);
@@ -39,7 +38,7 @@ function Navbar() {
     width: '100%',
     zIndex: '1000', // Añade una alta z-index para asegurarte de que esté en la parte superior
     transition: 'background-color 0.3s ease', // Agrega una transición para suavizar el cambio de color
-    height: '100px', // Definir la altura deseada para la barra de navegación
+    //height: '100px', // Definir la altura deseada para la barra de navegación
     padding: '0', // Eliminar cualquier relleno
     margin: '0', // Eliminar cualquier margen
   };
@@ -87,13 +86,10 @@ function Navbar() {
   };
 
   const [showArrows, setShowArrows] = useState(true);
-
   const toggleArrows = () => {
-
     setTimeout(() => {
       setShowArrows(!showArrows);
     }, 0);
-
   };
 
   const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
@@ -135,7 +131,7 @@ function Navbar() {
         <ul className="navbar-nav mr-auto">
           
           <li className="nav-item active">
-            <a className="nav-link text-white" href="/" style={{ marginLeft: '30px', marginRight: '20px' }}>Busqueda<span className="sr-only"></span></a>
+            <a className="nav-link text-white" href="/" style={{ marginLeft: '30px', marginRight: '20px' }}>Búsqueda<span className="sr-only"></span></a>
           </li>
 
           <li className="nav-item">
@@ -144,11 +140,11 @@ function Navbar() {
 
           <li class="nav-item dropdown">
             <button class="nav-link dropdown-toggle text-white"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ marginLeft: '30px', marginRight: '20px' }}>
-              Articulos
+              Artículos
             </button>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <button class="dropdown-item" onClick={redirectToDiabetes}>¿Que es la diabetes?</button>
-              <button class="dropdown-item" onClick={redirectToSintomas}>Sintomas</button>
+              <button class="dropdown-item" onClick={redirectToDiabetes}>¿Qué es la diabetes?</button>
+              <button class="dropdown-item" onClick={redirectToSintomas}>Síntomas</button>
               <button class="dropdown-item" onClick={redirectToDiagnostico}>Diagnostico</button>
               <button class="dropdown-item" onClick={redirectToTiposDD}>Tipos de diabetes</button>
               <button class="dropdown-item" onClick={redirectToArtTabla}>Tabla de medicamentos </button>
@@ -156,7 +152,7 @@ function Navbar() {
           </li>
   
           <li className="nav-item">
-            <a className="nav-link text-white" href="/conocenos.js" style={{ marginLeft: '30px', marginRight: '20px' }}>Conocenos</a>
+            <a className="nav-link text-white" href="/conocenos.js" style={{ marginLeft: '30px', marginRight: '20px' }}>Conócenos</a>
           </li>
 
           <li className="nav-item">

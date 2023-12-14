@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-
 
 function App() {
   const [conexionExitosa, setConexionExitosa] = useState(false);
@@ -78,7 +75,14 @@ function App() {
 
   const renderizarTabla = () => {
     return (
+
+
     <div >  
+       <div >
+      
+        <p style={textoEstilo2}>Ofertas</p>
+        <p></p>
+      </div>
       <table style={{ width: '100%', justifyContent: 'center' ,backgroundColor: 'white', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
@@ -134,7 +138,6 @@ function App() {
 
   return (
     <div style={{ marginTop: '100px', textAlign: 'center' }}>
-      <h1 style={{ color: 'white' }}>Medicinas con descuento</h1>
       {conexionExitosa ? renderizarTabla() : <p>{error || 'Error de conexión con el servidor'}</p>}
     </div>
   );
