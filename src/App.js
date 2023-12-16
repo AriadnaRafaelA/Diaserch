@@ -8,12 +8,14 @@ import Diabetes from './Diabetes';
 import Contacto from './Contacto';
 import Sintomas from './Sintomas';
 import Ofertas from './Ofertas';
+import Todos from './Todos';
 import Diagnostico from './Diagnostico';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Map, GoogleApiWrapper, Marker, Polygon } from 'google-maps-react';
-
+import axios from 'axios'; 
+import { Link } from 'react-router-dom';
 
 function App(props) {
 //___________________________________________________________________
@@ -489,50 +491,6 @@ function App(props) {
 //___________________________________________________________________
 
 
-  const [conexionExitosa, setConexionExitosa] = useState(false);
-  const [medicinas, setMedicinas] = useState([]);
-  const [error, setError] = useState(null);
-  const [nombreBuscado, setNombreBuscado] = useState('');
-  const [medicinaEncontrada, setMedicinaEncontrada] = useState(null);
-
-  useEffect(() => {
-    async function verificarConexion() {
-      try {
-        const response = await fetch('http://localhost:5000/api/conexion');
-        if (!response.ok) {
-          throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-        const data = await response.json();
-        setConexionExitosa(true);
-        setMedicinas(data);
-      } catch (error) {
-        setError(`Error: ${error.message}`);
-        setConexionExitosa(false);
-      }
-    }
-    verificarConexion();
-  }, []);
-
-  const [medicinasEncontradas, setMedicinasEncontradas] = useState([]);
-  /*const buscarPorNombre = () => {
-    const medicinaEncontrada = medicinas.find(
-      (medicina) => medicina.laboratorio.toLowerCase().startsWith(nombreBuscado.toLowerCase())
-    );
-    setMedicinaEncontrada(medicinaEncontrada);
-  };*/
-  const buscarPorNombre = () => {
-
-     if (!nombreBuscado) {
-    console.log('Ingresa el nombre de la medicina');
-    return; // Salir de la función si nombreBuscado está vacío
-  }
-
-    const medicinasEncontradas = medicinas.filter(
-      (medicina) => medicina.laboratorio.toLowerCase().startsWith(nombreBuscado.toLowerCase())
-    );
-    setMedicinasEncontradas(medicinasEncontradas);
-  };
-
   const textoEstilo = {
     textAlign: 'center',
     fontSize: '8vh',
@@ -632,6 +590,7 @@ function App(props) {
     margindown: '5%',
     textAlign: 'left' 
   };
+  
 //___________________________________________________________________
 
   // Agregar estado para el índice de la sugerencia sobre la que está el cursor
@@ -699,66 +658,167 @@ function App(props) {
     margin: '10px 0',
     marginTop: '3%',
     borderTop: '2px solid #277FB3',
+   backgroundColor: '#ffcccc'
   };
   const borderStyle2 = {
    display: 'flex', 
     flexDirection: 'row', 
     justifyContent: 'space-between',
-    borderTop: '2px solid #277FB3',
+    borderTop: '1px solid #38B6FF',
   };
 
   const texto1 = {
     fontSize: '2vh', 
    
   };
+
   //---------------------------------------------------------------------------------
+  const [conexionExitosa, setConexionExitosa] = useState(false);
+  const [medicinas, setMedicinas] = useState([]);
+  const [error,setError] = useState(null);
+  const [nombreBuscado, setNombreBuscado] = useState('');
+  //const [medicinaEncontrada, setMedicinaEncontrada] = useState(null);
+
+  useEffect(() => {
+    async function verificarConexion() {
+      try {
+        const response = await fetch('http://localhost:5000/api/conexion');
+        if (!response.ok) {
+          throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setConexionExitosa(true);
+        setMedicinas(data);
+        
+      } catch (error) {
+        setError(`Error: ${error.message}`);
+        setConexionExitosa(false);
+      }
+    }
+    verificarConexion();
+    
+  }, []);
+
+  const guadalajaraMedicinas = medicinas.filter(medicina => medicina.farmacia === 'Farmacia Guadalajara');
+  const sanPabloMedicinas = medicinas.filter(medicina => medicina.farmacia === 'Farmacia San Pablo');
+  const benavidesMedicinas = medicinas.filter(medicina => medicina.farmacia === 'Farmacia Benavides');
+
+
+  const [medicinasEncontradas, setMedicinasEncontradas] = useState([]);
+
+    const buscarPorNombre = () => {
+      if (!nombreBuscado) {
+      console.log('Ingresa el nombre de la medicina');
+      return; // Salir de la función si nombreBuscado está vacío
+    }
+
+    const medicinasEncontradas = medicinas.filter(
+      //(medicina) => medicina.laboratorio.toLowerCase().startsWith(nombreBuscado.toLowerCase())
+      (medicina) => medicina.laboratorio.toLowerCase().includes(nombreBuscado.toLowerCase())
+
+    );
+
+    if (medicinasEncontradas.length > 0) {
+      setMostrarContenido(false);
+    }
+    
+    setMedicinasEncontradas(medicinasEncontradas);
+  };
+
+  const [mostrarContenido, setMostrarContenido] = useState(false);
+
+  const mostrarOcultarContenido = () => {
+    setMostrarContenido(!mostrarContenido); // Cambia el estado al contrario del estado actual
+  };
   
+//________________________________________________________
+const [palabras, setPalabras] = useState([]);
+
+/*useEffect(() => {
+  const frase = "Kaka Cafe";
+  const palabrasSeparadas = frase.split(" ");
+  setPalabras(palabrasSeparadas);
+}, []);*/
+
+useEffect(() => {
+  axios.get('http://localhost:5000/api/conexion').then(response => {
+    // Suponiendo que response.data es un array de objetos donde cada objeto tiene una propiedad 'formula'
+    const formulas = response.data.map(medicina => medicina.formula);
+    const palabrasSeparadas = formulas.join(' ').split(' ');
+    setPalabras(palabrasSeparadas);
+  })
+  .catch(error => {
+    console.error('Error al obtener los datos de la fórmula:', error);
+  });
+}, []);
+
+const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
+  
+//________________________________________________________
 
   const FarmaciaComponent = ({ farmaciaNombre, medicinas }) => ( 
     <div style={texto1}>
-     
+      {medicinas.length  > 0 && <p> 
       {/* Estructura común de la tabla */}
       <div style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <div style={{ width: '20%', textAlign: 'left' }}>
-          <p>Nombre</p>
+          <p>Medicina</p>
         </div>
-        <div style={{ width: '25%', textAlign: 'left' }}>
-          <p>Formula</p>
-        </div>
-        <div style={{ width: '25%', textAlign: 'left' }}>
-          <p>Presentación</p>
+        
+        <div style={{ width: '15%', textAlign: 'left' }}>
+          <p > Precio</p>
         </div>
         <div style={{ width: '15%', textAlign: 'left' }}>
-          <p>Precio original</p>
+          <p>Con descuento</p>
         </div>
-        <div style={{ width: '15%', textAlign: 'left' }}>
-          <p>Precio de descuento</p>
+        <div style={{ width: '10%', textAlign: 'left' }}>
+          <p></p>
         </div>
-        {/*<div style={{ width: '10%', textAlign: 'left' }}>
+        <div style={{ width: '10%', textAlign: 'left' }}>
           <p>Comprar</p>
-        </div>*/}
-      </div>
+        </div>
+      </div></p>}
   
       {/* Map para mostrar medicamentos específicos para esta farmacia */}
       {medicinas.map((medicina, index) => (
+        
         <div key={index} style={borderStyle2}>
-          <div style={{ width: '20%', textAlign: 'left' }}>
-            <p>{`${medicina.laboratorio}`}</p>
+          <div style={{ width: '30%', textAlign: 'left' }}>
+            {`${medicina.laboratorio}`} <br></br>
+        
+            <pre> 
+              {`${medicina.formula}`}<br></br>
+         
+              {`${medicina.presentacion}`}
+              </pre>
           </div>
-          <div style={{ width: '25%', textAlign: 'left' }}>
-            <p>{`${medicina.formula}`}</p>
-          </div>
-          <div style={{ width: '25%', textAlign: 'left' }}>
-            <p>{`${medicina.presentacion}`}</p>
+          
+          <div style={{ width: '15%', textAlign: 'left' }}>
+
+            {medicina.precio !== medicina.preciod ? (
+              <p style={{ textDecoration: 'line-through' }}>{medicina.precio}</p>
+            ) : (
+              <p> <b>{medicina.precio}  </b></p>
+            )}
+
           </div>
           <div style={{ width: '15%', textAlign: 'left' }}>
-            <p>{`${medicina.precio}`}</p>
+
+            {medicina.precio !== medicina.preciod ? (
+              <p> <b>{medicina.preciod} </b></p>
+            ) : (
+              <p></p>
+            )}
+
           </div>
-          <div style={{ width: '15%', textAlign: 'left' }}>
-            <p>{`${medicina.preciod}`}</p>
+          <div style={{ width: '10%', textAlign: 'left' }}>
+            <p>
+            aqui van las iamgenes de arriba, abajo e igual
+            </p>
           </div>
-          {/*<div style={{ width: '10%', textAlign: 'left' }}>
-            <p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${medicina.formula.indexOf(' ')}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
+
+          <div style={{ width: '10%', textAlign: 'left' }}>
+            <p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${primeraPalabra}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
               <img
                 src="./web.png"
                 alt="Descripción de la imagen"
@@ -769,7 +829,7 @@ function App(props) {
                 }}
               />
             </a></p>
-          </div>*/ }
+          </div>
         </div>
       ))}
   
@@ -793,6 +853,7 @@ function App(props) {
           <Route path="/Diagnostico.js" element={<Diagnostico />}  />
           <Route path="/Contacto.js" element={<Contacto />}  />
           <Route path="/Ofertas.js" element={<Ofertas />}  />
+          <Route path="/Todos.js" element={<Todos />}  />
           <Route path="/" element={
 
             
@@ -802,11 +863,10 @@ function App(props) {
                 <p style={textoEstilo}>A tu alcance</p>
                 <p style={textoEstilo2}>El mejor precio</p>
                 
-
               {/*!nombreBuscado && (
                 <p>Ingresa el nombre de la medicina</p>
               )*/}
-              {(!conexionExitosa || medicinasEncontradas.length === 0) &&(
+              {(!conexionExitosa || medicinasEncontradas.length === 0 || medicinasEncontradas.length > 0 ) &&(
 
                 <div style={buscadorEstilo}>
                   <input
@@ -829,7 +889,7 @@ function App(props) {
                   {sugerencias.length > 0 && (
                     <div style={suggestionBoxStyle}>
                       <ul style={{ listStyleType: 'none', padding: '0' }}>
-                        {sugerencias.map((sugerencia, index) => (
+                      {[...new Set(sugerencias.map(sugerencia => sugerencia.toLowerCase().trim()))].map((sugerencia, index) => (
                           <li key={index} onClick={() => autocompletar(sugerencia)} 
                           onMouseEnter={() => setIndiceHover(index)} // Establecer el índice al pasar el cursor
                           onMouseLeave={() => setIndiceHover(-1)}    // Reiniciar el índice al salir el cursor
@@ -846,172 +906,240 @@ function App(props) {
                       </ul>
                     </div>
                   )}
+                  {mostrarContenido ? null : (
+                    <div style={{ padding: '8px'}}>
+                    <p><button onClick={mostrarOcultarContenido}>Mostrar/Ocultar Contenido</button> </p>
+                    </div>
+                  )}
+                      
                 </div>
               )}
             </div>
 
-                {conexionExitosa && medicinasEncontradas.length > 0 &&  (
-                  <div>
-                    {/*<p>Conexión exitosa con el servidor</p>*/  }
-                    {medicinasEncontradas.length > 0 ? (
-                      <div style={{ textAlign: 'center' }}>
 
-                        <div style={{  marginTop: '50px'}}>
-                        <button onClick={() => setMedicinasEncontradas([])}>Realizar otra busqueda </button>
-                        </div>
-
+                {mostrarContenido  || medicinasEncontradas.length > 0 ? (
+                    <div>
+                      {/*<p>Conexión exitosa con el servidor</p>*/  }
+                        <div style={{ textAlign: 'center' }}>
+                       
                         <div style={tablaStyles3}>
-                          <div style={tablaStyles}>
-                            <div>
-                           
-                            {/* <hr style={{ borderTop: '2px solid blue', width: '100%', margin: '10px 0', marginTop: '3%' }} />*/  }
-                            <h3 style={borderStyle} ><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
-                              <FarmaciaComponent
-                                farmaciaNombre="Farmacia Guadalajara"
-                                medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia Guadalajara')}
-                              />
-                            </div>
 
-                            <div>
-                            <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
-                              <FarmaciaComponent
-                                farmaciaNombre="Farmacia San Pablo"
-                                medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia San Pablo')}
-                              />
-                            </div>
-                            
-                            <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Markr" /> Farmacia Benavides</h3>
-                              <FarmaciaComponent
-                                farmaciaNombre="Farmacia Benavides"
-                                medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia Benavides')}
-                              />
+                          {mostrarContenido && (
+                            <div style={tablaStyles}>
+                              <div>
+                              {/* <hr style={{ borderTop: '2px solid blue', width: '100%', margin: '10px 0', marginTop: '3%' }} />*/  }
+                                <h3 style={borderStyle} ><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
+                                <FarmaciaComponent farmaciaNombre="Farmacia Guadalajara" medicinas={guadalajaraMedicinas} />
+
+                              </div>
+
+                              <div>
+                                <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
+                                <FarmaciaComponent farmaciaNombre="Farmacia San Pablo" medicinas={sanPabloMedicinas} />
+
+                              </div>
                               <div >
-                                
+                                <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Markr" /> Farmacia Benavides</h3>
+                                <FarmaciaComponent farmaciaNombre="Farmacia Benavides" medicinas={benavidesMedicinas} />
+                              </div>
                             </div>
-                          </div>
+                          )}
+                      
+                          {medicinasEncontradas.length > 0 ? (
+                            <div>
+                               {/*<div style={{  marginTop: '50px', textAlign: 'center'}}>
+                              <button onClick={() => setMedicinasEncontradas([])}>Realizar otra busqueda </button>
+                              </div>*/  }
+                            <div style={tablaStyles}>
 
-                            <div style={tablaStyles2}>
-                            {/* Secciones para otras farmacias aquí */}
-                            {/* ... */}
-                            <h3 style={titleStyles}>Farmacia cercana</h3>
-                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                                      <div style={{ width: '100%', textAlign: 'center'  }}>
-                                        <p>La mas cercana es {nombreFarmaciaCercana}</p>
+                              <div>
+                              {/* <hr style={{ borderTop: '2px solid blue', width: '100%', margin: '10px 0', marginTop: '3%' }} />*/  }
+                              <h3 style={borderStyle} ><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
+                                <FarmaciaComponent
+                                  farmaciaNombre="Farmacia Guadalajara"
+                                  medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia Guadalajara')}
+                                />
+                              </div>
+
+                              <div>
+                              <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
+                                <FarmaciaComponent
+                                  farmaciaNombre="Farmacia San Pablo"
+                                  medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia San Pablo')}
+                                />
+                              </div>
+
+                              <div >
+                                <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Markr" /> Farmacia Benavides</h3>
+                                  <FarmaciaComponent
+                                    farmaciaNombre="Farmacia Benavides"
+                                    medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia Benavides')}
+                                  />
+                              </div>
+                            </div>
+                            </div>
+                          )  : null}
+
+                          <div style={tablaStyles2}>
+                              {/* Secciones para otras farmacias aquí */}
+                              {/* ... */}
+                              <h3 style={titleStyles}>Farmacia cercana</h3>
+                                      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <div style={{ width: '100%', textAlign: 'center'  }}>
+                                          <p>La mas cercana es {nombreFarmaciaCercana}</p>
+                                        </div>
                                       </div>
-                                    </div>
 
-                              <p style={texto}>* El color de la marca corresponde a la farmacia asignada</p>
+                                <p style={texto}>* El color de la marca corresponde a la farmacia asignada</p>
 
-                          <div style={mapStyles}>
-                          <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Marka" />
-                                            <button onClick={handleUpdateLocation}  style={buttonStyles}>Actualizar Ubicación</button>
-                            <Map
-                              google={props.google}
-                              zoom={12}
-                              initialCenter={
-                                 {
-                                      lat: 19.4904923,
-                                      lng: -99.1325889,
-                                    }
-                              }
-                              
-                            >
-                              {/* Marcadores y polígonos del mapa de la farmacia más cercana */}
-                              
-                              {medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Guadalajara') && nearestPharmacyCoordinates && (
+                            <div style={mapStyles}>
+                            <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Marka" />
+                                              <button onClick={handleUpdateLocation}  style={buttonStyles}>Actualizar Ubicación</button>
+                              <Map
+                                google={props.google}
+                                zoom={12}
+                                initialCenter={
+                                  {
+                                        lat: 19.4904923,
+                                        lng: -99.1325889,
+                                      }
+                                }
+                                
+                              >
+                                {/* Marcadores y polígonos del mapa de la farmacia más cercana */}
+
+
+
+                                {mostrarContenido && nearestPharmacyCoordinates && (
+                                  <Marker
+                                    title="Farmacia Guadalajara"
+                                    position={{
+                                      lat: nearestPharmacyCoordinates.lat,
+                                      lng: nearestPharmacyCoordinates.lng,
+                                    }}
+                                    icon={{
+                                      url: 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+                                    }}
+                                  />
+                                )}
+
+                                {mostrarContenido && nearestPharmacyCoordinates2 && (
+                                  <Marker
+                                    title="Farmacia San Pablo"
+                                    position={{
+                                      lat: nearestPharmacyCoordinates2.lat,
+                                      lng: nearestPharmacyCoordinates2.lng,
+                                    }}
+                                    icon={{
+                                      url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                                    }}
+                                  />
+                                )}
+
+                                {mostrarContenido && nearestPharmacyCoordinates3 && (
+                                  <Marker
+                                    title="Farmacia Benavides"
+                                    position={{
+                                      lat: nearestPharmacyCoordinates3.lat,
+                                      lng: nearestPharmacyCoordinates3.lng,
+                                    }}
+                                    icon={{
+                                      url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                                    }}
+                                  />
+                                )}
+
+                                {medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Guadalajara') && nearestPharmacyCoordinates && (
+                                  <Marker
+                                  title="Farmacia Guadalajara"
+                                    position={{
+                                      lat: nearestPharmacyCoordinates.lat,
+                                      lng: nearestPharmacyCoordinates.lng,
+                                    }}
+                                    icon={{
+                                      url: 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+                                    }}
+                                  />
+                                )}
+
+                                {medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && nearestPharmacyCoordinates2 && (
                                 <Marker
-                                title="Farmacia Guadalajara"
-                                  position={{
-                                    lat: nearestPharmacyCoordinates.lat,
-                                    lng: nearestPharmacyCoordinates.lng,
-                                  }}
-                                  icon={{
-                                    url: 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
-                                  }}
-                                />
-                              )}
+                                  title="Farmaia San pablo"
+                                    position={{
+                                      lat: nearestPharmacyCoordinates2.lat,
+                                      lng: nearestPharmacyCoordinates2.lng,
+                                    }}
+                                    icon={{
+                                      url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                                    }}
+                                  />
+                                )}
+                                
+                                {medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Benavides') && nearestPharmacyCoordinates3 && (
+                                  <Marker
+                                  title="Farmaia Benavides"
+                                    position={{
+                                      lat: nearestPharmacyCoordinates3.lat,
+                                      lng: nearestPharmacyCoordinates3.lng,
+                                    }}
+                                    icon={{
+                                      url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                                    }}
+                                  />
+                                )}
 
-                              {medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && nearestPharmacyCoordinates2 && (
-                              <Marker
-                                title="Farmaia San pablo"
-                                  position={{
-                                    lat: nearestPharmacyCoordinates2.lat,
-                                    lng: nearestPharmacyCoordinates2.lng,
-                                  }}
-                                  icon={{
-                                    url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                                  }}
-                                />
-                              )}
-                              
-                              {medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Benavides') && nearestPharmacyCoordinates3 && (
-                                <Marker
-                                title="Farmaia Benavides"
-                                  position={{
-                                    lat: nearestPharmacyCoordinates3.lat,
-                                    lng: nearestPharmacyCoordinates3.lng,
-                                  }}
-                                  icon={{
-                                    url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                                  }}
-                                />
-                              )}
-
-                              <Polygon
-                                      paths={gustavoAMaderoCoordinates}
-                                      strokeColor="#FF0000"
-                                      strokeOpacity={0.8}
-                                      strokeWeight={2}
-                                      fillColor="#FF0000"
-                                      fillOpacity={0.1}
-                                    />
-                                    {userLocation && (
-                                      <Marker
-                                        position={{
-                                          lat: userLocation.lat,
-                                          lng: userLocation.lng,
-                                        }}
-                                        icon={{
-                                          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                                        }}
+                                <Polygon
+                                        paths={gustavoAMaderoCoordinates}
+                                        strokeColor="#FF0000"
+                                        strokeOpacity={0.8}
+                                        strokeWeight={2}
+                                        fillColor="#FF0000"
+                                        fillOpacity={0.1}
                                       />
-                                    )}
-                            </Map>
-                          </div>
-                          <div style={tablaStyles3}>
-                          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <div style={{ width: '100%', textAlign: 'center'  }}>
-                            <h3 style={titleStyles}>Revisar rutas para llegar en Google map</h3>
+                                      {userLocation && (
+                                        <Marker
+                                          position={{
+                                            lat: userLocation.lat,
+                                            lng: userLocation.lng,
+                                          }}
+                                          icon={{
+                                            url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                                          }}
+                                        />
+                                      )}
+                              </Map>
                             </div>
-                          </div>
-                          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <div style={{ width: '33.33%', textAlign: 'center'  }}>
-                              <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Guadalajara') && nearestPharmacyCoordinates && (
-                                    <button onClick={handleVerRutas} style={buttonStyles}>Farmacia Guadalajara</button> 
-                                    )}</p>
+                            <div style={tablaStyles3}>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                              <div style={{ width: '100%', textAlign: 'center'  }}>
+                              <h3 style={titleStyles}>Revisar rutas para llegar en Google map</h3>
+                              </div>
                             </div>
-                            <div style={{ width: '33.33%', textAlign: 'center'  }}>
-                              <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && nearestPharmacyCoordinates2 && (
-                                    <button onClick={handleVerRutas2} style={buttonStyles}>Farmacia San Pablo</button> 
-                                    )}</p>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                              <div style={{ width: '33.33%', textAlign: 'center'  }}>
+                                <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Guadalajara') && nearestPharmacyCoordinates && (
+                                      <button onClick={handleVerRutas} style={buttonStyles}>Farmacia Guadalajara</button> 
+                                      )}</p>
+                              </div>
+                              <div style={{ width: '33.33%', textAlign: 'center'  }}>
+                                <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && nearestPharmacyCoordinates2 && (
+                                      <button onClick={handleVerRutas2} style={buttonStyles}>Farmacia San Pablo</button> 
+                                      )}</p>
+                              </div>
+                              <div style={{ width: '33.33%', textAlign: 'center' }}>
+                                <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Benavides') && nearestPharmacyCoordinates3 && (
+                                      <button onClick={handleVerRutas3} style={buttonStyles}>Farmacia Benavides</button> 
+                                      )}</p>
+                              </div>
                             </div>
-                            <div style={{ width: '33.33%', textAlign: 'center' }}>
-                              <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Benavides') && nearestPharmacyCoordinates3 && (
-                                    <button onClick={handleVerRutas3} style={buttonStyles}>Farmacia Benavides</button> 
-                                    )}</p>
-                            </div>
-                          </div>
                         </div>
-                        </div>
-                        </div>
-                          
+                          </div>
 
-
-                        
+                        </div>
                       </div>
-                    )  : null}
                     </div>
-                 ) }
+                  
+                    )  : null}
               </div>
             }
           />

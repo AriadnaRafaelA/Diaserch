@@ -134,14 +134,9 @@ function App() {
         <div>
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <div style={{ width: '20%', textAlign: 'left'  }}>
-                      <p>Nombre</p>
+                      <p>Medicina</p>
                     </div>
-                    <div style={{ width: '20%', textAlign: 'left'  }}>
-                      <p>Formula</p>
-                    </div>
-                    <div style={{ width: '20%', textAlign: 'left'  }}>
-                      <p>Presentación</p>
-                    </div>
+                    
                     <div style={{ width: '20%', textAlign: 'left' }}>
                       <p>Precio original</p>
                     </div>
@@ -167,7 +162,7 @@ function App() {
         
         const preciodNumerico = parseFloat(quitarSimboloDolar(medicina.preciod).replace(',', '').replace('.', '').replace(',', '.'));
         const descuento = precioNumerico - preciodNumerico;
-          const porcentajeDescuento = (descuento / precioNumerico) * 100;
+          //const porcentajeDescuento = (descuento / precioNumerico) * 100;
           
 
           if (descuento !== 0) {
@@ -187,15 +182,13 @@ function App() {
                 <div key={index} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <div style={{ width: '20%', textAlign: 'left'  }}>
                       <p>{`${medicina.laboratorio}`}</p>
-                    </div>
-                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                   
                       <p>{`${medicina.formula}`}</p>
-                    </div>
-                    <div style={{ width: '20%', textAlign: 'left'  }}>
+                   
                       <p>{`${medicina.presentacion}`}</p>
                     </div>
                     <div style={{ width: '20%', textAlign: 'left' }}>
-                      <p>{`${medicina.precio}`}</p>
+                      <p >{`${medicina.precio}`}</p>
                     </div>
                     <div style={{ width: '20%', textAlign: 'left'  }}>
                       <p style={{ backgroundColor: '#ffcccc'}}>{`${medicina.preciod}`}</p>

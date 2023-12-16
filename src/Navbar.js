@@ -161,7 +161,7 @@ function Navbar() {
             </div>
 
             <div className="offcanvas-body" style={{ marginLeft: '30px', marginRight: '20px' }}>
-              <ul className="nav nav-tabs navbar-nav justify-content-end flex-grow-1 pe-3">
+              <ul className=" navbar-nav justify-content-end flex-grow-1 pe-3">
 
                 <li className="nav-item">
                     <a className="nav-link " aria-current="page" href="/"  style={textoStyle}>
@@ -200,7 +200,7 @@ function Navbar() {
           </ul>
         </div>
        
-          {anchoVentana > 768 && 
+          {anchoVentana > 990 && 
            <div className="d-flex" style={imgContainerStyle}>
             <img
               src={scrolled ? '/flechas4.png' : '/flechas3.png'}
