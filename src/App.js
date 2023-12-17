@@ -9,13 +9,14 @@ import Contacto from './Contacto';
 import Sintomas from './Sintomas';
 import Ofertas from './Ofertas';
 import Todos from './Todos';
+import Footer from './Footer'; // Ruta correcta del componente Footer
 import Diagnostico from './Diagnostico';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Map, GoogleApiWrapper, Marker, Polygon } from 'google-maps-react';
 import axios from 'axios'; 
-import { Link } from 'react-router-dom';
+
 
 function App(props) {
 //___________________________________________________________________
@@ -724,21 +725,47 @@ function App(props) {
     
     setMedicinasEncontradas(medicinasEncontradas);
   };
-
+  
+ /* const [medicinasEncontradas, setMedicinasEncontradas] = useState([]);
+  const [palabras, setPalabras] = useState([]);
+  
+  const buscarPorNombre = () => {
+    if (!nombreBuscado) {
+      console.log('Ingresa el nombre de la medicina');
+      return;
+    }
+    const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
+    const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
+  
+    const medicinasEncontradasPorFormula = medicinas.filter(
+      (medicina) => {
+        const formulas = medicina.formula.toLowerCase().split(' ');
+        return formulas.includes(primeraPalabra.toLowerCase()) ||
+        formulas.includes(segundaPalabra.toLowerCase());
+      }
+    );
+  
+    if (medicinasEncontradasPorFormula.length > 0) {
+      setMostrarContenido(false);
+    }
+    
+    setMedicinasEncontradas(medicinasEncontradasPorFormula);
+  };*/
   const [mostrarContenido, setMostrarContenido] = useState(false);
 
   const mostrarOcultarContenido = () => {
     setMostrarContenido(!mostrarContenido); // Cambia el estado al contrario del estado actual
   };
   
-//________________________________________________________
-const [palabras, setPalabras] = useState([]);
+//_______________________________________________________
 
 /*useEffect(() => {
   const frase = "Kaka Cafe";
   const palabrasSeparadas = frase.split(" ");
   setPalabras(palabrasSeparadas);
 }, []);*/
+
+const [palabras, setPalabras] = useState([]);
 
 useEffect(() => {
   axios.get('http://localhost:5000/api/conexion').then(response => {
@@ -753,7 +780,9 @@ useEffect(() => {
 }, []);
 
 const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
+const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
   
+
 //________________________________________________________
 
   const FarmaciaComponent = ({ farmaciaNombre, medicinas }) => ( 
@@ -818,7 +847,7 @@ const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
           </div>
 
           <div style={{ width: '10%', textAlign: 'left' }}>
-            <p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${primeraPalabra}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
+            {/*<p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${primeraPalabra}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
               <img
                 src="./web.png"
                 alt="Descripción de la imagen"
@@ -828,7 +857,7 @@ const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
                   display: 'block' // Asegurar que la imagen ocupe todo el ancho disponible
                 }}
               />
-            </a></p>
+            </a></p>*/}
           </div>
         </div>
       ))}
@@ -838,6 +867,14 @@ const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
     </div>
   );
  
+  const renderFooter = () => {
+    const path = window.location.pathname;
+    if (path !== "/") {
+      return <Footer />;
+    }
+    return null;
+  };
+
   return (
     <Router>
       
@@ -908,7 +945,7 @@ const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
                   )}
                   {mostrarContenido ? null : (
                     <div style={{ padding: '8px'}}>
-                    <p><button onClick={mostrarOcultarContenido}>Mostrar/Ocultar Contenido</button> </p>
+                    <p><button onClick={mostrarOcultarContenido}>Ver todas las medicinas</button> </p>
                     </div>
                   )}
                       
@@ -1136,6 +1173,7 @@ const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
                           </div>
 
                         </div>
+                        <Footer /> 
                       </div>
                     </div>
                   
@@ -1144,8 +1182,14 @@ const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
             }
           />
         </Routes>
+        <div>
+      {/* Contenido de tu página */}
+      {renderFooter()}
+     {/* Agregar el componente Footer al final de la página */}
+    </div>
       </div>
     </Router>
+    
   );
 }
 

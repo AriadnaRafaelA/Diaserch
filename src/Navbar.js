@@ -36,6 +36,7 @@ function Navbar() {
   const cuadroComprimidoStyle = {
     backgroundColor: '#277FB3',
     width: '45%',
+    
     // Otros estilos que desees aplicar al cuadro del comprimido
   };
 
@@ -45,21 +46,27 @@ function Navbar() {
     justifyContent: 'center',
     color: 'white',
     justifyContent: 'center',
-    fontSize: '2vw',
+    fontSize: anchoVentana > 530 ? '25px' : '10px',
     marginLeft: '15px',
      marginRight: '15px',
-
   };
 
   const textoStyle2 = {
     display: 'flex',
     fontWeight: 'bold',
     color: 'white',
-    fontSize: '3vw',
+    //fontSize: '3vw',
+    fontSize: anchoVentana > 530 ? '25px' : '10px',
     fontWeight: 'bold',
     marginLeft: '15px',
      marginRight: '15px',
 
+  };
+
+  const textoStyle3 = {
+  
+    fontSize: anchoVentana > 530 ? '15px' : '7px',
+    
   };
   
 
@@ -127,7 +134,16 @@ function Navbar() {
     };
   }, []);
 
-  
+  const texto = {
+
+    fontSize: '12px',  // Tamaño de fuente más grande
+    
+  };
+  const texto2 = {
+
+    fontSize: '14px',  // Tamaño de fuente más grande
+    
+  };
 
   return (
   <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary fixed-top" >
@@ -154,9 +170,9 @@ function Navbar() {
           <ul >
           
             <div className="offcanvas-header">
-              <h5 className="offcanvas-title" id="offcanvasNavbarLabel" style={textoStyle2}>
+              <p className="offcanvas-title" id="offcanvasNavbarLabel" style={textoStyle2}>
                 Contenido
-              </h5>
+              </p>
               <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
             </div>
 
@@ -177,13 +193,13 @@ function Navbar() {
                   <a className="nav-link  dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false"  style={textoStyle}>
                   Artículos
                   </a>
-                  <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="/Diabetes.js">¿Qué es la diabetes?</a></li>
-                    <li><a className="dropdown-item" href="/Sintomas.js">Síntomas</a></li>      
-                    <li><a className="dropdown-item" href="/Diagnostico.js">Diagnostico</a></li>
-                    <li><a className="dropdown-item" href="/TiposDD.js">Tipos de diabetes</a></li>
-                    <li><a className="dropdown-item" href="/ArtTabla.js">Tabla de medicamentos</a></li>
-                  </ul>
+                    <ul className="dropdown-menu">
+                      <li><a className="dropdown-item" href="/Diabetes.js" style={textoStyle3}>¿Qué es la diabetes?</a></li>
+                      <li><a className="dropdown-item" href="/Sintomas.js" style={textoStyle3}>Síntomas</a></li>      
+                      <li><a className="dropdown-item" href="/Diagnostico.js" style={textoStyle3}>Diagnostico</a></li>
+                      <li><a className="dropdown-item" href="/TiposDD.js" style={textoStyle3}>Tipos de diabetes</a></li>
+                      <li><a className="dropdown-item" href="/ArtTabla.js" style={textoStyle3}>Tabla de medicamentos</a></li>
+                    </ul>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link " href="/conocenos.js"  style={textoStyle}>

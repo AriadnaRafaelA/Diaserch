@@ -6,7 +6,9 @@ function Contacto(props) {
   const containerStyles = {
     display: 'flex',
     flexDirection: 'column',
+    textAlign: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: '20px',
     marginRight: '10%',
     marginLeft: '10%',
@@ -36,6 +38,8 @@ function Contacto(props) {
   };
   const infoStyles = {
     textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: '10px',
   };
  const titleStyles = {
@@ -554,7 +558,28 @@ const handleVerRutas3 = () => {
               <h2 style={titleStyles}>Farmacia Guadalajara</h2>
               <div style={infoStyles}>
                 <p>
-                  Página web: <a href="https://www.farmaciasguadalajara.com/"> https://www.farmaciasguadalajara.com/ </a>
+                <button style={{
+  border: 'none', // Sin borde
+  background: 'none', // Sin fondo
+  cursor: 'pointer', // Cambia el cursor al pasar sobre él
+  padding: '0', // Sin relleno
+}}>
+  <a href="https://www.farmaciasguadalajara.com/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="./web.png"
+      alt="Descripción de la imagen"
+      style={{
+        maxWidth: '100%', // Ajustar la imagen al ancho máximo del contenedor
+        width: '30%', // Ancho específico para la imagen (puedes cambiar este valor)
+        height: 'auto', // Mantener la relación de aspecto
+        display: 'block', // Asegurar que la imagen ocupe todo el ancho disponible
+        margin: '0 auto' // Centrar la imagen horizontalmente
+      }}
+    />
+  </a>
+  Ir a página web
+</button>
+
                   <br />
                   {/*Teléfono: futuro*/}
                   <br />
@@ -1072,6 +1097,7 @@ const handleVerRutas3 = () => {
                               }}
                             />
                           )}
+                          
                           <Polygon
                                   paths={gustavoAMaderoCoordinates}
                                   strokeColor="#FF0000"
