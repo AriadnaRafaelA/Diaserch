@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from 'react';
+import React, { useEffect, useState  }  from 'react';
 import './App.css';
 import Sidebar from './siderbar.js'; // Importa el componente Sidebar
 
@@ -18,29 +18,53 @@ function ArtTabla() {
 
   const textoEstilo = {
     textAlign: 'center',
-    fontSize: '48px',  // Tamaño de fuente más grande
+    fontSize: anchoVentana > 530 ? '40px' : '20px',
     fontWeight: 'bold',
-    color: 'white',   // Color blanco
+    color: 'black',
     margin: '10px 0',
   };
   const contenidoEstilo = {
-    marginLeft: anchoVentana <= 768 ? '20px' : '300px', // Ancho del Sidebar
-    marginRight: '20px', 
-    padding: '20px',
+    marginLeft: anchoVentana <= 768 ? '1px' : '300px', // Ancho del Sidebar
+    marginRight: '1px',
+    padding: '2%',
     textAlign: 'justify',
+    fontSize: '20px',
+    color: 'black',
   };
   const tablaStyle = {
     margin: '0 auto',   // Esto centra la tabla horizontalmente
     backgroundColor: 'white', // Esto establece el fondo de la tabla en blanco
     border: '2px solid black', // Esto agrega un borde negro de 2px a la tabla
-  borderRadius: '10px',
+    borderRadius: '10px',
   };
 
   const itemStyle = {
     textAlign: 'center', // Centrar el contenido
     fontWeight: 'bold', // Hacer que el texto sea negritas
   };
-  
+  const texto2 = {
+    fontSize: anchoVentana > 530 ? '20px' : '12px',
+    fontWeight: 'bold', // Establece la negrita
+    color: 'white', // Establece el color blanco
+  };
+  const flechaEstilo = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: '20px',
+  };
+  const imagenEstilo = {
+    width: '20%',
+    height: '20%',
+    // Estilos adicionales según sea necesario
+  };
+  const texto = {
+    fontSize: anchoVentana > 530 ? '15px' : '9px',
+  };
+  const cuadroTextoEstilo = {
+    background: 'white',
+    borderRadius: '10px',
+    padding: '5%',
+  };
   return (
     <div>
       <div className={`Sidebar ocultar-sidebar`}>
@@ -49,7 +73,9 @@ function ArtTabla() {
       </div>
       <div style={contenidoEstilo}>
       <div className="contenido-expandir">
+      <div style={cuadroTextoEstilo}> 
         <p style={textoEstilo}>Tabla de medicamentos</p>
+        <div style={texto}>
           <table border="1" style={tablaStyle} >
             <tr>
               <th colSpan="5">SULFONILÚREAS (SFU)</th>
@@ -61,7 +87,7 @@ function ArtTabla() {
               <li >Orinase ®</li>
               <li >Genéricos varios</li>
               </td>
-              <td>1957</td>
+             
               <td>tabletas de 500 mg</td>
               <td style={{ whiteSpace: 'pre-line' }}>
                 <p><strong>Inicial:</strong> 1000-2000 mg diarios</p>
@@ -80,7 +106,7 @@ function ArtTabla() {
               <li >Amaryl ®</li >
               <li >Genéricos varios</li >
             </td>
-            <td>11/95 </td>
+            
             <td>tabletas de 1 mg, 2 mg, 4 mg</td>
             <td style={{ whiteSpace: 'pre-line' }}>
               <p><strong>Inicial:</strong> 1-2 mg diarios</p>
@@ -98,7 +124,7 @@ function ArtTabla() {
                 <li >Amaryl ®</li >
                 <li >Genéricos varios</li >
               </td>
-              <td>11/95</td>
+              
               <td>Tabletas de 1 mg, 2 mg, 4 mg</td>
               <td style={{ whiteSpace: 'pre-line' }}>
                 <p><strong>Inicial:</strong> 1-2 mg diarios</p>
@@ -117,12 +143,12 @@ function ArtTabla() {
                 <li >Glucotrol XL ®</li >
                 <li >Genéricos varios</li >
               </td>
-              <td>5/84</td>
+             
               <td>Tabletas de 5 mg, 10 mg</td>
               <td>
                 <p><strong>Inicial:</strong> 5 mg por día</p>
                 <p><strong>Rango:</strong> 2,5-40 mg (20 mg para XL)</p>
-                <p><strong>Dosis:</strong> Se toma una o dos veces (si >15 mg) por día</p>
+                <p><strong>Dosis:</strong> Se toma una o dos veces (si > 15 mg) por día</p>
               </td>
               <td>
                 <p><strong>EC:</strong> hipoglucemia, aumento de peso</p>
@@ -137,7 +163,7 @@ function ArtTabla() {
                 <li >DiaBeta ®</li >
                 <li >Genéricos varios</li >
               </td>
-              <td>5/84</td>
+              
               <td>Tabletas de 1,25 mg, 2,5 mg, 5 mg</td>
               <td>
                 <p><strong>Inicial:</strong> 2,5-5 mg diarios</p>
@@ -154,7 +180,7 @@ function ArtTabla() {
                 <li >Glynase PresTab ®</li >
                 <li >Genéricos varios</li >
               </td>
-              <td>3/92</td>
+             
               <td><p>Tabletas micronizadas de 1,5 mg, 3 mg,</p>
               <p>4,5 mg, 6 mg</p></td>
               <td>
@@ -176,7 +202,7 @@ function ArtTabla() {
               <h7 style={itemStyle}>Repaglinida</h7>
               <li >Prandin ®</li >
               </td>
-              <td>12/97</td>
+              
               <td><p>Tabletas de 0,5 mg (blancas),</p> 
               <p>1 mg (amarillas), 2 mg (rojas)</p></td>
               <td>
@@ -197,7 +223,7 @@ function ArtTabla() {
               <h7 style={itemStyle}>Nateglinida</h7>
               <li >Starlix ®</li >
               </td>
-              <td>12/00</td>
+             
               <td>Tabletas de 60 mg (rosas), 120 mg (amarillas)</td>
               <td>
                 <p><strong>Inicial:</strong> 120 mg tres veces por día (si la A1C está</p>
@@ -233,7 +259,7 @@ function ArtTabla() {
                 <li>Glumetza</li>
                 <li>Riomet ® (líquido, 500 mg/5ml)</li>
               </td>
-              <td>12/94</td>
+             
               <td>
                 <p><strong>Glucophage:</strong> tabletas de 500 mg, </p>
                 <p>850 mg, 1000 mg</p>
@@ -273,8 +299,25 @@ function ArtTabla() {
             </tr>
 
           </table>
+          </div>
+          </div>
     </div>
     </div>
+              {anchoVentana < 990 && (
+                <div style={{ display: 'flex' }}>
+                    <div style={{ width: '50%', textAlign: 'center' }}>
+
+                        <a href="./TiposDD.js" style={flechaEstilo}>
+                        <img src="./izquierda.png" alt="Flecha izquierda" style={imagenEstilo} />
+                        </a>
+                        <a style={texto2}>Tipos</a>
+                    </div>
+
+                    <div style={{ width: '50%', textAlign: 'center' }}>
+                       
+                    </div>
+                </div>
+            )} 
   </div>
   );
 }

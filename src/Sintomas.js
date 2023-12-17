@@ -15,28 +15,28 @@ function Sintomas() {
     };
   }, []);
 
+ 
   const textoEstilo = {
     textAlign: 'center',
-    fontSize: '48px',
+    fontSize: anchoVentana > 530 ? '40px' : '20px',
     fontWeight: 'bold',
-    color: 'Black',
+    color: 'black',
     margin: '10px 0',
   };
 
   const contenidoEstilo = {
-    marginLeft: anchoVentana <= 768 ? '20px' : '300px', 
-    marginRight: '20px',
-    padding: '20px',
+    marginLeft: anchoVentana <= 768 ? '1px' : '300px', // Ancho del Sidebar
+    marginRight: '1px',
+    padding: '2%',
     textAlign: 'justify',
     fontSize: '20px',
-    //fontWeight: 'bold',
-    color: 'Black',
+    color: 'black',
   };
 
   const cuadroTextoEstilo = {
-    background: 'white', // Fondo blanco
-    borderRadius: '10px', // Bordes redondos
-    padding: '20px',
+    background: 'white',
+    borderRadius: '10px',
+    padding: '5%',
   };
 
   
@@ -52,9 +52,31 @@ function Sintomas() {
   };
 
   const iconoEstilo = {
-    width: '50px',
-    height: '50px',
+    width: '5%',
+    height: '5%',
     marginRight: '10px',
+  };
+
+  const texto = {
+    fontSize: anchoVentana > 530 ? '20px' : '12px',
+  };
+
+  const texto2 = {
+    fontSize: anchoVentana > 530 ? '20px' : '12px',
+    fontWeight: 'bold', // Establece la negrita
+    color: 'white', // Establece el color blanco
+  };
+
+
+  const flechaEstilo = {
+    display: 'block',
+    textAlign: 'center',
+    marginTop: '20px',
+  };
+  const imagenEstilo = {
+    width: '20%',
+    height: '20%',
+    // Estilos adicionales según sea necesario
   };
 
   return (
@@ -66,8 +88,9 @@ function Sintomas() {
         <div className="contenido-expandir">
             <div style={cuadroTextoEstilo}>
               <p style={textoEstilo}>Síntomas</p>
-              
-              <p>Los síntomas de la diabetes incluyen:</p>
+
+              <div style={texto}>
+              <p >Los síntomas de la diabetes incluyen:</p>
               <ul style={listaEstilo}>
                 <li style={listItemEstilo}>
                   <img
@@ -107,7 +130,7 @@ function Sintomas() {
                     alt="Icono de entumecimiento"
                     style={iconoEstilo}
                   />
-                  entumecimiento u hormigueo en los pies o las manos
+                  entumecimiento en los pies o las manos
                 </li>
                 <li style={listItemEstilo}>
                   <img
@@ -126,16 +149,39 @@ function Sintomas() {
                   pérdida de peso sin razón aparente
                 </li>
               </ul>
-              <p>Los síntomas de la diabetes a menudo aparecen 
+              <p>Los síntomas a menudo aparecen 
                 lentamente, en el transcurso de varios años, y pueden 
                 ser tan leves que ni siquiera se notan. Muchas personas 
                 no tienen síntomas. Algunas personas no saben que tienen 
                 la enfermedad hasta que tienen problemas de salud relacionados 
                 con la diabetes, como visión borrosa o enfermedades del corazón.</p>
-            </div>
+                </div>
+          </div>
           
         </div>
       </div>
+
+      {anchoVentana < 990 && (
+        <div style={{ display: 'flex' }}>
+      
+          <div style={{ width: '50%', textAlign: 'center' }}>
+
+            <a href="./Diabetes.js" style={flechaEstilo}>
+              <img src="./izquierda.png" alt="Flecha izquierda" style={imagenEstilo} />
+            </a>
+            <a style={texto2}>¿Que es?</a>
+          </div>
+
+          <div style={{ width: '50%', textAlign: 'center' }}>
+            <a href="./Diagnostico.js" style={flechaEstilo}>
+              <img src="./derecha.png" alt="Flecha derecha" style={imagenEstilo} />
+            </a>
+            <a style={texto2}>Diagnostico</a>
+          </div>
+
+        </div>
+      )} 
+
     </div>
   );
 }

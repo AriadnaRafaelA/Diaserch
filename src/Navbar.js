@@ -193,14 +193,27 @@ function Navbar() {
                   <a className="nav-link  dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false"  style={textoStyle}>
                   Artículos
                   </a>
+                  {anchoVentana > 550 ? (
                     <ul className="dropdown-menu">
                       <li><a className="dropdown-item" href="/Diabetes.js" style={textoStyle3}>¿Qué es la diabetes?</a></li>
                       <li><a className="dropdown-item" href="/Sintomas.js" style={textoStyle3}>Síntomas</a></li>      
                       <li><a className="dropdown-item" href="/Diagnostico.js" style={textoStyle3}>Diagnostico</a></li>
                       <li><a className="dropdown-item" href="/TiposDD.js" style={textoStyle3}>Tipos de diabetes</a></li>
                       <li><a className="dropdown-item" href="/ArtTabla.js" style={textoStyle3}>Tabla de medicamentos</a></li>
+
                     </ul>
-                </li>
+                    ) : ( 
+                    <ul className="dropdown-menu">
+                      <li><a className="dropdown-item" href="/Diabetes.js" style={textoStyle3}>¿Qué es?</a></li>
+                      <li><a className="dropdown-item" href="/Sintomas.js" style={textoStyle3}>Síntomas</a></li>      
+                      <li><a className="dropdown-item" href="/Diagnostico.js" style={textoStyle3}>Diagnostico</a></li>
+                      <li><a className="dropdown-item" href="/TiposDD.js" style={textoStyle3}>Tipos </a></li>
+                      <li><a className="dropdown-item" href="/ArtTabla.js" style={textoStyle3}>Medicamentos</a></li>
+           
+                    </ul>
+                    )}
+
+                  </li>
                 <li className="nav-item">
                     <a className="nav-link " href="/conocenos.js"  style={textoStyle}>
                     Conócenos

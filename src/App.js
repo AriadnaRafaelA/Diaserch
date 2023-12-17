@@ -9,6 +9,7 @@ import Contacto from './Contacto';
 import Sintomas from './Sintomas';
 import Ofertas from './Ofertas';
 import Todos from './Todos';
+
 import Footer from './Footer'; // Ruta correcta del componente Footer
 import Diagnostico from './Diagnostico';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -195,13 +196,7 @@ function App(props) {
         lng: -99.11955030634091,
       },
     },
-    {
-      title: 'Farmacia 10',
-      position: {
-        lat: 19.468793813457868,
-        lng: -99.12621981965374,
-      },
-    },
+   
   ],[]);
 
   const farmacias2 = useMemo(() => [
@@ -891,6 +886,7 @@ const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
           <Route path="/Contacto.js" element={<Contacto />}  />
           <Route path="/Ofertas.js" element={<Ofertas />}  />
           <Route path="/Todos.js" element={<Todos />}  />
+
           <Route path="/" element={
 
             

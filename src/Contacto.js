@@ -3,23 +3,35 @@ import { Map, GoogleApiWrapper, Marker, Polygon } from 'google-maps-react';
 
 function Contacto(props) {
 
+  const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+  useEffect(() => {
+    const actualizarAnchoVentana = () => {
+      setAnchoVentana(window.innerWidth);
+    };
+    window.addEventListener('resize', actualizarAnchoVentana);
+    return () => {
+      window.removeEventListener('resize', actualizarAnchoVentana);
+    };
+  }, []);
+
+
   const containerStyles = {
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '20px',
-    marginRight: '10%',
-    marginLeft: '10%',
+   // marginBottom: '20px',
+    //marginRight: '10%',
+   // marginLeft: '10%',
   };
 
   const farmaciaStyles = {
     
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: '10px',
-    marginRight: '20%',
-    marginLeft: '20%',
+    marginRight: '10%',
+    marginLeft: '10%',
     padding: '1%',
     marginBottom: '5%'
     /*border: '1px solid #ccc',
@@ -32,7 +44,7 @@ function Contacto(props) {
   };
   const mapStyles = {
     width: '100%',
-    height: '400px',
+    height: anchoVentana > 550 ? '400px': '200px',
     position: 'relative',
     marginBottom: '15%',
   };
@@ -43,17 +55,30 @@ function Contacto(props) {
     marginBottom: '10px',
   };
  const titleStyles = {
-    marginTop: '10px', // Ajusta el margen superior del título
+    marginTop: '10px',
+    margindown: '10px', // Ajusta el margen superior del título
     textAlign: 'center',
+    fontSize: anchoVentana > 550 ? '30px' : '20px',
+    fontWeight: 'bold', 
+  };
+  const title = {
+    marginTop: '10px', // Ajusta el margen superior del título
+  
+    fontSize: anchoVentana > 550 ? '15px' : '10px',
+
   };
   const buttonStyles = {
     marginTop: '3%', // Agrega un margen superior al botón de farmacia cercana para separarlo del mapa
   };
   const imageStyles = {
-    width: '50%', // Ajusta el ancho de la imagen según sea necesario
+    width: '35%', // Ajusta el ancho de la imagen según sea necesario
     height: 'auto', // Altura automática para mantener la proporción
   };
   const imageStyles2 = {
+    width: '70%', // Ajusta el ancho de la imagen según sea necesario
+    height: 'auto', // Altura automática para mantener la proporción
+  };
+  const imageStyles3 = {
     width: '70%', // Ajusta el ancho de la imagen según sea necesario
     height: 'auto', // Altura automática para mantener la proporción
   };
@@ -160,6 +185,8 @@ function Contacto(props) {
         lat: 19.557804757720046,
         lng: -99.13472619929715,
       },
+      direccion: 'C. Apango 17, Gral Felipe Berriozabal, Gustavo A. Madero, 07100 Ciudad de México, CDMX',
+      telefono: 'No cuenta con numero telefonico',
     },
     {
       title: 'Farmacia 2',
@@ -167,6 +194,8 @@ function Contacto(props) {
         lat: 19.544052595388877,
         lng: -99.14596681127203,
       },
+      direccion: 'Tecnológico #1, Col del Bosque, Gustavo A. Madero, 07207 Ciudad de México, CDMX',
+      telefono: '+52 5513341974',
     },
     {
       title: 'Farmacia 3',
@@ -174,6 +203,8 @@ function Contacto(props) {
         lat: 19.540317347632964,
         lng: -99.15354455538231,
       },
+      direccion: 'Calle Av, Zona Escolar, 07230 CDMX',
+      telefono: '+52 5553670450',
     },
     {
       title: 'Farmacia 4',
@@ -181,6 +212,8 @@ function Contacto(props) {
         lat: 19.52605982230629,
         lng: -99.15288197436556,
       },
+      direccion: 'Blvd. del Temoluco 276, Acueducto de Guadalupe, Gustavo A. Madero, 07790 Ciudad de México, CDMX',
+      telefono: '+52 3338181818',
     },
     {
       title: 'Farmacia 5',
@@ -188,6 +221,8 @@ function Contacto(props) {
         lat: 19.511662371013756,
         lng: -99.14042093752664,
       },
+      direccion: 'Miguel Bernard 577, Siete Maravillas, Gustavo A. Madero, 07707 Ciudad de México, CDMX',
+      telefono: '+52 5555862019',
     },
     {
       title: 'Farmacia 6',
@@ -195,6 +230,8 @@ function Contacto(props) {
         lat: 19.513305916639574,
         lng: -99.13453810753077,
       },
+      direccion: 'Calz. Ticomán 1109, La Laguna Ticoman, Gustavo A. Madero, 07340 Ciudad de México, CDMX',
+      telefono: '+52 5555865803',
     },
     {
       title: 'Farmacia 7',
@@ -202,6 +239,8 @@ function Contacto(props) {
         lat: 19.50151981477475,
         lng: -99.09593827140269,
       },
+      direccion: 'Cabo Buena Esperanza 3, Gabriel Hernández, Gustavo A. Madero, 07089 Ciudad de México, CDMX',
+      telefono: '+52 5557370158',
     },
     {
       title: 'Farmacia 8',
@@ -209,6 +248,8 @@ function Contacto(props) {
         lat: 19.488394579943915,
         lng: -99.10756048073203,
       },
+      direccion: 'Calz. San Juan de Aragón 200, Constitución de la República, Gustavo A. Madero, 07469 Ciudad de México, CDMX',
+      telefono: '+52 5557675255',
     },
     {
       title: 'Farmacia 9',
@@ -216,46 +257,49 @@ function Contacto(props) {
         lat: 19.483184660322387,
         lng: -99.11955030634091,
       },
+      direccion: 'Calz. de los Misterios 808, Tepeyac Insurgentes, Gustavo A. Madero, 07020 Ciudad de México, CDMX',
+      telefono: '+52 5557810054',
     },
-    {
-      title: 'Farmacia 10',
-      position: {
-        lat: 19.468793813457868,
-        lng: -99.12621981965374,
-      },
-    },
-  ],[]);
+    
+  ], []);
 
   const farmacias2 = useMemo(() => [
     {
       title: "Cuautepec",
-      position: { lat: 19.52296681356565, lng: -99.14148576089354 }
+      position: { lat: 19.52296681356565, lng: -99.14148576089354 },
+      direccion: "Av Cuautepec 4A, Jorge Negrete, Gustavo A. Madero, 07280 Ciudad de México, CDMX"
     },
     {
       title: "Casma",
-      position: { lat: 19.49166260896163, lng: -99.1362576346612 }
+      position: { lat: 19.49166260896163, lng: -99.1362576346612 },
+      direccion: "Av. Montevideo 415, Lindavista Sur, Gustavo A. Madero, 07300 Ciudad de México, CDMX"
     },
     {
       title: "Montevideo",
-      position: { lat: 19.48829829204483, lng: -99.12611729968107 }
+      position: { lat: 19.48829829204483, lng: -99.12611729968107 },
+      direccion: "Av. Montevideo 145, Lindavista, Gustavo A. Madero, 07300 Ciudad de México, CDMX"
     },
     {
       title: "La Villa",
-      position: { lat: 19.474622714702445, lng: -99.12157732982925 }
+      position: { lat: 19.474622714702445, lng: -99.12157732982925 },
+      direccion: "Calz de Guadalupe 512, Industrial, Gustavo A. Madero, 07800 Ciudad de México, CDMX"
     },
     {
       title: "Albino Corzo",
-      position: { lat: 19.463575145774783, lng: -99.1108678110531 }
+      position: { lat: 19.463575145774783, lng: -99.1108678110531 },
+      direccion: "Ángel Albino Corzo 3128, Tablas de San Agustín, Gustavo A. Madero, 07860 Ciudad de México, CDMX"
     },
     {
       title: "Eduardo Molina",
-      position: { lat: 19.497258555853612, lng: -99.09065645913292 }
+      position: { lat: 19.497258555853612, lng: -99.09065645913292 },
+      direccion: "Eduardo Molina 1922, Vasco de Quiroga, Gustavo A. Madero, 07440 Ciudad de México, CDMX"
     },
     {
       title: "San Felipe",
-      position: { lat: 19.492312510159614, lng: -99.07462917542122 }
+      position: { lat: 19.492312510159614, lng: -99.07462917542122 },
+      direccion: "Coyuca 61, San Felipe de Jesús, Gustavo A. Madero, 07510 Ciudad de México, CDMX"
     }
-  ],[]);
+  ], []);
 
   const farmacias3 = useMemo(() => [
     {
@@ -263,7 +307,9 @@ function Contacto(props) {
       position: {
         lat: 19.503462189356853, 
         lng: -99.15700256777534,
-      }
+      },
+      direccion: "Eje Vial 1 Pte. (Calzada Vallejo 1111, Patera Vallejo I Secc, Gustavo A. Madero, 07710 Ciudad de México, CDMX",
+      telefono: "+52 8181260000"
     },
    
   ],[]);
@@ -544,47 +590,128 @@ const handleVerRutas3 = () => {
   const url = `https://www.google.com/maps/dir/?api=1&destination=${latitud3},${longitud3}`;
   window.open(url, '_blank');
 };
+const textoEstilo2 = {
+  textAlign: 'center',
+  //fontSize: '100px',   Tamaño de fuente más grande
+  fontSize: anchoVentana > 550 ? '60px' : '25px',
+  fontWeight: 'bold',
+  color: 'white',   // Color blanco
+  margin: '10px 0',
+};
+const tablaStyles3 = {
 
+  borderRadius: '10px',
+  // padding: '20px', Espaciado interno
+  
+  margin: 'auto', // Para centrar horizontalmente
+  width: '95%', // Anchura máxima para el contenido de la tabla
+
+  padding: '0.5%', // Espaciado interno
+  marginTop: '5%',
+  margindown: '5%',
+  textAlign: 'left',
+  marginBottom: '5%', 
+};
+const tablaStyles = {
+
+  borderRadius: '10px',
+  // padding: '20px', Espaciado interno
+ // Sombra para el efecto de elevación
+  //margin: 'auto',  Para centrar horizontalmente
+  width: '95%', // Anchura máxima para el contenido de la tabla
+    
+  padding: '20px', // Espaciado interno
+  marginTop: '2%',
+  margindown: '2%',
+
+
+};
+const [mostrardirectorioG, setMostrarDirectorioG] = useState(false);
+
+const toggleDirectorioG = () => {
+  setMostrarDirectorioG(!mostrardirectorioG);
+};
+
+const [mostrardirectorioSP, setMostrarDirectorioSP] = useState(false);
+
+const toggleDirectorioSP = () => {
+  setMostrarDirectorioSP(!mostrardirectorioSP);
+};
+
+const [mostrardirectorioB, setMostrarDirectorioB] = useState(false);
+
+const toggleDirectorioB = () => {
+  setMostrarDirectorioB(!mostrardirectorioB);
+};
 
   return (
     <div>
+       <div >
+      
+      <p style={textoEstilo2}>Contactos y direcciones</p>
+      <p></p>
+    </div>
+
       {/* Farmacia Guadalajara */}
       <div style={farmaciaStyles}>
         {/* Dividir en mitad horizontal */}
+       
+        {/* otra en mitad horizontal */}
         <div style={{ display: 'flex', height: '50%'/*, borderBottom: '1px solid black' */}}>
           {/* Dividir la parte superior en dos verticales */}
-          <div style={{ flex: 1, /*, borderBottom: '1px solid black' */ padding: '10px' }}>
+          <div style={{ flex: 1, /*, borderBottom: '1px solid black' */ }}>
             <div style={containerStyles}>
-              <h2 style={titleStyles}>Farmacia Guadalajara</h2>
-              <div style={infoStyles}>
-                <p>
-                <button style={{
-  border: 'none', // Sin borde
-  background: 'none', // Sin fondo
-  cursor: 'pointer', // Cambia el cursor al pasar sobre él
-  padding: '0', // Sin relleno
-}}>
-  <a href="https://www.farmaciasguadalajara.com/" target="_blank" rel="noopener noreferrer">
-    <img
-      src="./web.png"
-      alt="Descripción de la imagen"
-      style={{
-        maxWidth: '100%', // Ajustar la imagen al ancho máximo del contenedor
-        width: '30%', // Ancho específico para la imagen (puedes cambiar este valor)
-        height: 'auto', // Mantener la relación de aspecto
-        display: 'block', // Asegurar que la imagen ocupe todo el ancho disponible
-        margin: '0 auto' // Centrar la imagen horizontalmente
-      }}
-    />
-  </a>
-  Ir a página web
-</button>
+              <p style={titleStyles}>Farmacia Guadalajara</p>
+                <div style={{display: 'flex'}}>
+                  <div style={tablaStyles}>
+                    <button style={{
+                        border: 'none', // Sin borde
+                        background: 'none', // Sin fondo
+                        cursor: 'pointer', // Cambia el cursor al pasar sobre él
+                        padding: '0', // Sin relleno
+                      }}>
+                        <a href="https://www.farmaciasguadalajara.com/" target="_blank" rel="noopener noreferrer">
+                          <img
+                            src="./web.png"
+                            alt="Web"
+                            style={{
+                              maxWidth: '100%', // Ajustar la imagen al ancho máximo del contenedor
+                              width: '30%', // Ancho específico para la imagen (puedes cambiar este valor)
+                              height: 'auto', // Mantener la relación de aspecto
+                              display: 'block', // Asegurar que la imagen ocupe todo el ancho disponible
+                              margin: '0 auto' // Centrar la imagen horizontalmente
+                            }}
+                          />
+                        </a>
+                        Ir a página web
+                      </button>
+                  </div>
+                  <div  style={tablaStyles}>
+                  <button
+                    style={{
+                      border: 'none', // Sin borde
+                      background: 'none', // Sin fondo
+                      cursor: 'pointer', // Cambia el cursor al pasar sobre él
+                      padding: '0', // Sin relleno
+                    }} onClick={toggleDirectorioG} >
+                    <a >
+                      <img
+                        src="./directorio.png"
+                        alt="Directorio"
+                        style={{
+                          maxWidth: '100%', // Ajustar la imagen al ancho máximo del contenedor
+                          width: '30%', // Ancho específico para la imagen (puedes cambiar este valor)
+                          height: 'auto', // Mantener la relación de aspecto
+                          display: 'block', // Asegurar que la imagen ocupe todo el ancho disponible
+                          margin: '0 auto' // Centrar la imagen horizontalmente
+                        }}
+                      />
+                       {mostrardirectorioG ? 'Cerrar directorio' : 'Ver directorio'}
+                    </a>
+                  </button>
+                  </div>  
+                </div>
 
-                  <br />
-                  {/*Teléfono: futuro*/}
-                  <br />
-                </p>
-              </div>
               {mostrarBoton && (
                 <button onClick={handleMostrarMapa}>Todas las farmacias</button>
               )}
@@ -599,12 +726,37 @@ const handleVerRutas3 = () => {
             )}
           </div>
           
+
+          {anchoVentana > 990 && (
           <div style={{ flex: 1, padding: '2%', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center'  }}>
             <img
               src="/guadalajara.png" // Reemplaza "URL_DE_TU_IMAGEN" con la URL de la imagen
               alt="Imagen de la farmacia" // Agrega un texto alternativo descriptivo para accesibilidad
               style={imageStyles}
             />
+          </div>
+          )}
+
+        </div>
+
+        <div style={{ display: 'flex', height: '50%' }}>
+          <div style={{ flex: 1 }}>
+          {mostrardirectorioG && (
+
+            <div>
+              <div style={title}>
+              <p style={titleStyles}>Directorio de farmacias Guadalajara</p>
+              {farmacias.map((farmacia, index) => (
+                <div key={index}>
+                   <hr />
+                  <p><strong>Dirección:</strong> {farmacia.direccion}</p>
+                  <p><strong>Teléfono:</strong> {farmacia.telefono}</p>
+                 
+                </div>
+              ))}
+            </div>
+            </div>
+          )}
           </div>
         </div>
 
@@ -614,14 +766,14 @@ const handleVerRutas3 = () => {
           <div style={{ flex: 1 }}>
             {mostrarMapa && (
                 <div style={mapStyles}>
-                  <h4 style={titleStyles}>Todas las farmacias</h4>
+                  <p style={titleStyles}>Todas las farmacias</p>
                   <button onClick={handleUpdateLocation} style={buttonStyles}>Actualizar Ubicación</button>
                   <button onClick={handleCerrarMapa}>Cerrar Mapa</button>
                     {mostrarMapa && (
                       <div >
                         <Map
                           google={props.google}
-                          zoom={12}
+                          zoom anchoVentana > 550 ? {12}: {1},
                           initialCenter={{
                             lat: 19.4904923,
                             lng: -99.1325889,
@@ -691,13 +843,7 @@ const handleVerRutas3 = () => {
                             }}
                           />
                           
-                          <Marker
-                          title="Farmacia 10" // Nombre del marcador
-                            position={{
-                              lat: 19.468793813457868,  
-                              lng: -99.12621981965374,
-                            }}
-                          />
+                          
                           
                               <Polygon
                                 paths={gustavoAMaderoCoordinates}
@@ -722,11 +868,11 @@ const handleVerRutas3 = () => {
                       </div>
                     )}
                 </div>
-              )}
+            )}
 
             {mostrarMapaCerca && (
               <div style={mapStyles}>
-                <h4 style={titleStyles}>Farmacia cercana</h4>
+                <p style={titleStyles}>Farmacia cercana</p>
                 <button onClick={handleUpdateLocation} style={buttonStyles}>Actualizar Ubicación</button>
                 <button onClick={handleCerrarMapaCerca}>Cerrar Mapa</button>
                 <button onClick={handleVerRutas} style={buttonStyles}>Ver Rutas en Google Maps</button>
@@ -788,23 +934,71 @@ const handleVerRutas3 = () => {
         </div>
       </div>
   
+
+
+
+
+
+  
       {/* Farmacia San Pablo */}
       <div style={farmaciaStyles}>
           {/* Dividir en mitad horizontal */}
           <div style={{ display: 'flex', height: '50%'/*, borderBottom: '1px solid black' */}}>
             {/* Dividir la parte superior en dos verticales */}
-            <div style={{ flex: 1, /*, borderBottom: '1px solid black' */ padding: '10px' }}>
+            <div style={{ flex: 1, /*, borderBottom: '1px solid black' */ padding: '1px' }}>
               <div style={containerStyles}>
-                <h2 style={titleStyles}>Farmacia San Pablo</h2>
-                  <div style={infoStyles}>
-                    <p>
-                      Página web: <a href="https://www.farmaciasanpablo.com.mx/"> https://www.farmaciasanpablo.com.mx/ </a>
-                      <br />
-                      {/*Teléfono: futuro*/}
-                      <br />
-                     
-                    </p>
+                
+                <p style={titleStyles}>Farmacia San Pablo</p>
+                <div style={{display: 'flex'}}>
+                  <div style={tablaStyles}>
+                    <button style={{
+                        border: 'none', // Sin borde
+                        background: 'none', // Sin fondo
+                        cursor: 'pointer', // Cambia el cursor al pasar sobre él
+                        padding: '0', // Sin relleno
+                      }}>
+                        <a href="https://www.farmaciasanpablo.com.mx/" target="_blank" rel="noopener noreferrer">
+                          <img
+                            src="./web.png"
+                            alt="Web"
+                            style={{
+                              maxWidth: '100%', // Ajustar la imagen al ancho máximo del contenedor
+                              width: '30%', // Ancho específico para la imagen (puedes cambiar este valor)
+                              height: 'auto', // Mantener la relación de aspecto
+                              display: 'block', // Asegurar que la imagen ocupe todo el ancho disponible
+                              margin: '0 auto' // Centrar la imagen horizontalmente
+                            }}
+                          />
+                        </a>
+                        Ir a página web
+                      </button>
                   </div>
+                  <div  style={tablaStyles}>
+                  <button
+                    style={{
+                      border: 'none', // Sin borde
+                      background: 'none', // Sin fondo
+                      cursor: 'pointer', // Cambia el cursor al pasar sobre él
+                      padding: '0', // Sin relleno
+                    }} onClick={toggleDirectorioSP} >
+                    <a >
+                      <img
+                        src="./directorio.png"
+                        alt="Directorio"
+                        style={{
+                          maxWidth: '100%', // Ajustar la imagen al ancho máximo del contenedor
+                          width: '30%', // Ancho específico para la imagen (puedes cambiar este valor)
+                          height: 'auto', // Mantener la relación de aspecto
+                          display: 'block', // Asegurar que la imagen ocupe todo el ancho disponible
+                          margin: '0 auto' // Centrar la imagen horizontalmente
+                        }}
+                      />
+                       {mostrardirectorioSP ? 'Cerrar directorio' : 'Ver directorio'}
+                    </a>
+                  </button>
+                  </div>  
+                </div>
+                  
                     {mostrarBoton2 && (
                       <button onClick={handleMostrarMapa2}>Todas las farmacias</button>
                     )}
@@ -818,7 +1012,7 @@ const handleVerRutas3 = () => {
                 </div>
               )} 
             </div>
-            
+            {anchoVentana > 990 && (
             <div style={{ flex: 1, padding: '2%', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center'  }}>
               <img
                 src="/Sanpablo.png" // Reemplaza "URL_DE_TU_IMAGEN" con la URL de la imagen
@@ -826,7 +1020,32 @@ const handleVerRutas3 = () => {
                 style={imageStyles2}
               />
             </div>
+            )}
           </div>
+
+          <div style={{ display: 'flex', height: '50%' }}>
+          <div style={{ flex: 1 }}>
+          {mostrardirectorioSP && (
+
+          <div>
+            <p style={titleStyles}> Direcciones de Farmacias San Pablo </p>
+            <div style={title}>
+              <p  >Farmacias San Pablo cuenta con el mismo número para todas sus sucursales</p>
+              <p  ><strong>Teléfono:</strong> 800 0726 722 </p>
+              {farmacias2.map((farmacia, index) => (
+                <div key={index}>
+                  <hr />
+                  <p><strong>Dirección:</strong> {farmacia.direccion}</p>
+                
+                  
+                </div>
+                
+              ))}
+            </div>
+          </div>
+          )}
+          </div>
+        </div>
 
           {/* Parte inferior */}
           <div style={{ display: 'flex', height: '50%' }}>
@@ -834,7 +1053,7 @@ const handleVerRutas3 = () => {
             <div style={{ flex: 1 }}>
               {mostrarMapa2 && (
                 <div style={mapStyles}>
-                  <h4 style={titleStyles}>Todas las farmacias</h4>
+                  <p style={titleStyles}>Todas las farmacias</p>
                   <button onClick={handleUpdateLocation} style={buttonStyles}>Actualizar Ubicación</button>
                   <button onClick={handleCerrarMapa2}>Cerrar Mapa</button>
                   {mostrarMapa2 && (
@@ -903,7 +1122,7 @@ const handleVerRutas3 = () => {
 
               {mostrarMapaCerca2 && (
                 <div style={mapStyles}>
-                  <h4 style={titleStyles}>Farmacia cercana</h4>
+                  <p style={titleStyles}>Farmacia cercana</p>
                   <button onClick={handleUpdateLocation} style={buttonStyles}>Actualizar Ubicación</button>
                   <button onClick={handleCerrarMapaCerca2}>Cerrar Mapa</button>
                   <button onClick={handleVerRutas2} style={buttonStyles}>Ver Rutas en Google Maps</button>
@@ -974,16 +1193,57 @@ const handleVerRutas3 = () => {
             <div style={{ flex: 1, /*, borderBottom: '1px solid black' */ padding: '10px' }}>
               
               <div style={containerStyles}>
-                <h2 style={titleStyles}>Farmacia Benavides </h2>
-                  <div style={infoStyles}>
-                    <p>
-                      Página web:    <a href="https://www.benavides.com.mx/"> https://www.benavides.com.mx/ </a>
-                      <br />
-                      {/*Teléfono: futuro*/}
-                      <br />
-
-                    </p>
+                <p style={titleStyles}>Farmacia Benavides </p>
+                <div style={{display: 'flex'}}>
+                  <div style={tablaStyles}>
+                    <button style={{
+                        border: 'none', // Sin borde
+                        background: 'none', // Sin fondo
+                        cursor: 'pointer', // Cambia el cursor al pasar sobre él
+                        padding: '0', // Sin relleno
+                      }}>
+                        <a href="https://www.benavides.com.mx/" target="_blank" rel="noopener noreferrer">
+                          <img
+                            src="./web.png"
+                            alt="Web"
+                            style={{
+                              maxWidth: '100%', // Ajustar la imagen al ancho máximo del contenedor
+                              width: '30%', // Ancho específico para la imagen (puedes cambiar este valor)
+                              height: 'auto', // Mantener la relación de aspecto
+                              display: 'block', // Asegurar que la imagen ocupe todo el ancho disponible
+                              margin: '0 auto' // Centrar la imagen horizontalmente
+                            }}
+                          />
+                        </a>
+                        Ir a página web
+                      </button>
                   </div>
+                  <div  style={tablaStyles}>
+                  <button
+                    style={{
+                      border: 'none', // Sin borde
+                      background: 'none', // Sin fondo
+                      cursor: 'pointer', // Cambia el cursor al pasar sobre él
+                      padding: '0', // Sin relleno
+                    }} onClick={toggleDirectorioB} >
+                    <a >
+                      <img
+                        src="./directorio.png"
+                        alt="Directorio"
+                        style={{
+                          maxWidth: '100%', // Ajustar la imagen al ancho máximo del contenedor
+                          width: '30%', // Ancho específico para la imagen (puedes cambiar este valor)
+                          height: 'auto', // Mantener la relación de aspecto
+                          display: 'block', // Asegurar que la imagen ocupe todo el ancho disponible
+                          margin: '0 auto' // Centrar la imagen horizontalmente
+                        }}
+                      />
+                       {mostrardirectorioB ? 'Cerrar directorio' : 'Ver directorio'}
+                    </a>
+                  </button>
+                  </div>  
+                </div>
+
                     {mostrarBoton3 && (
                       <button onClick={handleMostrarMapa3}>Todas las farmacias</button>
                     )}
@@ -998,15 +1258,37 @@ const handleVerRutas3 = () => {
                 )}
 
               </div>
-            
+              {anchoVentana > 990 && (
             <div style={{ flex: 1, padding: '2%', marginBottom: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center'  }}>
               <img
                 src="/benabides.jpg" // Reemplaza "URL_DE_TU_IMAGEN" con la URL de la imagen
                 alt="Imagen de la farmacia" // Agrega un texto alternativo descriptivo para accesibilidad
-                style={imageStyles}
+                style={imageStyles3}
               />
             </div>
+             )}
           </div>
+
+          <div style={{ display: 'flex', height: '50%' }}>
+          <div style={{ flex: 1 }}>
+          {mostrardirectorioB && (
+
+            <div>
+            <p style={titleStyles}>Directorio de farmacias Benabides</p>
+            <div style={title}>
+            {farmacias3.map((farmacia, index) => (
+              <div key={index}>
+                <hr />
+                <p><strong>Dirección:</strong> {farmacia.direccion}</p>
+                <p><strong>Teléfono:</strong> {farmacia.telefono}</p>
+                
+              </div>
+            ))}
+          </div>
+          </div>
+          )}
+          </div>
+        </div>
 
           {/* Parte inferior */}
           <div style={{ display: 'flex', height: '50%' }}>
@@ -1016,7 +1298,7 @@ const handleVerRutas3 = () => {
               {mostrarMapa3 && (
                 
                 <div style={mapStyles}>
-                   <h4 style={titleStyles}>Todas las farmacias</h4>
+                   <p style={titleStyles}>Todas las farmacias</p>
                   <button onClick={handleUpdateLocation}  style={buttonStyles}>Actualizar Ubicación</button>
                   <button onClick={handleCerrarMapa3}>Cerrar Mapa</button>
                   <button onClick={handleVerRutas3} style={buttonStyles}>Ver Rutas en Google Maps</button>
@@ -1065,7 +1347,7 @@ const handleVerRutas3 = () => {
 
               {mostrarMapaCerca3 && (
                 <div style={mapStyles}>
-                    <h4 style={titleStyles}>Farmacia cercana</h4>
+                    <p style={titleStyles}>Farmacia cercana</p>
                   <button onClick={handleUpdateLocation}  style={buttonStyles}>Actualizar Ubicación</button>
                   <button onClick={handleCerrarMapaCerca3}>Cerrar Mapa</button>
                     {mostrarMapaCerca3 && (
@@ -1128,7 +1410,7 @@ const handleVerRutas3 = () => {
         </div>
 
       </div>
-      
+    
     
   ); 
 }

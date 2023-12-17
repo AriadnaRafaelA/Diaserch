@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import './App.css';
 
 
-function conocenos() {
+function Conocenos() {
+
+  const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const actualizarAnchoVentana = () => {
+      setAnchoVentana(window.innerWidth);
+    };
+    window.addEventListener('resize', actualizarAnchoVentana);
+    return () => {
+      window.removeEventListener('resize', actualizarAnchoVentana);
+    };
+  }, []);
+
 
   const texto = {
-
     fontSize: '12px',  // Tamaño de fuente más grande
-    
   };
   const texto2 = {
-
     fontSize: '14px',  // Tamaño de fuente más grande
-    
   };
   
   const textoEstilo2 = {
     textAlign: 'center',
     //fontSize: '100px',   Tamaño de fuente más grande
-    fontSize: '9vw',
+    fontSize: anchoVentana > 550 ? '60px' : '30px',
     fontWeight: 'bold',
     color: 'white',   // Color blanco
     margin: '10px 0',
-
   };
 
   const contenidoEstilo = {
@@ -55,20 +63,7 @@ function conocenos() {
 
   };
 
-  const tablaStyles2 = {
-    backgroundColor: 'rgba(255, 255, 255, 10)',
-    borderRadius: '10px',
-    // padding: '20px', Espaciado interno
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', // Sombra para el efecto de elevación
-    margin: 'auto', // Para centrar horizontalmente
-    width: '80%', // Anchura máxima para el contenido de la tabla
-    border: '1px solid #ccc', // Borde con color gris
-    padding: '20px', // Espaciado interno
-    marginTop: '5%',
-    margindown: '5%',
-    textAlign: 'left' ,
-    color: '#000000'
-  };
+
 
   const tablaStyles3 = {
     color: '#FFFFFF',
@@ -96,7 +91,7 @@ function conocenos() {
         <p style={textoEstilo2}>Conocenos</p>
         <p></p>
       </div>
-      {window.innerWidth > 550 ? ( // Por ejemplo, si el ancho de la pantalla es mayor a 768px
+      {anchoVentana > 550 ? ( // Por ejemplo, si el ancho de la pantalla es mayor a 768px
       <div style={tablaStyles3}>
         <div style={{ display: 'flex'}}>
           <div style={{ ...tablaStyles, width: '100%', marginRight: '2%' ,marginLeft: '2%',}}>
@@ -196,4 +191,4 @@ function conocenos() {
   );
 }
 
-export default conocenos;
+export default Conocenos;
