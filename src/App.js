@@ -702,7 +702,7 @@ function App(props) {
 
   const [medicinasEncontradas, setMedicinasEncontradas] = useState([]);
 
-    const buscarPorNombre = () => {
+    /*const buscarPorNombre = () => {
       if (!nombreBuscado) {
       console.log('Ingresa el nombre de la medicina');
       return; // Salir de la función si nombreBuscado está vacío
@@ -719,33 +719,40 @@ function App(props) {
     }
     
     setMedicinasEncontradas(medicinasEncontradas);
-  };
-  
- /* const [medicinasEncontradas, setMedicinasEncontradas] = useState([]);
-  const [palabras, setPalabras] = useState([]);
-  
-  const buscarPorNombre = () => {
-    if (!nombreBuscado) {
-      console.log('Ingresa el nombre de la medicina');
-      return;
-    }
-    const primeraPalabra = palabras.length > 0 ? palabras[0] : '';
-    const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
-  
-    const medicinasEncontradasPorFormula = medicinas.filter(
-      (medicina) => {
-        const formulas = medicina.formula.toLowerCase().split(' ');
-        return formulas.includes(primeraPalabra.toLowerCase()) ||
-        formulas.includes(segundaPalabra.toLowerCase());
-      }
-    );
-  
-    if (medicinasEncontradasPorFormula.length > 0) {
-      setMostrarContenido(false);
-    }
-    
-    setMedicinasEncontradas(medicinasEncontradasPorFormula);
   };*/
+
+  
+const buscarPorNombre = () => {
+  if (!nombreBuscado) {
+    console.log('Ingresa el nombre de la medicina');
+    return; 
+  }
+
+  
+  const palabrasBusqueda = nombreBuscado.toLowerCase().split(' ');
+
+  const medicinasEncontradas = medicinas.filter(medicina => {
+    
+    const palabrasFormula = medicina.formula.toLowerCase().split(' ');
+
+    
+    return palabrasBusqueda.some(palabraBuscada =>
+      palabrasFormula.slice(0, 2).includes(palabraBuscada)
+    );
+  });
+
+  if (medicinasEncontradas.length > 0) {
+    setMostrarContenido(false);
+  }
+
+  setMedicinasEncontradas(medicinasEncontradas);
+};
+
+ 
+
+
+
+
   const [mostrarContenido, setMostrarContenido] = useState(false);
 
   const mostrarOcultarContenido = () => {

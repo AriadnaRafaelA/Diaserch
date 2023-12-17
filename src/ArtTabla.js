@@ -148,7 +148,7 @@ function ArtTabla() {
               <td>
                 <p><strong>Inicial:</strong> 5 mg por día</p>
                 <p><strong>Rango:</strong> 2,5-40 mg (20 mg para XL)</p>
-                <p><strong>Dosis:</strong> Se toma una o dos veces (si > 15 mg) por día</p>
+                <p><strong>Dosis:</strong> Se toma una o dos veces (si &lt; 15 mg) por día</p>
               </td>
               <td>
                 <p><strong>EC:</strong> hipoglucemia, aumento de peso</p>
