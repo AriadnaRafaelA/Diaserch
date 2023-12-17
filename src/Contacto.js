@@ -30,9 +30,9 @@ function Contacto(props) {
     
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: '10px',
-    marginRight: '10%',
-    marginLeft: '10%',
-    padding: '1%',
+    marginRight: '5%',
+    marginLeft: '5%',
+    padding: '5%',
     marginBottom: '5%'
     /*border: '1px solid #ccc',
     borderRadius: '5px',
@@ -44,9 +44,9 @@ function Contacto(props) {
   };
   const mapStyles = {
     width: '100%',
-    height: anchoVentana > 550 ? '400px': '200px',
+    height: anchoVentana > 550 ? '400px': '190px',
     position: 'relative',
-    marginBottom: '15%',
+    marginBottom: anchoVentana > 550 ? '20%':'40%',
   };
   const infoStyles = {
     textAlign: 'center',
@@ -68,7 +68,7 @@ function Contacto(props) {
 
   };
   const buttonStyles = {
-    marginTop: '3%', // Agrega un margen superior al botón de farmacia cercana para separarlo del mapa
+    marginTop: '5%', // Agrega un margen superior al botón de farmacia cercana para separarlo del mapa
   };
   const imageStyles = {
     width: '35%', // Ajusta el ancho de la imagen según sea necesario
@@ -643,13 +643,23 @@ const [mostrardirectorioB, setMostrarDirectorioB] = useState(false);
 const toggleDirectorioB = () => {
   setMostrarDirectorioB(!mostrardirectorioB);
 };
-
+const calcularZoom = () => {
+  const anchoVentana = window.innerWidth;
+  // Define diferentes niveles de zoom según el ancho de la ventana
+  if (anchoVentana < 550) {
+    return 11;
+  } else if (anchoVentana >= 600 && anchoVentana < 1200) {
+    return 12;
+  } else {
+    return 12;
+  }
+};
   return (
     <div>
        <div >
       
       <p style={textoEstilo2}>Contactos y direcciones</p>
-      <p></p>
+     
     </div>
 
       {/* Farmacia Guadalajara */}
@@ -773,7 +783,7 @@ const toggleDirectorioB = () => {
                       <div >
                         <Map
                           google={props.google}
-                          zoom anchoVentana > 550 ? {12}: {1},
+                           zoom={calcularZoom()}
                           initialCenter={{
                             lat: 19.4904923,
                             lng: -99.1325889,
@@ -880,7 +890,7 @@ const toggleDirectorioB = () => {
                     <div>
                       <Map
                         google={props.google}
-                        zoom={12}
+                        zoom={calcularZoom()}
                         initialCenter={
                           nearestPharmacyCoordinates
                             ? {
@@ -1060,7 +1070,7 @@ const toggleDirectorioB = () => {
                   <div>
                     <Map
                       google={props.google}
-                      zoom={12}
+                      zoom={calcularZoom()}
                       initialCenter={{
                         lat: 19.506388,
                         lng: -99.144676,
@@ -1130,7 +1140,7 @@ const toggleDirectorioB = () => {
                       <div>
                         <Map
                           google={props.google}
-                          zoom={12}
+                          zoom={calcularZoom()}
                           initialCenter={
                             nearestPharmacyCoordinates2
                               ? {
@@ -1306,7 +1316,7 @@ const toggleDirectorioB = () => {
                       <div >
                         <Map
                           google={props.google}
-                          zoom={12}
+                          zoom={calcularZoom()}
                           initialCenter={{
                             lat: 19.5060043,
                             lng: -99.136207,
@@ -1354,7 +1364,7 @@ const toggleDirectorioB = () => {
                       <div>
                         <Map
                           google={props.google}
-                          zoom={12}
+                          zoom={calcularZoom()}
                           initialCenter={
                             nearestPharmacyCoordinates3
                               ? {
