@@ -168,7 +168,7 @@ function Conocenos() {
 
         <div style={{ display: 'flex'}}>
           <div style={{ ...tablaStyles, width: '100%',marginRight: '2%' , marginLeft: '1%',}}>
-            <p style={{...texto2, textAlign: 'center' }}>Nuestro Compromiso:</p>
+            <h3 style={{...texto2, textAlign: 'center' }}>Nuestro Compromiso:</h3>
             <p style={{...texto, textAlign: 'justify' }}>Estamos aquí para simplificar tu día a día. Queremos que <strong>DIASERCH</strong> sea una herramienta útil para ti. Estamos abiertos a tus preguntas, comentarios y nos comprometemos a mejorar continuamente nuestra plataforma para satisfacer tus necesidades.</p>
           </div>
         </div>

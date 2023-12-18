@@ -21,6 +21,19 @@ import axios from 'axios';
 
 function App(props) {
 //___________________________________________________________________
+
+
+const [anchoVentana, setAnchoVentana] = useState(window.innerWidth);
+useEffect(() => {
+  const actualizarAnchoVentana = () => {
+    setAnchoVentana(window.innerWidth);
+  };
+  window.addEventListener('resize', actualizarAnchoVentana);
+  return () => {
+    window.removeEventListener('resize', actualizarAnchoVentana);
+  };
+}, []);
+
   const gustavoAMaderoCoordinates = [
       // Define aquí las coordenadas que representan los límites de la delegación Gustavo A. Madero
       { lat: 19.51796193683034, lng: -99.1629829966421},
@@ -489,8 +502,8 @@ function App(props) {
 
   const textoEstilo = {
     textAlign: 'center',
-    fontSize: '8vh',
-    //fontSize: '48px',  // Tamaño de fuente más grande
+    //fontSize: '8vh',
+    fontSize: anchoVentana > 530 ? '48px' : '28px', // Tamaño de fuente más grande
     //fontWeight: 'bold',
     color: 'white',   // Color blanco
     margin: '10px 0',
@@ -499,8 +512,8 @@ function App(props) {
   
   const textoEstilo2 = {
     textAlign: 'center',
-    //fontSize: '100px',
-    fontSize: '9vh',  // Tamaño de fuente más grande
+    fontSize:  anchoVentana > 530 ? '100px' : '50px',
+    //fontSize: '9vh',  // Tamaño de fuente más grande
     fontWeight: 'bold',
     color: 'white',   // Color blanco
     margin: '10px 0',
@@ -517,16 +530,27 @@ function App(props) {
    // marginTop: '70px',  Agregar margen superior para separar del texto
     marginTop: '9VH',
     position: 'relative',
+    width: '100%', 
   };
 
   const texto = {
     textAlign: 'center',
     marginTop: '10px', // Agregar margen superior para separar del texto
+    fontSize: anchoVentana > 530 ? '20px' : '12px',
+  };
+  
+  
+  const texto2 = {
+    fontSize: anchoVentana > 530 ? '15px' : '9px',
    
   };
   
+  const texto1 = {
+    fontSize: anchoVentana > 530 ? '15px' : '8px',
+   
+  };
   const inputEstilo = {
-    width: '50%', // Ocupar todo el ancho disponible
+    width:  anchoVentana > 530 ? '50%' : '70%', // Ocupar todo el ancho disponible
     height: '60px', // Altura más grande
      //fontSize: '24px', Tamaño de fuente más grande
      fontSize: '2.5VH',
@@ -580,7 +604,7 @@ function App(props) {
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)', // Sombra para el efecto de elevación
     margin: 'auto', // Para centrar horizontalmente
     width: '95%', // Anchura máxima para el contenido de la tabla
- 
+    fontSize: anchoVentana > 530 ? '15px' : '8px',
     padding: '0.5%', // Espaciado interno
     marginTop: '5%',
     margindown: '5%',
@@ -653,8 +677,10 @@ function App(props) {
     width: '100%',
     margin: '10px 0',
     marginTop: '3%',
-    borderTop: '2px solid #277FB3',
-   backgroundColor: '#ffcccc'
+    //borderTop: '2px solid #277FB3',
+    backgroundColor: 'C2F8FF',
+    padding: '0.5%',
+    borderRadius: '10px',
   };
   const borderStyle2 = {
    display: 'flex', 
@@ -663,10 +689,6 @@ function App(props) {
     borderTop: '1px solid #38B6FF',
   };
 
-  const texto1 = {
-    fontSize: '2vh', 
-   
-  };
 
   //---------------------------------------------------------------------------------
   const [conexionExitosa, setConexionExitosa] = useState(false);
@@ -702,57 +724,36 @@ function App(props) {
 
   const [medicinasEncontradas, setMedicinasEncontradas] = useState([]);
 
-    /*const buscarPorNombre = () => {
+    const buscarPorNombre = () => {
       if (!nombreBuscado) {
       console.log('Ingresa el nombre de la medicina');
       return; // Salir de la función si nombreBuscado está vacío
     }
 
-    const medicinasEncontradas = medicinas.filter(
+   /* const medicinasEncontradas = medicinas.filter(
       //(medicina) => medicina.laboratorio.toLowerCase().startsWith(nombreBuscado.toLowerCase())
       (medicina) => medicina.laboratorio.toLowerCase().includes(nombreBuscado.toLowerCase())
 
-    );
+    );*/
 
-    if (medicinasEncontradas.length > 0) {
+
+    const medicinasEncontradas = medicinas.filter((medicina) => {
+      // Verificar si el nombre o la fórmula contienen el valor buscado (ignorando mayúsculas y minúsculas)
+      const nombreEncontrado = medicina.laboratorio.toLowerCase().includes(nombreBuscado.toLowerCase());
+      const formulaEncontrada = medicina.formula.toLowerCase().includes(nombreBuscado.toLowerCase());
+      // Devolver verdadero si se encuentra el nombre o la fórmula
+      return nombreEncontrado || formulaEncontrada;
+    });
+
+        if (medicinasEncontradas.length > 0) {
       setMostrarContenido(false);
     }
+
     
     setMedicinasEncontradas(medicinasEncontradas);
-  };*/
-
+  };
   
-const buscarPorNombre = () => {
-  if (!nombreBuscado) {
-    console.log('Ingresa el nombre de la medicina');
-    return; 
-  }
-
-  
-  const palabrasBusqueda = nombreBuscado.toLowerCase().split(' ');
-
-  const medicinasEncontradas = medicinas.filter(medicina => {
-    
-    const palabrasFormula = medicina.formula.toLowerCase().split(' ');
-
-    
-    return palabrasBusqueda.some(palabraBuscada =>
-      palabrasFormula.slice(0, 2).includes(palabraBuscada)
-    );
-  });
-
-  if (medicinasEncontradas.length > 0) {
-    setMostrarContenido(false);
-  }
-
-  setMedicinasEncontradas(medicinasEncontradas);
-};
-
  
-
-
-
-
   const [mostrarContenido, setMostrarContenido] = useState(false);
 
   const mostrarOcultarContenido = () => {
@@ -787,12 +788,87 @@ const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
 
 //________________________________________________________
 
+
+
+const [copied, setCopied] = useState(false);
+
+const handleCopyToClipboard = (text) => {
+  navigator.clipboard.writeText(text);
+  setCopied(true);
+
+  // Después de un tiempo, desaparecerá el texto "Copiado"
+  setTimeout(() => {
+    setCopied(false);
+  }, 2000);
+};
+//--------------------------------------------------------------------
+const [ordenSeleccionado, setOrdenSeleccionado] = useState('');
+
+  // Suponiendo que medicina.precio y medicina.preciod son strings que representan valores monetarios
+  const quitarSimboloDolar = (valorMonetario) => {
+    const valorSinSigno = valorMonetario.replace('$', '');
+    const valorSinComas = valorSinSigno.replace(/,/g, '');
+    const valorNumerico = parseFloat(valorSinComas);
+    return valorNumerico;
+  };
+  const filtrarPorPrecioDiferente = (medicinas) => {
+    return medicinas.filter(medicina => medicina.precio !== medicina.preciod);
+  };
+  
+
+  const ordenarMedicinas = (medicinas, orden) => {
+    switch (orden) {
+      case 'alfabetico':
+        return medicinas.sort((a, b) => a.laboratorio.localeCompare(b.laboratorio));
+      case 'reverso':
+        return medicinas.sort((a, b) => b.laboratorio.localeCompare(a.laboratorio));
+      case 'mayorPrecio':
+        return medicinas.sort((a, b) => quitarSimboloDolar(b.precio) - quitarSimboloDolar(a.precio));
+      case 'menorPrecio':
+        return medicinas.sort((a, b) => quitarSimboloDolar(a.precio) - quitarSimboloDolar(b.precio));
+      case 'disponibilidad':
+        return medicinas.sort((a, b) => a.disponibilidad.localeCompare(b.disponibilidad));
+        /*case 'disponibilidad':
+        return medicinas.sort((a, b) => a.disponibilidad.localeCompare(b.disponibilidad));*/
+      case 'noDisponibilidad':
+        //return medicinas.filter(medicina => medicina.disponibilidad === 'No Disponible');
+        return medicinas.sort((a, b) => {
+          if (a.disponibilidad === 'Agotado' && b.disponibilidad !== 'Agotado') {
+            return -1; // Si a está agotado y b no lo está, a va antes que b
+          } else if (a.disponibilidad !== 'Agotado' && b.disponibilidad === 'Agotado') {
+            return 1; // Si b está agotado y a no lo está, b va antes que a
+          } else {
+            return a.disponibilidad.localeCompare(b.disponibilidad);
+            // Si ambos tienen el mismo estado o ninguno es "Agotado", se usa la comparación alfabética normal
+          }
+        });
+      case 'ofertas':
+         return medicinas.sort((a, b) => {
+          const aEsOferta = a.precio !== a.preciod;
+          const bEsOferta = b.precio !== b.preciod;
+  
+          if (aEsOferta && !bEsOferta) {
+            return -1; // Si 'a' es oferta y 'b' no, 'a' va primero
+          } else if (!aEsOferta && bEsOferta) {
+            return 1; // Si 'b' es oferta y 'a' no, 'b' va primero
+          } else {
+            return 0; // Ambos o ninguno son ofertas, se mantiene el orden actual
+          }
+        });
+        
+        
+      default:
+        return medicinas;
+    }
+  };
+
+//_______________________________________________________
   const FarmaciaComponent = ({ farmaciaNombre, medicinas }) => ( 
     <div style={texto1}>
       {medicinas.length  > 0 && <p> 
       {/* Estructura común de la tabla */}
       <div style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-        <div style={{ width: '20%', textAlign: 'left' }}>
+        <div style={{ width: '30%', textAlign: 'left' }}>
           <p>Medicina</p>
         </div>
         
@@ -802,11 +878,19 @@ const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
         <div style={{ width: '15%', textAlign: 'left' }}>
           <p>Con descuento</p>
         </div>
-        <div style={{ width: '10%', textAlign: 'left' }}>
-          <p></p>
+          {/*!mostrarContenido  && (
+            <div style={{ width: '15%', textAlign: 'left' }}>
+              <p>Comparacion</p>
+            </div>
+          )*/}
+        
+        <div style={{ width: '15%', textAlign: 'left' }}>
+          {farmaciaNombre !== 'Farmacia Guadalajara' && <p>Disponibilidad</p>}
+          {farmaciaNombre === 'Farmacia Guadalajara' && <p>Página no apta para mostrar disponibilidad</p>}
         </div>
-        <div style={{ width: '10%', textAlign: 'left' }}>
-          <p>Comprar</p>
+
+        <div style={{ width: '15%', textAlign: 'left' }}>
+          <p>Copiar nombre</p>
         </div>
       </div></p>}
   
@@ -829,7 +913,8 @@ const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
             {medicina.precio !== medicina.preciod ? (
               <p style={{ textDecoration: 'line-through' }}>{medicina.precio}</p>
             ) : (
-              <p> <b>{medicina.precio}  </b></p>
+           //{quitarSimboloDolar(medicina.precio)}  
+           <p> <b> {medicina.precio}</b></p>
             )}
 
           </div>
@@ -842,24 +927,54 @@ const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
             )}
 
           </div>
-          <div style={{ width: '10%', textAlign: 'left' }}>
-            <p>
-            aqui van las iamgenes de arriba, abajo e igual
-            </p>
-          </div>
 
-          <div style={{ width: '10%', textAlign: 'left' }}>
-            {/*<p><a href={`https://www.benavides.com.mx/${medicina.laboratorio.replace(/\s+/g,'-')}-${primeraPalabra}-${medicina.presentacion.replace(/\s+/g, '-')}`} target="_blank" rel="noopener noreferrer">
-              <img
-                src="./web.png"
-                alt="Descripción de la imagen"
+          {/*!mostrarContenido  && (
+            <div style={{ width: '15%', textAlign: 'left' }}>
+              <p>Comparacion</p>
+            </div>
+          )*/}
+
+          <div style={{ width: '15%', textAlign: 'left' }}>
+          {farmaciaNombre !== 'Farmacia Guadalajara' && <p> {medicina.disponibilidad}</p>}
+          {farmaciaNombre === 'Farmacia Guadalajara' && <p> </p>}
+          
+          </div>
+          
+          <div style={{ width: '15%', textAlign: 'left' }}>
+            <div>
+              <button
+                onClick={() => handleCopyToClipboard(medicina.laboratorio)}
                 style={{
-                  maxWidth: '50%', // Ajustar la imagen al ancho máximo del contenedor
-                  height: 'auto', // Mantener la relación de aspecto
-                  display: 'block' // Asegurar que la imagen ocupe todo el ancho disponible
+                  border: 'none',
+                  background: 'none',
+                  cursor: 'pointer',
                 }}
-              />
-            </a></p>*/}
+              >
+                <img
+                  src="./copiar.png" // Ruta de tu imagen de copiar
+                  alt="Copiar"
+                  style={{
+                    width: '24px', // Ancho deseado para la imagen
+                    height: '24px', // Alto deseado para la imagen
+                  }}
+                />
+                Copiar
+              </button>
+              {copied && (
+                <div className="modal" style={{display: 'block',
+                padding: '10px',
+                fontSize: '20px', // Cambiar tamaño del texto
+                textAlign: 'center', // Centrar texto
+              }}>
+                  <div className="modal-content">
+                    <span onClick={() => setCopied(false)}>
+                      &times;
+                    </span>
+                    <p>Copiado</p>
+                  </div>
+                </div>
+              )}
+            </div>    
           </div>
         </div>
       ))}
@@ -876,6 +991,61 @@ const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
     }
     return null;
   };
+  const [activeFarmacia, setActiveFarmacia] = useState(null);
+
+  const toggleFarmacia = (farmacia) => {
+    if (activeFarmacia === farmacia) {
+      setActiveFarmacia(null); // Si se vuelve a clickear el mismo título, se contrae
+    } else {
+      setActiveFarmacia(farmacia); // Si se clickea un título diferente, se expande
+    }
+  };
+    // Estilo para la línea de separación
+    const separatorStyle = {
+      borderBottom: '2px solid #fff',
+      marginBottom: '10px',
+      paddingBottom: '10px',
+    };
+
+    // Estilo para el contenido de la farmacia seleccionada
+    const contentStyle = {
+      backgroundColor: 'red',
+      padding: '10px',
+    };
+  const renderFarmaciaContent = (farmacia) => {
+    // Lógica para determinar qué contenido mostrar según la farmacia seleccionada
+    if (farmacia === 'guadalajara') {
+      return (
+        <div>
+          <FarmaciaComponent farmaciaNombre="Farmacia Guadalajara" medicinas={guadalajaraMedicinas} />
+        </div>
+      );
+    } else if (farmacia === 'sanPablo') {
+      return (
+        <div>
+          <FarmaciaComponent farmaciaNombre="Farmacia San Pablo" medicinas={sanPabloMedicinas} />
+        </div>
+      );
+    } else if (farmacia === 'benavides') {
+      return (
+        <div>
+          <FarmaciaComponent farmaciaNombre="Farmacia Benavides" medicinas={benavidesMedicinas} />
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const isFarmaciaActive = (farmacia) => activeFarmacia === farmacia;
+
+  const getTriangleClass = (farmacia) =>
+    isFarmaciaActive(farmacia) ? 'triangle-up' : 'triangle-down';
+
+  const handleChange = (e) => {
+    setOrdenSeleccionado(e.target.value);
+  };
+
+  const medicinasOrdenadas = ordenarMedicinas(medicinas, ordenSeleccionado);
 
   return (
     <Router>
@@ -965,22 +1135,57 @@ const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
                         <div style={tablaStyles3}>
 
                           {mostrarContenido && (
-                            <div style={tablaStyles}>
+
+
+
+                            /*<div style={tablaStyles}>
                               <div>
-                              {/* <hr style={{ borderTop: '2px solid blue', width: '100%', margin: '10px 0', marginTop: '3%' }} />*/  }
-                                <h3 style={borderStyle} ><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
+                                <h3 style={borderStyle} ><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markr" /> Farmacia Guadalajara</h3>
                                 <FarmaciaComponent farmaciaNombre="Farmacia Guadalajara" medicinas={guadalajaraMedicinas} />
-
                               </div>
-
                               <div>
                                 <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
                                 <FarmaciaComponent farmaciaNombre="Farmacia San Pablo" medicinas={sanPabloMedicinas} />
-
                               </div>
                               <div >
                                 <h3 style={borderStyle}><img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Markr" /> Farmacia Benavides</h3>
                                 <FarmaciaComponent farmaciaNombre="Farmacia Benavides" medicinas={benavidesMedicinas} />
+                              </div>
+                            </div>*/
+                            <div style={tablaStyles}>
+                              <div>
+                                <select value={ordenSeleccionado} onChange={handleChange}>
+                                  <option value="">Seleccionar orden</option>
+                                  <option value="alfabetico">Orden alfabético A - Z</option>
+                                  <option value="reverso">Orden alfabético Z - A</option>
+                                  <option value="mayorPrecio">Orden mayor precio </option>
+                                  <option value="menorPrecio">Orden menor precio </option>
+                                  <option value="disponibilidad">Orden por Agotado</option>
+                                  <option value="noDisponibilidad">Orden por disponibilidad</option>
+                                  <option value="ofertas">Orden por ofertas</option>
+                                </select>
+                              </div>
+                              <div style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+                                <div style={texto2}>
+                                  <div onClick={() => toggleFarmacia('guadalajara')} style={{...borderStyle, cursor: 'pointer',marginTop: '20px' }}>
+                                    <h3><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markr" /> Farmacia Guadalajara {activeFarmacia === 'guadalajara' ? '▲' : '▼'}</h3>
+                                  </div>  
+                                    {activeFarmacia === 'guadalajara' && renderFarmaciaContent('guadalajara')}
+                                  
+                                 
+                                    <div onClick={() => toggleFarmacia('sanPablo')} style={{...borderStyle, cursor: 'pointer',marginTop: '20px'}}>
+                                      <h3><img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Markr" /> Farmacia San Pablo {activeFarmacia === 'sanPablo' ? '▲' : '▼'}</h3>
+                                      </div>  
+                                      {activeFarmacia === 'sanPablo' && renderFarmaciaContent('sanPablo')}
+                                  
+                              
+                                    <div onClick={() => toggleFarmacia('benavides')} style={{...borderStyle, cursor: 'pointer' ,marginTop: '20px'}}>
+                                      <h3><img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Markr" /> Farmacia Benavides {activeFarmacia === 'benavides' ? '▲' : '▼'}</h3>
+                                    </div>  
+                                      {activeFarmacia === 'benavides' && renderFarmaciaContent('benavides')}
+                                    
+                              
+                                </div>
                               </div>
                             </div>
                           )}
@@ -991,10 +1196,21 @@ const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
                               <button onClick={() => setMedicinasEncontradas([])}>Realizar otra busqueda </button>
                               </div>*/  }
                             <div style={tablaStyles}>
-
+                            <div>
+                                <select value={ordenSeleccionado} onChange={handleChange}>
+                                  <option value="">Seleccionar orden</option>
+                                  <option value="alfabetico">Orden alfabético A - Z</option>
+                                  <option value="reverso">Orden alfabético Z - A</option>
+                                  <option value="mayorPrecio">Orden mayor precio </option>
+                                  <option value="menorPrecio">Orden menor precio </option>
+                                  <option value="disponibilidad">Orden por Agotado</option>
+                                  <option value="noDisponibilidad">Orden por disponibilidad</option>
+                                  <option value="ofertas">Orden por ofertas</option>
+                                </select>
+                              </div>
                               <div>
                               {/* <hr style={{ borderTop: '2px solid blue', width: '100%', margin: '10px 0', marginTop: '3%' }} />*/  }
-                              <h3 style={borderStyle} ><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markr" /> Farmacia San Pablo</h3>
+                              <h3 style={borderStyle} ><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Markr" /> Farmacia Guadalajara</h3>
                                 <FarmaciaComponent
                                   farmaciaNombre="Farmacia Guadalajara"
                                   medicinas={medicinasEncontradas.filter(medicina => medicina.farmacia === 'Farmacia Guadalajara')}
@@ -1150,29 +1366,38 @@ const segundaPalabra = palabras.length > 1 ? palabras[1] : '';
                               </Map>
                             </div>
                             <div style={tablaStyles3}>
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                              <div style={{ width: '100%', textAlign: 'center'  }}>
-                              <h3 style={titleStyles}>Revisar rutas para llegar en Google map</h3>
+                              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <div style={{ width: '100%', textAlign: 'center'  }}>
+                                <h3 style={titleStyles}>Revisar rutas para llegar en Google map</h3>
+                                </div>
+                              </div>
+                              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <div style={{ width: '33.33%', textAlign: 'center'  }}>
+                                  <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Guadalajara') && nearestPharmacyCoordinates && (
+                                        <button onClick={handleVerRutas} style={buttonStyles}>Farmacia Guadalajara</button> 
+                                        )}</p>
+                                     {mostrarContenido && (
+                                        <button onClick={handleVerRutas} style={buttonStyles}>Farmacia Guadalajara</button> 
+                                      )}
+                                </div>
+                                <div style={{ width: '33.33%', textAlign: 'center'  }}>
+                                  <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && nearestPharmacyCoordinates2 && (
+                                                                                            <button onClick={handleVerRutas2} style={buttonStyles}>Farmacia San Pablo</button> 
+                                        )}</p>
+                                        {mostrarContenido && (
+                                        <button onClick={handleVerRutas2} style={buttonStyles}>Farmacia San Pablo</button>  
+                                      )}
+                                </div>
+                                <div style={{ width: '33.33%', textAlign: 'center' }}>
+                                  <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Benavides') && nearestPharmacyCoordinates3 && (
+                                        <button onClick={handleVerRutas3} style={buttonStyles}>Farmacia Benavides</button> 
+                                        )}</p>
+                                        {mostrarContenido && (
+                                        <button onClick={handleVerRutas3} style={buttonStyles}>Farmacia Benavides</button>
+                                      )}
+                                </div>
                               </div>
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                              <div style={{ width: '33.33%', textAlign: 'center'  }}>
-                                <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Guadalajara') && nearestPharmacyCoordinates && (
-                                      <button onClick={handleVerRutas} style={buttonStyles}>Farmacia Guadalajara</button> 
-                                      )}</p>
-                              </div>
-                              <div style={{ width: '33.33%', textAlign: 'center'  }}>
-                                <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia San Pablo') && nearestPharmacyCoordinates2 && (
-                                      <button onClick={handleVerRutas2} style={buttonStyles}>Farmacia San Pablo</button> 
-                                      )}</p>
-                              </div>
-                              <div style={{ width: '33.33%', textAlign: 'center' }}>
-                                <p>{medicinasEncontradas.some(medicina => medicina.farmacia === 'Farmacia Benavides') && nearestPharmacyCoordinates3 && (
-                                      <button onClick={handleVerRutas3} style={buttonStyles}>Farmacia Benavides</button> 
-                                      )}</p>
-                              </div>
-                            </div>
-                        </div>
                           </div>
 
                         </div>

@@ -184,11 +184,11 @@ function Navbar() {
                     Búsqueda
                     </a>
                 </li>
-                <li className="nav-item">
+                {/*<li className="nav-item">
                     <a className="nav-link " href="/ofertas.js"  style={textoStyle}>
                     Ofertas
                     </a>
-                </li>
+  </li>*/}
                 <li className="nav-item dropdown">
                   <a className="nav-link  dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" aria-expanded="false"  style={textoStyle}>
                   Artículos
