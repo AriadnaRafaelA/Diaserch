@@ -18,7 +18,10 @@
   width: 50px;
   height: 50px;
 }
-
+ul.dropdown-menu li {
+  border-bottom: 1px solid #277FB3; /* Línea negra como separación */
+  padding-bottom: 5px; /* Ajuste de espacio entre elementos */
+}
 
 .App-header {
   background-color: #282c34;

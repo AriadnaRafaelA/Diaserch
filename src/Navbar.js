@@ -197,7 +197,7 @@ function Navbar() {
                     <ul className="dropdown-menu">
                       <li><a className="dropdown-item" href="/Diabetes.js" style={textoStyle3}>¿Qué es la diabetes?</a></li>
                       <li><a className="dropdown-item" href="/Sintomas.js" style={textoStyle3}>Síntomas</a></li>      
-                      <li><a className="dropdown-item" href="/Diagnostico.js" style={textoStyle3}>Diagnostico</a></li>
+                      <li><a className="dropdown-item" href="/Diagnostico.js" style={textoStyle3}>Diagnóstico</a></li>
                       <li><a className="dropdown-item" href="/TiposDD.js" style={textoStyle3}>Tipos de diabetes</a></li>
                       <li><a className="dropdown-item" href="/ArtTabla.js" style={textoStyle3}>Tabla de medicamentos</a></li>
 
@@ -206,7 +206,7 @@ function Navbar() {
                     <ul className="dropdown-menu">
                       <li><a className="dropdown-item" href="/Diabetes.js" style={textoStyle3}>¿Qué es?</a></li>
                       <li><a className="dropdown-item" href="/Sintomas.js" style={textoStyle3}>Síntomas</a></li>      
-                      <li><a className="dropdown-item" href="/Diagnostico.js" style={textoStyle3}>Diagnostico</a></li>
+                      <li><a className="dropdown-item" href="/Diagnostico.js" style={textoStyle3}>Diagnóstico</a></li>
                       <li><a className="dropdown-item" href="/TiposDD.js" style={textoStyle3}>Tipos </a></li>
                       <li><a className="dropdown-item" href="/ArtTabla.js" style={textoStyle3}>Medicamentos</a></li>
            

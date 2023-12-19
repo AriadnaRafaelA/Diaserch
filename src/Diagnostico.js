@@ -98,7 +98,7 @@ function Diagnostico() {
       <div style={contenidoEstilo}>
       <div className="contenido-expandir">
         <div style={cuadroTextoEstilo}>
-          <p style={textoEstilo}>Diagnostico</p>
+          <p style={textoEstilo}> Diagnóstico </p>
           <div style={texto}>
           <p>
           El diagnóstico de la diabetes se hace mediante una analítica 
