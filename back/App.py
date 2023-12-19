@@ -7,10 +7,10 @@ app = Flask(__name__)
 # Configura la conexión a la base de datos PostgreSQL
 try:
     conn = psycopg2.connect(
-        dbname='postgres',
-        user='postgres',
-        password='Rafael_2000',
-        host='localhost',
+        dbname='diaserch',
+        user='diaserch',
+        password='diaserch',
+        host='diaserch-db.c9yu4mwky0rg.us-east-1.rds.amazonaws.com',
         port='5432'
     )
     print("Conexión establecida con la base de datos PostgreSQL")
@@ -18,14 +18,14 @@ except psycopg2.Error as e:
     print(f"Error al conectar con la base de datos: {e}")
 
 # Configura CORS para permitir solicitudes desde tu aplicación React (ajusta la URL según sea necesario)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+CORS(app)
 
 # Ruta para obtener datos de la tabla "medicina"
 @app.route('/api/conexion', methods=['GET'])
 def obtener_medicinas():
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT laboratorio, formula, presentacion, precio, preciod, farmacia, disponibilidad FROM medicina")  # Cambia los nombres de las columnas
+        cursor.execute("SELECT laboratorio, formula, presentacion, precio, \"precioD\", farmacia, disponibilidad FROM medicamento")  # Cambia los nombres de las columnas
         medicinas = [{'laboratorio': row[0], 'formula': row[1], 'presentacion': row[2], 'precio': row[3], 'preciod': row[4], 'farmacia': row[5], 'disponibilidad': row[6]} for row in cursor.fetchall()]
     except psycopg2.Error as e:
         print(f"Error al obtener datos de la tabla 'medicina': {e}")
@@ -34,4 +34,4 @@ def obtener_medicinas():
     return jsonify(medicinas)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)

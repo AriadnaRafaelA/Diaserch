@@ -1,0 +1,4 @@
+# Versiones de librerías necesarias para ejecutar el backend
+Flask==3.0.0
+Flask-Cors==4.0.0
+psycopg2==2.9.9
